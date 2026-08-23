@@ -167,6 +167,7 @@
   .pos-group h3::after{content:"";flex:1;height:1px;background:var(--border);}
 
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;}
+  .fixtures-grid{grid-template-columns:repeat(auto-fill,minmax(290px,1fr));}
 
   .card{
     background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
@@ -281,7 +282,82 @@
     .news-item{grid-template-columns:1fr;}
   }
   :focus-visible{outline:2px solid var(--red-600);outline-offset:2px;}
-  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease;}
+  .reveal.in-view{opacity:1;transform:translateY(0);}
+
+  /* ---------- tahmin ligi strip ---------- */
+  .tahmin-strip{background:linear-gradient(120deg, var(--gold-500), var(--gold-300));color:#2A1B10;padding:16px 0;}
+  .tahmin-strip .wrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+  .tahmin-strip h2{font-size:1.05rem;white-space:nowrap;}
+  .tahmin-strip .hint{font-size:0.76rem;opacity:0.75;}
+  .tahmin-board{display:flex;gap:10px;flex-wrap:wrap;flex:1;}
+  .tahmin-chip{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.4);border-radius:999px;padding:6px 14px 6px 6px;font-weight:800;font-size:0.85rem;}
+  .tahmin-chip .avatar{width:26px;height:26px;font-size:0.7rem;}
+  .tahmin-chip .score{font-family:"IBM Plex Mono";}
+  .tahmin-chip.leader{background:#2A1B10;color:var(--gold-300);}
+
+  /* ---------- fixtures & predictions ---------- */
+  .fixture-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;position:relative;}
+  .fixture-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
+  .fixture-date{font-family:"IBM Plex Mono";font-size:0.74rem;color:var(--ink-soft);}
+  .fixture-teams{font-family:"Anton";font-size:1.15rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .fixture-teams .vs{color:var(--ink-soft);font-family:"Manrope";font-size:0.78rem;font-weight:700;}
+  .fixture-score{font-family:"IBM Plex Mono";font-weight:700;color:var(--red-700);font-size:1.1rem;}
+  .venue-pill{font-family:"Manrope";font-size:0.68rem;font-weight:800;padding:2px 8px;border-radius:999px;background:var(--surface-2);color:var(--ink-soft);}
+  .pick-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .pick-btn{flex:1;min-width:110px;border:1.5px solid var(--border);background:var(--surface-2);border-radius:10px;padding:8px 10px;font-weight:700;font-size:0.82rem;cursor:pointer;color:var(--ink);}
+  .pick-btn.picked{border-color:var(--red-700);background:var(--red-700);color:#fff;}
+  .pick-btn:disabled{opacity:0.55;cursor:default;}
+  .picks-list{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+  .pick-avatar{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"Anton";font-size:0.66rem;position:relative;}
+  .pick-avatar.correct::after{content:"✓";position:absolute;bottom:-4px;right:-4px;background:#2E8B4E;color:#fff;border-radius:50%;width:12px;height:12px;font-size:8px;display:flex;align-items:center;justify-content:center;}
+  .pick-avatar.wrong::after{content:"✕";position:absolute;bottom:-4px;right:-4px;background:var(--red-700);color:#fff;border-radius:50%;width:12px;height:12px;font-size:8px;display:flex;align-items:center;justify-content:center;}
+  .fixture-note{font-size:0.75rem;color:var(--ink-soft);font-style:italic;}
+  .fixture-card.editing .card-actions{display:flex;}
+
+  /* ---------- standings ---------- */
+  .table-scroll{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);}
+  .standings-table{width:100%;border-collapse:collapse;background:var(--surface);min-width:480px;}
+  .standings-table th{text-align:left;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);padding:10px 12px;border-bottom:1px solid var(--border);white-space:nowrap;}
+  .standings-table td{padding:9px 12px;border-bottom:1px solid var(--border);font-size:0.86rem;font-variant-numeric:tabular-nums;}
+  .standings-table tr:last-child td{border-bottom:none;}
+  .standings-table tr.gs-row td{background:rgba(166,25,46,0.08);font-weight:800;}
+  .pts-bar-wrap{display:flex;align-items:center;gap:8px;}
+  .pts-bar-track{flex:1;height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden;max-width:140px;}
+  .pts-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg, var(--gold-600), var(--gold-500));}
+  .rank-num{font-family:"IBM Plex Mono";color:var(--ink-soft);}
+
+  /* ---------- 3D pitch ---------- */
+  .pitch-stage{perspective:1500px;padding:6px 0 34px;}
+  .pitch{position:relative;width:100%;max-width:820px;margin:0 auto;aspect-ratio:74/100;transform-style:preserve-3d;
+    transform:rotateX(calc(50deg + var(--tiltY, 0deg))) rotateZ(var(--tiltX, 0deg));
+    background:repeating-linear-gradient(180deg, #2b9c53 0 40px, #279148 40px 80px);
+    border-radius:14px;box-shadow:0 70px 90px -40px rgba(10,30,15,0.55), inset 0 0 0 3px rgba(255,255,255,0.35);
+    transition:transform .25s ease-out;}
+  .pitch-mark{position:absolute;border:2px solid rgba(255,255,255,0.55);pointer-events:none;}
+  .pitch-mark.outline{inset:4%;border-radius:6px;}
+  .pitch-mark.halfway{left:4%;right:4%;top:50%;height:0;border:none;border-top:2px solid rgba(255,255,255,0.55);}
+  .pitch-mark.circle{left:50%;top:50%;width:26%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);}
+  .pitch-mark.box-top{left:28%;right:28%;top:4%;height:15%;border-top:none;}
+  .pitch-mark.box-bottom{left:28%;right:28%;bottom:4%;height:15%;border-bottom:none;}
+  .player-token{position:absolute;transform:translate(-50%,-50%) rotateX(-50deg);display:flex;flex-direction:column;align-items:center;gap:4px;opacity:0;animation:tokenIn .6s cubic-bezier(.2,.8,.2,1) both;animation-play-state:paused;}
+  .pitch-section.in-view .player-token{animation-play-state:running;}
+  .player-token .badge{width:40px;height:40px;border-radius:50%;background:var(--red-700);color:#fff;font-family:"Anton";display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 8px 16px -6px rgba(0,0,0,0.5), inset 0 0 0 2px var(--gold-500);}
+  .player-token .pname{font-size:0.66rem;font-weight:800;background:rgba(20,13,8,0.75);color:#fff;padding:2px 8px;border-radius:999px;white-space:nowrap;}
+  @keyframes tokenIn{
+    from{opacity:0;transform:translate(-50%,-50%) rotateX(-50deg) translateZ(-160px) scale(.6);}
+    to{opacity:1;transform:translate(-50%,-50%) rotateX(-50deg) translateZ(0) scale(1);}
+  }
+  .pitch-caption{text-align:center;color:var(--ink-soft);font-size:0.82rem;margin-top:10px;font-style:italic;}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .reveal{opacity:1;transform:none;transition:none;}
+    .player-token{opacity:1;animation:none !important;}
+    .pitch{transition:none;}
+  }
 </style>
 </head>
 <body>
@@ -300,6 +376,9 @@
       </div>
     </div>
     <nav class="pillnav">
+      <a href="#fikstur">Fikstür</a>
+      <a href="#ilk11">İlk 11</a>
+      <a href="#puan">Puan Durumu</a>
       <a href="#kadro">Kadro</a>
       <a href="#kiralik">Kiralıklar</a>
       <a href="#giden">Giden Oyuncular</a>
@@ -323,9 +402,18 @@
       <div><b>Okan Buruk</b><span>Teknik Direktör</span></div>
       <div><b>Dursun Özbek</b><span>Başkan</span></div>
       <div><b>Türkiye'nin en çok şampiyonluğu olan kulübü</b><span>Süper Lig</span></div>
+      <div><b>Lider · 4 Puan</b><span>2. Hafta itibarıyla</span></div>
     </div>
   </div>
 </section>
+
+<div class="tahmin-strip">
+  <div class="wrap">
+    <h2>🏆 Tahmin Ligi</h2>
+    <div class="tahmin-board" id="tahminBoard"></div>
+    <span class="hint">Fikstürden tahmin yap, doğru bilen zirvede.</span>
+  </div>
+</div>
 
 <div class="searchbar">
   <div class="searchbar-inner">
@@ -345,8 +433,44 @@
 
 <main class="wrap">
 
+  <section class="section" id="fikstur">
+    <div class="section-head reveal">
+      <h2>Fikstür &amp; <span class="accent">Tahminler</span></h2>
+      <p class="section-sub">Gelecek maçlar için tahminini gir, maç sonuçlandığında Tahmin Ligi'nde puanını gör.</p>
+    </div>
+    <div class="grid fixtures-grid" id="fixturesContainer"></div>
+  </section>
+
+  <section class="section pitch-section" id="ilk11">
+    <div class="section-head reveal">
+      <h2>Tahmini <span class="accent">İlk 11</span></h2>
+      <p class="section-sub">Güncel kadroya göre 3D sahada olası dizilişimiz (4-2-3-1). Fareni sahanın üzerinde gezdir.</p>
+    </div>
+    <div class="pitch-stage" id="pitchStage">
+      <div class="pitch" id="pitch">
+        <div class="pitch-mark outline"></div>
+        <div class="pitch-mark box-top"></div>
+        <div class="pitch-mark box-bottom"></div>
+        <div class="pitch-mark halfway"></div>
+        <div class="pitch-mark circle"></div>
+        <div id="pitchTokens"></div>
+      </div>
+    </div>
+    <p class="pitch-caption">Resmi kadro açıklanmadıysa bu diziliş taraftar tahminidir.</p>
+  </section>
+
+  <section class="section" id="puan">
+    <div class="section-head reveal">
+      <h2>Süper Lig <span class="accent">Puan Durumu</span></h2>
+      <p class="section-sub">2026-27 sezonu, 2. hafta itibarıyla güncel tablo.</p>
+    </div>
+    <div class="table-scroll">
+      <table class="standings-table" id="standingsTable"></table>
+    </div>
+  </section>
+
   <section class="section" id="kadro">
-    <div class="section-head">
+    <div class="section-head reveal">
       <h2>Güncel <span class="accent">Kadro</span></h2>
       <p class="section-sub">2026-27 sezonu A takım kadrosu. Etiketli oyuncular kiralık, sakat veya yeni transfer statüsünde.</p>
     </div>
@@ -446,7 +570,6 @@
       {id:"p1", no:1, name:"Uğurcan Çakır", nation:"TUR", born:1996, group:"gk"},
       {id:"p2", no:90, name:"Günay Güvenç", nation:"TUR", born:1997, group:"gk"},
 
-      {id:"p3", no:2, name:"Sacha Boey", nation:"FRA", born:2000, group:"def", tag:"Kiralık · Bayern München"},
       {id:"p4", no:3, name:"Davinson Sánchez", nation:"COL", born:1996, group:"def"},
       {id:"p5", no:4, name:"Eren Elmalı", nation:"TUR", born:2000, group:"def"},
       {id:"p6", no:5, name:"Kaan Ayhan", nation:"TUR", born:1994, group:"def"},
@@ -466,7 +589,6 @@
       {id:"p18", no:11, name:"Yunus Akgün", nation:"TUR", born:1998, group:"fwd"},
       {id:"p19", no:14, name:"Roland Sallai", nation:"HUN", born:1997, group:"fwd"},
       {id:"p20", no:17, name:"Mauro Icardi", nation:"ARG", born:1993, group:"fwd", tag:"Sakat"},
-      {id:"p21", no:19, name:"Noa Lang", nation:"NED", born:1999, group:"fwd", tag:"Kiralık · Napoli"},
       {id:"p22", no:29, name:"Yaser Asprilla", nation:"COL", born:2003, group:"fwd", tag:"Kiralık · Watford"}
     ],
     loanOut: [
@@ -475,9 +597,55 @@
     departed: [
       {id:"d1", name:"Elias Jelert", nation:"DEN", club:"Le Havre AC", note:"Kalıcı transfer"},
       {id:"d2", name:"Lucas Torreira", nation:"URU", club:"Belirsiz", note:"Kulüple ayrılık kararı alındı"},
-      {id:"d3", name:"Mario Lemina", nation:"GAB", club:"Belirsiz", note:"Kulüple ayrılık kararı alındı"}
+      {id:"d3", name:"Mario Lemina", nation:"GAB", club:"Belirsiz", note:"Kulüple ayrılık kararı alındı"},
+      {id:"d4", name:"Sacha Boey", nation:"FRA", club:"Bayern München", note:"Kiralık süresi doldu, kulübüne döndü"},
+      {id:"d5", name:"Noa Lang", nation:"NED", club:"Napoli", note:"Kiralık opsiyonu kullanılmadı, Napoli'ye döndü"}
     ]
   };
+
+  var FIXTURES_DEFAULT = [
+    {id:"f1", date:"29 Ağustos 2026", opponent:"Göztepe", venue:"H", gsScore:null, oppScore:null},
+    {id:"f2", date:"6 Eylül 2026", opponent:"Gaziantep FK", venue:"A", gsScore:null, oppScore:null},
+    {id:"f3", date:"13 Eylül 2026", opponent:"Alanyaspor", venue:"H", gsScore:null, oppScore:null},
+    {id:"f4", date:"20 Eylül 2026", opponent:"Çaykur Rizespor", venue:"A", gsScore:null, oppScore:null},
+    {id:"f5", date:"6. Hafta · Ekim 2026 (tarih netleşmedi)", opponent:"Trabzonspor", venue:"TBD", gsScore:null, oppScore:null},
+    {id:"f6", date:"9. Hafta · Ekim 2026 (tarih netleşmedi)", opponent:"Fenerbahçe", venue:"TBD", gsScore:null, oppScore:null}
+  ];
+
+  var STANDINGS = [
+    {team:"Galatasaray", played:2, points:4, gs:true},
+    {team:"Çaykur Rizespor", played:2, points:3},
+    {team:"Beşiktaş", played:2, points:3},
+    {team:"Gençlerbirliği", played:2, points:3},
+    {team:"İstanbul Başakşehir", played:2, points:3},
+    {team:"Amedspor", played:2, points:3},
+    {team:"Trabzonspor", played:2, points:1},
+    {team:"Kasımpaşa", played:2, points:1},
+    {team:"Gaziantep FK", played:2, points:1},
+    {team:"Alanyaspor", played:2, points:1},
+    {team:"Çorum FK", played:2, points:1},
+    {team:"Samsunspor", played:2, points:1},
+    {team:"Göztepe", played:2, points:1},
+    {team:"Erzurumspor FK", played:2, points:0},
+    {team:"Kocaelispor", played:2, points:0},
+    {team:"Konyaspor", played:2, points:0},
+    {team:"Eyüpspor", played:2, points:0},
+    {team:"Fenerbahçe", played:2, points:0}
+  ];
+
+  var LINEUP = [
+    {no:1, name:"Uğurcan Çakır", left:50, top:90},
+    {no:4, name:"Eren Elmalı", left:14, top:72},
+    {no:3, name:"Sánchez", left:38, top:76},
+    {no:55, name:"Bardakcı", left:62, top:76},
+    {no:5, name:"Kaan Ayhan", left:86, top:72},
+    {no:6, name:"Berkan Kutlu", left:36, top:54},
+    {no:21, name:"Kazımcan", left:64, top:54},
+    {no:14, name:"Sallai", left:14, top:30},
+    {no:10, name:"Gündoğan", left:50, top:36},
+    {no:7, name:"Barış Alper", left:86, top:30},
+    {no:9, name:"Osimhen", left:50, top:12}
+  ];
 
   var MGMT = [
     {role:"Başkan", who:"Dursun Özbek", note:"23 Mayıs 2026'da 4. kez başkan seçildi."},
@@ -488,6 +656,7 @@
   ];
 
   var NEWS = [
+    {date:"23 Ağu 2026", title:"Boey ve Lang kadro dışı", body:"Sacha Boey'in kiralık süresi sona ererek Bayern München'e, Noa Lang'ın opsiyonu kullanılmayarak Napoli'ye dönmesiyle iki isim artık Galatasaray kadrosunda değil."},
     {date:"22 Ağu 2026", title:"Sarr operasyonunda kritik gün", body:"Ismaila Sarr için Crystal Palace'a 35M€'luk resmi teklif iddiası konuşulurken, Pape Matar Sarr ve Ermedin Demirovic dosyaları da sıcaklığını koruyor."},
     {date:"20 Ağu 2026", title:"Batrakov İstanbul'da", body:"Aleksey Batrakov, Lokomotiv Moskova'dan 30M€ karşılığında transfer edildi ve imza için İstanbul'a geldi."},
     {date:"19 Ağu 2026", title:"Pape Matar Sarr ile prensipte anlaşma iddiası", body:"Tottenham'ın orta sahasıyla Haziran 2031'e kadar 5 yıllık sözleşmede anlaşıldığı öne sürülüyor."},
@@ -517,10 +686,17 @@
       {key:"nation", label:"Uyruk (3 harf)", type:"text", maxlength:3},
       {key:"club", label:"Gittiği Kulüp / Durum", type:"text", required:true},
       {key:"note", label:"Not", type:"text"}
+    ],
+    fixtures: [
+      {key:"date", label:"Tarih", type:"text", required:true},
+      {key:"opponent", label:"Rakip", type:"text", required:true},
+      {key:"venue", label:"Saha", type:"select", options:[["H","İç Saha"],["A","Deplasman"],["TBD","Belirsiz"]], required:true},
+      {key:"gsScore", label:"GS Skoru (oynanmadıysa boş bırak)", type:"number"},
+      {key:"oppScore", label:"Rakip Skoru (oynanmadıysa boş bırak)", type:"number"}
     ]
   };
 
-  var SECTION_TITLES = {squad:"Oyuncu", loanOut:"Kiralık Kaydı", departed:"Ayrılık Kaydı"};
+  var SECTION_TITLES = {squad:"Oyuncu", loanOut:"Kiralık Kaydı", departed:"Ayrılık Kaydı", fixtures:"Maç"};
 
   function clone(o){ return JSON.parse(JSON.stringify(o)); }
 
@@ -532,11 +708,17 @@
   }
 
   var state = (function(){
+    var base = clone(DEFAULT_DATA);
+    base.fixtures = clone(FIXTURES_DEFAULT);
+    base.predictions = {};
     var raw = safeGet(STORAGE_KEY);
     if(raw){
-      try{ return JSON.parse(raw); }catch(e){}
+      try{
+        var saved = JSON.parse(raw);
+        return Object.assign(base, saved);
+      }catch(e){}
     }
-    return clone(DEFAULT_DATA);
+    return base;
   })();
 
   var currentAccountId = safeGet(ACCT_KEY);
@@ -738,10 +920,208 @@
     });
   }
 
+  /* ---------------- render: fixtures & predictions ---------------- */
+  var PICK_LABEL = {GS:"GS Kazanır", D:"Berabere", OPP:"GS Kaybeder"};
+
+  function fixtureOutcome(fx){
+    if(fx.gsScore == null || fx.oppScore == null) return null;
+    if(fx.gsScore > fx.oppScore) return "GS";
+    if(fx.gsScore < fx.oppScore) return "OPP";
+    return "D";
+  }
+
+  function renderTahminBoard(){
+    var board = document.getElementById("tahminBoard");
+    board.innerHTML = "";
+    var rows = ACCOUNTS.map(function(a){
+      var correct = 0, total = 0;
+      state.fixtures.forEach(function(fx){
+        var outcome = fixtureOutcome(fx);
+        var pick = state.predictions[fx.id] && state.predictions[fx.id][a.id];
+        if(outcome && pick){
+          total++;
+          if(pick === outcome) correct++;
+        }
+      });
+      return {a:a, correct:correct, total:total};
+    });
+    rows.sort(function(x,y){ return y.correct - x.correct; });
+    var topScore = rows.length ? rows[0].correct : 0;
+    rows.forEach(function(r){
+      var chip = el("div","tahmin-chip"+(r.correct>0 && r.correct===topScore ? " leader":""));
+      var av = el("span","avatar", r.a.initials);
+      av.style.background = r.a.bg; av.style.color = r.a.fg;
+      chip.appendChild(av);
+      chip.appendChild(document.createTextNode(r.a.name+" "));
+      var score = el("span","score", (r.correct>0 && r.correct===topScore ? "👑 ":"") + r.correct + "/" + r.total);
+      chip.appendChild(score);
+      board.appendChild(chip);
+    });
+  }
+
+  function renderFixtures(){
+    var container = document.getElementById("fixturesContainer");
+    container.innerHTML = "";
+    state.fixtures.forEach(function(fx){
+      var played = fx.gsScore != null && fx.oppScore != null;
+      var outcome = fixtureOutcome(fx);
+      var card = el("div","fixture-card"+(editMode?" editing":""));
+
+      var top = el("div","fixture-top");
+      top.appendChild(el("span","fixture-date", fx.date));
+      if(fx.venue !== "TBD") top.appendChild(el("span","venue-pill", fx.venue==="H" ? "İç Saha":"Deplasman"));
+      card.appendChild(top);
+
+      var teams = el("div","fixture-teams");
+      teams.appendChild(document.createTextNode("Galatasaray"));
+      teams.appendChild(el("span","vs","vs"));
+      teams.appendChild(document.createTextNode(fx.opponent));
+      if(played){
+        teams.appendChild(el("span","fixture-score", fx.gsScore + " – " + fx.oppScore));
+      }
+      card.appendChild(teams);
+
+      var pickRow = el("div","pick-row");
+      ["GS","D","OPP"].forEach(function(choice){
+        var btn = el("button","pick-btn", PICK_LABEL[choice]);
+        btn.type = "button";
+        var myPick = state.predictions[fx.id] && state.predictions[fx.id][currentAccountId];
+        if(myPick === choice) btn.classList.add("picked");
+        if(played) btn.disabled = true;
+        btn.addEventListener("click", function(){ pickFixture(fx.id, choice); });
+        pickRow.appendChild(btn);
+      });
+      card.appendChild(pickRow);
+
+      var picksList = el("div","picks-list");
+      var anyPicks = false;
+      ACCOUNTS.forEach(function(a){
+        var pick = state.predictions[fx.id] && state.predictions[fx.id][a.id];
+        if(!pick) return;
+        anyPicks = true;
+        var av = el("span","pick-avatar", a.initials);
+        av.title = a.name + ": " + PICK_LABEL[pick];
+        av.style.background = a.bg; av.style.color = a.fg;
+        if(played) av.classList.add(pick === outcome ? "correct" : "wrong");
+        picksList.appendChild(av);
+      });
+      if(anyPicks) card.appendChild(picksList);
+
+      if(fx.venue === "TBD"){
+        card.appendChild(el("div","fixture-note","Tarih TFF tarafından netleştirildiğinde güncellenecek."));
+      }
+
+      var actions = el("div","card-actions");
+      var editBtn = el("button","icon-btn","✎");
+      editBtn.type="button";
+      editBtn.addEventListener("click", function(){ openForm("fixtures", fx, null); });
+      var delBtn = el("button","icon-btn","✕");
+      delBtn.type="button";
+      delBtn.addEventListener("click", function(){
+        openConfirm(fx.opponent + " maçı silinsin mi?", function(){
+          state.fixtures = state.fixtures.filter(function(x){ return x.id !== fx.id; });
+          delete state.predictions[fx.id];
+          persist(); renderFixtures(); renderTahminBoard();
+        });
+      });
+      actions.appendChild(editBtn);
+      actions.appendChild(delBtn);
+      card.appendChild(actions);
+
+      container.appendChild(card);
+    });
+
+    if(editMode){
+      var addCard = el("button","add-card","+ Maç Ekle");
+      addCard.type = "button";
+      addCard.addEventListener("click", function(){ openForm("fixtures", null, null); });
+      container.appendChild(addCard);
+    }
+  }
+
+  function pickFixture(fixtureId, choice){
+    if(!currentAccountId){ openAcctModal(); return; }
+    var fx = state.fixtures.find(function(x){ return x.id === fixtureId; });
+    if(fx && fx.gsScore != null && fx.oppScore != null) return;
+    if(!state.predictions[fixtureId]) state.predictions[fixtureId] = {};
+    state.predictions[fixtureId][currentAccountId] = choice;
+    persist();
+    renderFixtures();
+    renderTahminBoard();
+  }
+
+  /* ---------------- render: standings ---------------- */
+  function renderStandings(){
+    var table = document.getElementById("standingsTable");
+    var maxPts = Math.max.apply(null, STANDINGS.map(function(t){ return t.points; })) || 1;
+    var thead = "<thead><tr><th>#</th><th>Takım</th><th>O</th><th>Puan</th></tr></thead>";
+    var rows = STANDINGS.map(function(t, i){
+      var pct = Math.round((t.points / maxPts) * 100);
+      return "<tr class=\""+(t.gs?"gs-row":"")+"\">"
+        + "<td class=\"rank-num\">"+(i+1)+"</td>"
+        + "<td>"+t.team+"</td>"
+        + "<td>"+t.played+"</td>"
+        + "<td><div class=\"pts-bar-wrap\"><span>"+t.points+"</span><span class=\"pts-bar-track\"><span class=\"pts-bar-fill\" style=\"width:"+pct+"%\"></span></span></div></td>"
+        + "</tr>";
+    }).join("");
+    table.innerHTML = thead + "<tbody>" + rows + "</tbody>";
+  }
+
+  /* ---------------- render: 3D lineup ---------------- */
+  function renderPitch(){
+    var tokens = document.getElementById("pitchTokens");
+    tokens.innerHTML = "";
+    LINEUP.forEach(function(p, i){
+      var t = el("div","player-token");
+      t.style.left = p.left + "%";
+      t.style.top = p.top + "%";
+      t.style.animationDelay = (i * 0.06) + "s";
+      t.appendChild(el("div","badge", p.no));
+      t.appendChild(el("div","pname", p.name));
+      tokens.appendChild(t);
+    });
+
+    var stage = document.getElementById("pitchStage");
+    var pitch = document.getElementById("pitch");
+    stage.addEventListener("mousemove", function(e){
+      var r = stage.getBoundingClientRect();
+      var x = (e.clientX - r.left) / r.width - 0.5;
+      var y = (e.clientY - r.top) / r.height - 0.5;
+      pitch.style.setProperty("--tiltX", (x * 14) + "deg");
+      pitch.style.setProperty("--tiltY", (y * -10) + "deg");
+    });
+    stage.addEventListener("mouseleave", function(){
+      pitch.style.setProperty("--tiltX", "0deg");
+      pitch.style.setProperty("--tiltY", "0deg");
+    });
+  }
+
+  function setupReveal(){
+    if(!("IntersectionObserver" in window)){
+      document.querySelectorAll(".reveal").forEach(function(n){ n.classList.add("in-view"); });
+      var ps = document.querySelector(".pitch-section");
+      if(ps) ps.classList.add("in-view");
+      return;
+    }
+    var obs = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add("in-view");
+          obs.unobserve(entry.target);
+        }
+      });
+    }, {threshold:0.2});
+    document.querySelectorAll(".reveal").forEach(function(n){ obs.observe(n); });
+    var pitchSection = document.querySelector(".pitch-section");
+    if(pitchSection) obs.observe(pitchSection);
+  }
+
   function renderAll(){
     renderSquad();
     renderLoan();
     renderDeparted();
+    renderFixtures();
+    renderTahminBoard();
   }
 
   /* ---------------- edit mode toggle ---------------- */
@@ -886,7 +1266,8 @@
     closeForm();
     if(kind==="squad") renderSquad();
     else if(kind==="loanOut") renderLoan();
-    else renderDeparted();
+    else if(kind==="departed") renderDeparted();
+    else if(kind==="fixtures"){ renderFixtures(); renderTahminBoard(); }
   });
 
   /* ---------------- confirm modal ---------------- */
@@ -912,8 +1293,12 @@
   /* ---------------- init ---------------- */
   renderMgmt();
   renderNews();
+  renderStandings();
+  renderPitch();
   renderAll();
+  setupReveal();
 })();
 </script>
+
 </body>
 </html>
