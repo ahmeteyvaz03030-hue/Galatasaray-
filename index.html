@@ -71,6 +71,7 @@
     margin:0;
   }
   .mono{font-family:"IBM Plex Mono","SFMono-Regular",monospace;}
+  code{font-family:"IBM Plex Mono","SFMono-Regular",monospace;background:var(--surface-2);padding:1px 6px;border-radius:5px;font-size:0.88em;}
   a{color:inherit;}
   button{font-family:inherit;}
   .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
@@ -174,10 +175,13 @@
     padding:16px;position:relative;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;
   }
   .card .top-row{display:flex;align-items:flex-start;gap:12px;}
-  .shirt-no{
-    font-family:"Anton";font-size:1.6rem;color:var(--red-700);background:var(--surface-2);
-    border-radius:10px;min-width:44px;height:44px;display:flex;align-items:center;justify-content:center;flex:none;
-  }
+  .avatar-frame{position:relative;border-radius:50%;flex:none;background:var(--surface-2);display:flex;align-items:center;justify-content:center;overflow:hidden;}
+  .avatar-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;}
+  .avatar-frame.noimg::before{content:attr(data-no);font-family:"Anton";color:var(--red-700);}
+  .avatar-frame .no-chip{position:absolute;bottom:-3px;right:-3px;background:var(--red-700);color:#fff;font-family:"Anton";font-size:0.6rem;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px var(--surface);z-index:2;}
+  .avatar-frame.noimg .no-chip{display:none;}
+  .avatar-frame.squad-avatar{width:54px;height:54px;}
+  .avatar-frame.squad-avatar.noimg::before{font-size:1.3rem;}
   .card .name{font-weight:800;font-size:1.02rem;line-height:1.2;}
   .meta-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:0.76rem;}
   .pill{
@@ -224,6 +228,9 @@
     background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
     padding:20px;text-align:left;box-shadow:var(--shadow);
   }
+  .avatar-frame.mgmt-avatar{width:56px;height:56px;margin-bottom:10px;box-shadow:0 6px 14px -4px rgba(0,0,0,0.35);}
+  .avatar-frame.mgmt-avatar.noimg{background:var(--red-700);}
+  .avatar-frame.mgmt-avatar.noimg::before{font-size:1.05rem;color:#fff;}
   .mgmt-card .role{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--gold-600);font-weight:800;}
   .mgmt-card .who{font-family:"Anton";font-size:1.3rem;margin:6px 0 4px;}
   .mgmt-card .note{font-size:0.84rem;color:var(--ink-soft);}
@@ -378,7 +385,8 @@
   .pitch-mark.box-top{left:28%;right:28%;top:4%;height:15%;border-top:none;}
   .pitch-mark.box-bottom{left:28%;right:28%;bottom:4%;height:15%;border-bottom:none;}
   .player-token{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;background:none;border:none;padding:0;}
-  .player-token .badge{width:46px;height:46px;border-radius:50%;background:var(--red-700);color:#fff;font-family:"Anton";display:flex;align-items:center;justify-content:center;font-size:1.15rem;box-shadow:0 6px 14px -4px rgba(0,0,0,0.55), inset 0 0 0 2px var(--gold-500);transition:transform .15s ease;}
+  .player-token .badge{position:relative;overflow:hidden;width:46px;height:46px;border-radius:50%;background:var(--red-700);color:#fff;font-family:"Anton";display:flex;align-items:center;justify-content:center;font-size:1.15rem;box-shadow:0 6px 14px -4px rgba(0,0,0,0.55), inset 0 0 0 2px var(--gold-500);transition:transform .15s ease;}
+  .player-token .badge img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;}
   .player-token:hover .badge, .player-token:focus-visible .badge{transform:scale(1.1);box-shadow:0 8px 16px -4px rgba(0,0,0,0.6), inset 0 0 0 2px var(--gold-300);}
   .player-token.empty .badge{background:var(--surface-2);color:var(--ink-soft);border:2px dashed rgba(255,255,255,0.5);}
   .player-token .pname{font-size:0.72rem;font-weight:800;background:rgba(14,10,6,0.82);color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap;max-width:110px;overflow:hidden;text-overflow:ellipsis;}
@@ -564,7 +572,7 @@
   <section class="section" id="kadro">
     <div class="section-head reveal">
       <h2>Güncel <span class="accent">Kadro</span></h2>
-      <p class="section-sub">2026-27 sezonu A takım kadrosu. Etiketli oyuncular kiralık, sakat veya yeni transfer statüsünde.</p>
+      <p class="section-sub">2026-27 sezonu A takım kadrosu. Etiketli oyuncular kiralık, sakat veya yeni transfer statüsünde. Bir oyuncunun fotoğrafı yoksa forma numarası görünür — repo'daki <code>images/players/</code> klasörüne oyuncunun adıyla (örn. <code>victor-osimhen.jpg</code>) bir fotoğraf eklersen otomatik görünür.</p>
     </div>
     <div id="squadContainer"></div>
   </section>
@@ -869,6 +877,38 @@
     return n;
   }
 
+  function slugify(name){
+    return name
+      .replace(/ğ/g,"g").replace(/Ğ/g,"g").replace(/ü/g,"u").replace(/Ü/g,"u")
+      .replace(/ş/g,"s").replace(/Ş/g,"s").replace(/ö/g,"o").replace(/Ö/g,"o")
+      .replace(/ç/g,"c").replace(/Ç/g,"c").replace(/ı/g,"i").replace(/İ/g,"i")
+      .normalize("NFD").replace(/[̀-ͯ]/g,"")
+      .toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/(^-+|-+$)/g,"");
+  }
+
+  function initialsOf(name){
+    var parts = name.trim().split(/\s+/);
+    var first = parts[0] ? parts[0][0] : "";
+    var last = parts.length > 1 ? parts[parts.length-1][0] : "";
+    return (first+last).toUpperCase();
+  }
+
+  function playerAvatar(name, opts){
+    opts = opts || {};
+    var wrap = el("div","avatar-frame"+(opts.cls ? (" "+opts.cls) : ""));
+    wrap.setAttribute("data-no", opts.fallback != null ? opts.fallback : "");
+    var img = document.createElement("img");
+    img.src = "images/players/" + slugify(name) + ".jpg";
+    img.alt = "";
+    img.loading = "lazy";
+    img.onerror = function(){ wrap.classList.add("noimg"); img.remove(); };
+    wrap.appendChild(img);
+    if(opts.chip != null){
+      wrap.appendChild(el("div","no-chip", opts.chip));
+    }
+    return wrap;
+  }
+
   /* ---------------- render: squad ---------------- */
   function renderSquad(){
     var container = document.getElementById("squadContainer");
@@ -909,7 +949,7 @@
   function playerCard(p){
     var card = el("div","card"+(editMode?" editing":""));
     var top = el("div","top-row");
-    top.appendChild(el("div","shirt-no", p.no != null ? p.no : "–"));
+    top.appendChild(playerAvatar(p.name, {cls:"squad-avatar", fallback: p.no != null ? p.no : "–", chip: p.no}));
     var info = el("div", null);
     info.appendChild(el("div","name", p.name));
     var meta = el("div","meta-row");
@@ -1015,6 +1055,7 @@
     container.innerHTML = "";
     MGMT.forEach(function(m){
       var card = el("div","mgmt-card");
+      card.appendChild(playerAvatar(m.who, {cls:"mgmt-avatar", fallback: initialsOf(m.who)}));
       card.appendChild(el("div","role", m.role));
       card.appendChild(el("div","who", m.who));
       card.appendChild(el("div","note", m.note));
@@ -1311,7 +1352,16 @@
       t.style.left = slot.left + "%";
       t.style.top = slot.top + "%";
       t.title = slot.label + " — değiştirmek için tıkla";
-      t.appendChild(el("div","badge", player ? player.no : "+"));
+      var badge = el("div","badge", player ? player.no : "+");
+      if(player){
+        var pimg = document.createElement("img");
+        pimg.src = "images/players/" + slugify(player.name) + ".jpg";
+        pimg.alt = "";
+        pimg.loading = "lazy";
+        pimg.onerror = function(){ pimg.remove(); };
+        badge.appendChild(pimg);
+      }
+      t.appendChild(badge);
       t.appendChild(el("div","pname", player ? player.name : slot.label));
       t.addEventListener("click", function(e){
         e.stopPropagation();
