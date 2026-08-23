@@ -9,614 +9,546 @@
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --red-900:#6E0B1F;
-    --red-700:#A6192E;
-    --red-600:#C41C36;
-    --gold-600:#B9820E;
-    --gold-500:#F0A80B;
-    --gold-300:#FFD873;
-    --bg:#FBF5E9;
-    --surface:#FFFFFF;
-    --surface-2:#F3E7CE;
-    --ink:#221507;
-    --ink-soft:#5B4A38;
-    --border:rgba(34,21,7,0.14);
-    --shadow:0 12px 30px -14px rgba(34,21,7,0.35);
-    --radius:16px;
+    --bg:#09090b;
+    --bg-soft:#0e0e11;
+    --surface:#17181c;
+    --surface-2:#1f2024;
+    --surface-3:#2a2b31;
+    --border:rgba(255,255,255,0.08);
+    --border-strong:rgba(255,255,255,0.15);
+    --ink:#f4f3f1;
+    --ink-soft:#9a999f;
+    --ink-faint:#65646b;
+    --red:#e8253e;
+    --red-dim:#3a1015;
+    --red-soft:rgba(232,37,62,0.14);
+    --gold:#ffc53d;
+    --gold-dim:#3d2f0d;
+    --gold-soft:rgba(255,197,61,0.14);
+    --good:#31c777;
+    --radius:14px;
+    --shadow:0 18px 44px -22px rgba(0,0,0,0.7);
     --maxw:1180px;
   }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --bg:#140D08;
-      --surface:#1E140D;
-      --surface-2:#2A1B10;
-      --ink:#F6ECDA;
-      --ink-soft:#CBB79A;
-      --border:rgba(246,236,218,0.14);
-      --shadow:0 16px 34px -14px rgba(0,0,0,0.6);
-      --red-700:#D23A4E;
-      --red-600:#E9495D;
-      --gold-500:#FFC93C;
-      --gold-600:#FFD873;
-    }
-  }
-  :root[data-theme="dark"]{
-    --bg:#140D08;
-    --surface:#1E140D;
-    --surface-2:#2A1B10;
-    --ink:#F6ECDA;
-    --ink-soft:#CBB79A;
-    --border:rgba(246,236,218,0.14);
-    --shadow:0 16px 34px -14px rgba(0,0,0,0.6);
-    --red-700:#D23A4E;
-    --red-600:#E9495D;
-    --gold-500:#FFC93C;
-    --gold-600:#FFD873;
-  }
-
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
-    margin:0;
-    background:var(--bg);
-    color:var(--ink);
-    font-family:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
-    line-height:1.5;
+    margin:0;background:var(--bg);color:var(--ink);
+    font-family:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5;
   }
-  h1,h2,h3{
-    font-family:"Anton",Impact,"Arial Narrow Bold",sans-serif;
-    font-weight:400;
-    letter-spacing:0.01em;
-    text-wrap:balance;
-    margin:0;
-  }
-  .mono{font-family:"IBM Plex Mono","SFMono-Regular",monospace;}
-  code{font-family:"IBM Plex Mono","SFMono-Regular",monospace;background:var(--surface-2);padding:1px 6px;border-radius:5px;font-size:0.88em;}
+  h1,h2,h3{font-family:"Anton",Impact,"Arial Narrow Bold",sans-serif;font-weight:400;letter-spacing:0.01em;text-wrap:balance;margin:0;}
+  code{font-family:"IBM Plex Mono","SFMono-Regular",monospace;background:var(--surface-2);padding:1px 6px;border-radius:5px;font-size:0.88em;color:var(--ink-soft);}
   a{color:inherit;}
   button{font-family:inherit;}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
-  section{scroll-margin-top:84px;}
+  :focus-visible{outline:2px solid var(--red);outline-offset:2px;}
+  ::selection{background:var(--red);color:#fff;}
 
-  /* ---------- header ---------- */
-  header.topbar{
-    position:sticky;top:0;z-index:30;
-    background:linear-gradient(180deg, var(--red-700), var(--red-900));
-    color:#FBF5E9;
-    border-bottom:3px solid var(--gold-500);
-  }
-  .topbar-inner{
-    display:flex;align-items:center;gap:18px;
-    padding:12px 24px;max-width:var(--maxw);margin:0 auto;flex-wrap:wrap;
-  }
-  .crest{
-    width:44px;height:48px;flex:none;display:block;
-  }
-  .brand{display:flex;align-items:center;gap:12px;margin-right:auto;}
-  .brand-text{display:flex;flex-direction:column;line-height:1.05;}
-  .brand-text b{font-family:"Anton";font-size:1.15rem;letter-spacing:0.02em;}
-  .brand-text span{font-size:0.68rem;opacity:0.8;letter-spacing:0.08em;text-transform:uppercase;}
-  nav.pillnav{display:flex;gap:4px;flex-wrap:wrap;}
-  nav.pillnav a{
-    font-size:0.85rem;font-weight:700;padding:8px 12px;border-radius:999px;
-    text-decoration:none;color:#FBF5E9;opacity:0.85;transition:background .15s,opacity .15s;
-  }
-  nav.pillnav a:hover{background:rgba(255,255,255,0.14);opacity:1;}
-  .acct-chip{
-    display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);
-    border:1px solid rgba(255,255,255,0.25);border-radius:999px;padding:5px 12px 5px 5px;
-    cursor:pointer;color:#FBF5E9;font-size:0.85rem;font-weight:700;
-  }
-  .acct-chip:hover{background:rgba(255,255,255,0.2);}
-  .avatar{
-    width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-    font-family:"Anton";font-size:0.8rem;color:#2A1B10;flex:none;
-  }
+  /* ---------- matchday banner ---------- */
+  .matchday-banner{display:none;background:linear-gradient(90deg,var(--red),#ff4757);color:#fff;text-align:center;padding:10px 16px;font-weight:800;font-size:0.86rem;letter-spacing:0.02em;position:sticky;top:0;z-index:200;}
+  .matchday-banner.show{display:block;}
+  @keyframes bannerPulse{0%,100%{filter:brightness(1);}50%{filter:brightness(1.18);}}
+  .matchday-banner.show{animation:bannerPulse 1.8s infinite;}
+
+  /* ---------- shell / sidebar ---------- */
+  .shell{display:flex;min-height:100vh;}
+  .sidebar{width:250px;flex:none;background:var(--bg-soft);border-right:1px solid var(--border);display:flex;flex-direction:column;position:sticky;top:0;height:100vh;}
+  .sidebar-brand{padding:20px 18px;display:flex;gap:12px;align-items:center;border-bottom:1px solid var(--border);flex:none;}
+  .sidebar-brand .crest{width:36px;height:40px;flex:none;}
+  .sidebar-brand .brand-text{display:flex;flex-direction:column;line-height:1.1;min-width:0;}
+  .sidebar-brand b{font-family:"Anton";font-size:1.02rem;letter-spacing:0.02em;white-space:nowrap;}
+  .sidebar-brand span{font-size:0.66rem;color:var(--ink-soft);letter-spacing:0.06em;text-transform:uppercase;white-space:nowrap;}
+  .sidebar-nav{flex:1;overflow-y:auto;padding:12px 10px;display:flex;flex-direction:column;gap:3px;}
+  .nav-btn{display:flex;align-items:center;gap:12px;padding:11px 13px;border-radius:10px;border:none;background:transparent;color:var(--ink-soft);font-weight:700;font-size:0.88rem;cursor:pointer;text-align:left;width:100%;transition:background .12s,color .12s;}
+  .nav-btn:hover{background:var(--surface-2);color:var(--ink);}
+  .nav-btn.active{background:linear-gradient(90deg,var(--red-dim),transparent);color:#fff;box-shadow:inset 3px 0 0 var(--red);}
+  .nav-btn .nav-ico{font-size:1.05rem;width:20px;text-align:center;flex:none;}
+  .sidebar-foot{padding:14px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:8px;flex:none;}
   .edit-toggle{
-    display:flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,0.35);
-    background:rgba(255,255,255,0.08);color:#FBF5E9;border-radius:999px;padding:8px 14px;
-    font-size:0.85rem;font-weight:700;cursor:pointer;transition:background .15s;
+    display:flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--border-strong);
+    background:var(--surface-2);color:var(--ink);border-radius:10px;padding:9px 12px;
+    font-size:0.84rem;font-weight:700;cursor:pointer;transition:background .15s;width:100%;
   }
-  .edit-toggle:hover{background:rgba(255,255,255,0.2);}
-  .edit-toggle.active{background:var(--gold-500);color:#2A1B10;border-color:var(--gold-500);}
+  .edit-toggle:hover{background:var(--surface-3);}
+  .edit-toggle.active{background:var(--gold);color:#221507;border-color:var(--gold);}
+  .acct-chip{
+    display:flex;align-items:center;gap:9px;background:var(--surface-2);
+    border:1px solid var(--border-strong);border-radius:10px;padding:6px 10px 6px 6px;
+    cursor:pointer;color:var(--ink);font-size:0.84rem;font-weight:700;width:100%;
+  }
+  .acct-chip:hover{background:var(--surface-3);}
+  .avatar{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"Anton";font-size:0.74rem;color:#2A1B10;flex:none;}
 
-  /* ---------- hero ---------- */
-  .hero{
-    position:relative;overflow:hidden;
-    background:
-      repeating-linear-gradient(115deg, rgba(255,255,255,0.05) 0 26px, transparent 26px 64px),
-      linear-gradient(120deg, var(--red-900) 0%, var(--red-700) 55%, var(--gold-500) 165%);
-    color:#FBF5E9;padding:56px 0 40px;
-  }
-  .hero h1{font-size:clamp(2.4rem,6vw,4.2rem);color:#FBF5E9;}
-  .hero h1 em{font-style:normal;color:var(--gold-300);}
-  .hero p.lede{max-width:56ch;font-size:1.05rem;opacity:0.92;margin-top:14px;}
-  .hero-stats{display:flex;gap:28px;flex-wrap:wrap;margin-top:28px;}
-  .hero-stats div{min-width:140px;}
-  .hero-stats b{display:block;font-family:"Anton";font-size:1.3rem;color:var(--gold-300);}
-  .hero-stats span{font-size:0.78rem;opacity:0.82;text-transform:uppercase;letter-spacing:0.06em;}
+  .main{flex:1;min-width:0;}
+  .main-inner{max-width:var(--maxw);margin:0 auto;padding:26px 30px 70px;}
 
-  /* ---------- search bar ---------- */
-  .searchbar{
-    position:sticky;top:73px;z-index:20;background:var(--surface);
-    border-bottom:1px solid var(--border);box-shadow:var(--shadow);
+  @media (max-width:960px){
+    .shell{flex-direction:column;}
+    .sidebar{position:sticky;top:0;width:100%;height:auto;flex-direction:row;align-items:center;z-index:100;}
+    .sidebar-brand{border-bottom:none;border-right:1px solid var(--border);flex:none;padding:12px 14px;}
+    .sidebar-brand span{display:none;}
+    .sidebar-nav{flex-direction:row;overflow-x:auto;padding:8px;flex:1;}
+    .nav-btn{flex:none;white-space:nowrap;}
+    .nav-btn.active{box-shadow:inset 0 -3px 0 var(--red);}
+    .sidebar-foot{flex-direction:row;border-top:none;border-left:1px solid var(--border);flex:none;padding:10px;}
+    .acct-chip span:not(.avatar){display:none;}
+    .edit-toggle span{display:none;}
+    .main-inner{padding:18px 16px 50px;}
   }
-  .searchbar-inner{display:flex;gap:12px;align-items:center;padding:12px 24px;max-width:var(--maxw);margin:0 auto;flex-wrap:wrap;}
+
+  /* ---------- panels ---------- */
+  .panel{display:none;}
+  .panel.active{display:block;animation:panelIn .28s ease;}
+  @keyframes panelIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+  .panel-head{margin-bottom:20px;}
+  .panel-head h2{font-size:clamp(1.5rem,3vw,2rem);}
+  .panel-head .accent{color:var(--red);}
+  .panel-sub{color:var(--ink-soft);font-size:0.92rem;max-width:66ch;margin-top:6px;}
+  .panel-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:22px;box-shadow:var(--shadow);}
+  .panel-card h3{font-family:"Manrope";font-weight:800;font-size:0.98rem;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .panel-card h3 .more{font-size:0.76rem;color:var(--gold);background:none;border:none;font-weight:700;cursor:pointer;font-family:inherit;padding:0;}
+  .panel-card h3 .more:hover{text-decoration:underline;}
+  .empty-note{color:var(--ink-soft);font-size:0.9rem;font-style:italic;padding:14px 0;}
+
+  /* ---------- overview hero ---------- */
+  .hero-card{
+    background:radial-gradient(circle at 85% 20%, var(--red-soft), transparent 55%), var(--surface);
+    border:1px solid var(--border);border-radius:20px;padding:30px 32px;position:relative;overflow:hidden;box-shadow:var(--shadow);
+  }
+  .hero-card .kicker{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--gold);font-weight:800;}
+  .hero-card h1{font-size:clamp(1.8rem,3.6vw,2.6rem);margin-top:8px;}
+  .hero-card .opp{color:var(--ink-soft);font-weight:700;font-size:0.92rem;margin-top:6px;}
+  .countdown-clock{display:flex;gap:9px;font-family:"IBM Plex Mono";margin-top:18px;flex-wrap:wrap;}
+  .countdown-clock .cell{background:var(--surface-2);border:1px solid var(--border);border-radius:10px;padding:8px 14px;text-align:center;min-width:58px;}
+  .countdown-clock .cell b{display:block;font-size:1.4rem;color:var(--gold);}
+  .countdown-clock .cell span{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);}
+  .mascot-lion{position:absolute;right:14px;bottom:-10px;width:112px;height:112px;opacity:0.9;filter:drop-shadow(0 14px 20px rgba(0,0,0,0.5));}
+  @media (max-width:700px){ .mascot-lion{display:none;} }
+
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-top:22px;}
+  .stat-tile{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:15px 17px;}
+  .stat-tile .label{font-size:0.68rem;text-transform:uppercase;letter-spacing:0.07em;color:var(--ink-soft);font-weight:800;}
+  .stat-tile .value{font-family:"Anton";font-size:1.5rem;margin-top:5px;color:var(--ink);}
+  .stat-tile .value.accent{color:var(--gold);}
+  .stat-tile .value.small{font-family:"Manrope";font-weight:800;font-size:1.05rem;}
+  .form-pills{display:flex;gap:5px;margin-top:6px;}
+  .form-pill{width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:0.7rem;font-weight:800;color:#fff;}
+  .form-pill.w{background:var(--good);}
+  .form-pill.d{background:var(--ink-faint);}
+  .form-pill.l{background:var(--red);}
+
+  .overview-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:18px;margin-top:20px;}
+  @media (max-width:860px){ .overview-grid{grid-template-columns:1fr;} }
+
+  /* ---------- leaderboard rows ---------- */
+  .lb-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border);}
+  .lb-row:last-child{border-bottom:none;}
+  .lb-rank{width:18px;font-family:"IBM Plex Mono";color:var(--ink-soft);font-size:0.8rem;flex:none;}
+  .lb-name{flex:1;font-weight:700;font-size:0.88rem;min-width:0;}
+  .lb-sub{font-size:0.72rem;color:var(--ink-soft);}
+  .lb-pts{font-family:"IBM Plex Mono";font-weight:700;color:var(--gold);font-size:0.9rem;white-space:nowrap;}
+
+  .mini-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);font-size:0.85rem;}
+  .mini-row:last-child{border-bottom:none;}
+  .mini-row.gs{color:var(--gold);font-weight:800;}
+  .mini-rank{width:16px;font-family:"IBM Plex Mono";color:var(--ink-soft);flex:none;}
+  .mini-team{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .mini-pts{font-family:"IBM Plex Mono";font-weight:700;}
+
+  .news-preview-item{padding:10px 0;border-bottom:1px solid var(--border);}
+  .news-preview-item:last-child{border-bottom:none;}
+  .news-preview-item .date{font-family:"IBM Plex Mono";font-size:0.7rem;color:var(--gold);}
+  .news-preview-item h4{font-size:0.9rem;font-weight:800;margin:4px 0 3px;}
+  .news-preview-item p{margin:0;font-size:0.82rem;color:var(--ink-soft);}
+
+  /* ---------- search + chips ---------- */
+  .toolbar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:18px;}
   .search-input-wrap{position:relative;flex:1;min-width:220px;}
-  .search-input-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:0.5;}
+  .search-input-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:0.45;}
   #searchInput{
-    width:100%;padding:10px 14px 10px 36px;border-radius:999px;border:1.5px solid var(--border);
-    background:var(--surface-2);color:var(--ink);font-size:0.95rem;
+    width:100%;padding:10px 14px 10px 36px;border-radius:999px;border:1.5px solid var(--border-strong);
+    background:var(--surface-2);color:var(--ink);font-size:0.92rem;
   }
-  #searchInput:focus{outline:2px solid var(--red-600);outline-offset:1px;}
+  #searchInput:focus{outline:2px solid var(--red);outline-offset:1px;}
   .chip-row{display:flex;gap:6px;flex-wrap:wrap;}
-  .chip{
-    border:1.5px solid var(--border);background:transparent;color:var(--ink-soft);
-    padding:7px 13px;border-radius:999px;font-size:0.82rem;font-weight:700;cursor:pointer;
-  }
-  .chip.active{background:var(--red-700);border-color:var(--red-700);color:#fff;}
+  .chip{border:1.5px solid var(--border-strong);background:transparent;color:var(--ink-soft);padding:7px 13px;border-radius:999px;font-size:0.8rem;font-weight:700;cursor:pointer;}
+  .chip.active{background:var(--red);border-color:var(--red);color:#fff;}
 
-  /* ---------- generic section ---------- */
-  .section{padding:44px 0;}
-  .section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap;}
-  .section-head h2{font-size:clamp(1.6rem,3.4vw,2.2rem);}
-  .section-head .accent{color:var(--red-700);}
-  .section-sub{color:var(--ink-soft);font-size:0.92rem;max-width:60ch;}
-  .empty-note{color:var(--ink-soft);font-size:0.9rem;font-style:italic;padding:18px 0;}
+  /* ---------- quick stats (squad tab) ---------- */
+  .quickstats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:22px;}
+  .posbar-block{margin-top:14px;display:flex;flex-direction:column;gap:8px;}
+  .posbar-row{display:flex;align-items:center;gap:10px;font-size:0.8rem;}
+  .posbar-label{width:78px;flex:none;color:var(--ink-soft);font-weight:700;}
+  .posbar-track{flex:1;height:9px;border-radius:5px;background:var(--surface-2);overflow:hidden;}
+  .posbar-fill{height:100%;border-radius:5px;background:linear-gradient(90deg,var(--gold-dim),var(--gold));}
+  .posbar-count{width:22px;text-align:right;font-family:"IBM Plex Mono";color:var(--ink-soft);}
 
-  .pos-group{margin-bottom:28px;}
-  .pos-group h3{font-size:1.05rem;font-family:"Manrope";font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--red-700);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+  /* ---------- squad grid ---------- */
+  .pos-group{margin-bottom:26px;}
+  .pos-group h3{font-size:0.98rem;font-family:"Manrope";font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--red);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
   .pos-group h3::after{content:"";flex:1;height:1px;background:var(--border);}
-
-  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(208px,1fr));gap:13px;}
   .fixtures-grid{grid-template-columns:repeat(auto-fill,minmax(290px,1fr));}
-
-  .card{
-    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-    padding:16px;position:relative;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;
-  }
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:15px;position:relative;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;}
   .card .top-row{display:flex;align-items:flex-start;gap:12px;}
   .avatar-frame{position:relative;border-radius:50%;flex:none;background:var(--surface-2);display:flex;align-items:center;justify-content:center;overflow:hidden;}
   .avatar-frame img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;}
-  .avatar-frame.noimg::before{content:attr(data-no);font-family:"Anton";color:var(--red-700);}
-  .avatar-frame .no-chip{position:absolute;bottom:-3px;right:-3px;background:var(--red-700);color:#fff;font-family:"Anton";font-size:0.6rem;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px var(--surface);z-index:2;}
+  .avatar-frame.noimg::before{content:attr(data-no);font-family:"Anton";color:var(--red);}
+  .avatar-frame .no-chip{position:absolute;bottom:-3px;right:-3px;background:var(--red);color:#fff;font-family:"Anton";font-size:0.6rem;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px var(--surface);z-index:2;}
   .avatar-frame.noimg .no-chip{display:none;}
-  .avatar-frame.squad-avatar{width:54px;height:54px;}
-  .avatar-frame.squad-avatar.noimg::before{font-size:1.3rem;}
-  .card .name{font-weight:800;font-size:1.02rem;line-height:1.2;}
-  .meta-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:0.76rem;}
-  .pill{
-    padding:2px 9px;border-radius:999px;background:var(--surface-2);color:var(--ink-soft);
-    font-family:"IBM Plex Mono";font-size:0.72rem;letter-spacing:0.03em;
-  }
-  .pill.tag{background:var(--gold-500);color:#2A1B10;font-family:"Manrope";font-weight:700;letter-spacing:0;}
-  .pill.warn{background:var(--red-700);color:#fff;font-family:"Manrope";font-weight:700;}
-  .edited-by{font-size:0.7rem;color:var(--ink-soft);opacity:0.75;font-style:italic;}
+  .avatar-frame.squad-avatar{width:52px;height:52px;}
+  .avatar-frame.squad-avatar.noimg::before{font-size:1.25rem;}
+  .card .name{font-weight:800;font-size:1rem;line-height:1.2;}
+  .meta-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:0.74rem;}
+  .pill{padding:2px 9px;border-radius:999px;background:var(--surface-2);color:var(--ink-soft);font-family:"IBM Plex Mono";font-size:0.7rem;letter-spacing:0.03em;}
+  .pill.tag{background:var(--gold);color:#221507;font-family:"Manrope";font-weight:700;letter-spacing:0;}
+  .pill.warn{background:var(--red);color:#fff;font-family:"Manrope";font-weight:700;}
+  .edited-by{font-size:0.68rem;color:var(--ink-soft);opacity:0.8;font-style:italic;}
   .card-actions{position:absolute;top:10px;right:10px;display:none;gap:6px;}
   .card.editing .card-actions{display:flex;}
-  .icon-btn{
-    width:26px;height:26px;border-radius:8px;border:1px solid var(--border);background:var(--surface-2);
-    color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.8rem;
-  }
-  .icon-btn:hover{background:var(--red-700);color:#fff;border-color:var(--red-700);}
+  .icon-btn{width:26px;height:26px;border-radius:8px;border:1px solid var(--border-strong);background:var(--surface-2);color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.8rem;}
+  .icon-btn:hover{background:var(--red);color:#fff;border-color:var(--red);}
+  .add-card{border:2px dashed var(--border-strong);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;color:var(--ink-soft);font-weight:800;cursor:pointer;min-height:96px;background:transparent;}
+  .add-card:hover{border-color:var(--red);color:var(--red);}
 
-  .add-card{
-    border:2px dashed var(--border);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;
-    color:var(--ink-soft);font-weight:800;cursor:pointer;min-height:96px;background:transparent;
-  }
-  .add-card:hover{border-color:var(--red-700);color:var(--red-700);}
-
-  /* loan/departed list style */
-  .list-row{
-    display:flex;align-items:center;gap:14px;padding:12px 16px;border:1px solid var(--border);
-    border-radius:12px;background:var(--surface);margin-bottom:10px;box-shadow:var(--shadow);position:relative;
-  }
-  .list-row .badge{
-    width:8px;align-self:stretch;border-radius:4px;background:var(--gold-500);flex:none;
-  }
-  .list-row.out .badge{background:var(--red-700);}
+  /* ---------- loan / departed rows ---------- */
+  .list-row{display:flex;align-items:center;gap:14px;padding:12px 16px;border:1px solid var(--border);border-radius:12px;background:var(--surface);margin-bottom:10px;box-shadow:var(--shadow);position:relative;}
+  .list-row .badge{width:8px;align-self:stretch;border-radius:4px;background:var(--gold);flex:none;}
+  .list-row.out .badge{background:var(--red);}
   .list-row .rowmain{flex:1;min-width:0;}
   .list-row .rowmain .name{font-weight:800;}
   .list-row .rowmain .sub{color:var(--ink-soft);font-size:0.85rem;}
-  .list-row .arrow{color:var(--ink-soft);font-size:0.85rem;}
-  .list-row .club{font-weight:700;color:var(--red-700);}
+  .list-row .club{font-weight:700;color:var(--red);}
   .list-row .row-actions{display:none;gap:6px;}
   .list-row.editing .row-actions{display:flex;}
+  .transfers-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  @media (max-width:800px){ .transfers-grid{grid-template-columns:1fr;} }
+  .transfers-grid h3{font-size:0.98rem;font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);margin-bottom:12px;}
 
-  /* management */
-  .mgmt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
-  .mgmt-card{
-    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
-    padding:20px;text-align:left;box-shadow:var(--shadow);
-  }
-  .avatar-frame.mgmt-avatar{width:56px;height:56px;margin-bottom:10px;box-shadow:0 6px 14px -4px rgba(0,0,0,0.35);}
-  .avatar-frame.mgmt-avatar.noimg{background:var(--red-700);}
+  /* ---------- management / club ---------- */
+  .mgmt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;margin-bottom:30px;}
+  .mgmt-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:18px;text-align:left;box-shadow:var(--shadow);}
+  .avatar-frame.mgmt-avatar{width:54px;height:54px;margin-bottom:10px;box-shadow:0 6px 14px -4px rgba(0,0,0,0.4);}
+  .avatar-frame.mgmt-avatar.noimg{background:var(--red);}
   .avatar-frame.mgmt-avatar.noimg::before{font-size:1.05rem;color:#fff;}
-  .mgmt-card .role{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--gold-600);font-weight:800;}
-  .mgmt-card .who{font-family:"Anton";font-size:1.3rem;margin:6px 0 4px;}
-  .mgmt-card .note{font-size:0.84rem;color:var(--ink-soft);}
-
-  /* news */
-  .news-list{display:flex;flex-direction:column;gap:14px;}
-  .news-item{
-    display:grid;grid-template-columns:96px 1fr;gap:16px;background:var(--surface);
-    border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);
-  }
-  .news-item .date{font-family:"IBM Plex Mono";font-size:0.76rem;color:var(--red-700);font-weight:600;}
-  .news-item h4{font-family:"Manrope";font-weight:800;font-size:1rem;margin:0 0 6px;}
-  .news-item p{margin:0;color:var(--ink-soft);font-size:0.9rem;}
-
-  footer{border-top:1px solid var(--border);padding:28px 0 40px;color:var(--ink-soft);font-size:0.82rem;}
-  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;}
-
-  /* ---------- modals ---------- */
-  .modal-overlay{
-    position:fixed;inset:0;background:rgba(20,13,8,0.55);backdrop-filter:blur(2px);
-    display:flex;align-items:center;justify-content:center;z-index:100;padding:20px;
-  }
-  .modal-overlay[hidden]{display:none;}
-  .modal-card{
-    background:var(--surface);border-radius:18px;padding:26px;max-width:420px;width:100%;
-    box-shadow:0 24px 60px -20px rgba(0,0,0,0.5);border:1px solid var(--border);
-  }
-  .modal-card h3{font-family:"Anton";font-size:1.3rem;margin-bottom:14px;color:var(--red-700);}
-  .modal-card p.msg{color:var(--ink-soft);font-size:0.92rem;}
-  .field{margin-bottom:12px;display:flex;flex-direction:column;gap:5px;}
-  .field label{font-size:0.78rem;font-weight:700;color:var(--ink-soft);}
-  .field input,.field select{
-    padding:9px 11px;border-radius:9px;border:1.5px solid var(--border);background:var(--surface-2);
-    color:var(--ink);font-size:0.92rem;font-family:inherit;
-  }
-  .field input:focus,.field select:focus{outline:2px solid var(--red-600);outline-offset:1px;}
-  .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:16px;}
-  .btn{border:none;border-radius:999px;padding:10px 18px;font-weight:800;font-size:0.88rem;cursor:pointer;}
-  .btn-primary{background:var(--red-700);color:#fff;}
-  .btn-primary:hover{background:var(--red-600);}
-  .btn-ghost{background:transparent;color:var(--ink-soft);}
-  .btn-ghost:hover{color:var(--ink);}
-  .btn-danger{background:var(--ink);color:var(--bg);}
-
-  /* account picker */
-  .acct-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:6px;}
-  .acct-option{
-    display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;border-radius:14px;
-    border:1.5px solid var(--border);background:var(--surface-2);cursor:pointer;font-weight:800;color:var(--ink);
-  }
-  .acct-option:hover{border-color:var(--red-700);}
-  .acct-option .avatar{width:46px;height:46px;font-size:1.1rem;}
-
-  @media (max-width:640px){
-    .searchbar{top:126px;}
-    .news-item{grid-template-columns:1fr;}
-  }
-  :focus-visible{outline:2px solid var(--red-600);outline-offset:2px;}
-
-  /* ---------- reveal on scroll ---------- */
-  .reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease;}
-  .reveal.in-view{opacity:1;transform:translateY(0);}
-
-  /* ---------- tahmin ligi strip ---------- */
-  .tahmin-strip{background:linear-gradient(120deg, var(--gold-500), var(--gold-300));color:#2A1B10;padding:16px 0;}
-  .tahmin-strip .wrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
-  .tahmin-strip h2{font-size:1.05rem;white-space:nowrap;}
-  .tahmin-strip .hint{font-size:0.76rem;opacity:0.75;}
-  .tahmin-board{display:flex;gap:10px;flex-wrap:wrap;flex:1;}
-  .tahmin-chip{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.4);border-radius:999px;padding:6px 14px 6px 6px;font-weight:800;font-size:0.85rem;}
-  .tahmin-chip .avatar{width:26px;height:26px;font-size:0.7rem;}
-  .tahmin-chip .score{font-family:"IBM Plex Mono";}
-  .tahmin-chip.leader{background:#2A1B10;color:var(--gold-300);}
-
-  /* ---------- countdown ---------- */
-  .countdown-strip{background:linear-gradient(120deg, var(--ink) 0%, var(--red-900) 100%);color:#FBF5E9;padding:16px 0;}
-  .countdown-strip .wrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
-  .countdown-strip h2{font-size:1.05rem;white-space:nowrap;}
-  .countdown-strip .opp{font-weight:700;opacity:0.85;font-size:0.88rem;}
-  .countdown-clock{display:flex;gap:8px;font-family:"IBM Plex Mono";}
-  .countdown-clock .cell{background:rgba(255,255,255,0.12);border-radius:8px;padding:6px 10px;text-align:center;min-width:52px;}
-  .countdown-clock .cell b{display:block;font-size:1.25rem;color:var(--gold-300);}
-  .countdown-clock .cell span{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.06em;opacity:0.8;}
+  .mgmt-card .role{font-size:0.7rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--gold);font-weight:800;}
+  .mgmt-card .who{font-family:"Anton";font-size:1.22rem;margin:5px 0 4px;}
+  .mgmt-card .note{font-size:0.82rem;color:var(--ink-soft);}
+  .news-list{display:flex;flex-direction:column;gap:13px;}
+  .news-item{display:grid;grid-template-columns:92px 1fr;gap:16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:15px;box-shadow:var(--shadow);}
+  .news-item .date{font-family:"IBM Plex Mono";font-size:0.74rem;color:var(--gold);font-weight:600;}
+  .news-item h4{font-weight:800;font-size:0.96rem;margin:0 0 6px;}
+  .news-item p{margin:0;color:var(--ink-soft);font-size:0.88rem;}
+  @media (max-width:600px){ .news-item{grid-template-columns:1fr;} }
 
   /* ---------- fixtures & predictions ---------- */
+  .tahmin-table{width:100%;border-collapse:collapse;margin-bottom:24px;}
+  .tahmin-table th{text-align:left;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);padding:8px 10px;border-bottom:1px solid var(--border);}
+  .tahmin-table td{padding:9px 10px;border-bottom:1px solid var(--border);font-size:0.86rem;}
+  .tahmin-table tr:last-child td{border-bottom:none;}
+  .tahmin-table .lead-row td{background:var(--gold-soft);font-weight:800;}
   .fixture-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;position:relative;}
   .fixture-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
-  .fixture-date{font-family:"IBM Plex Mono";font-size:0.74rem;color:var(--ink-soft);}
-  .fixture-teams{font-family:"Anton";font-size:1.15rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-  .fixture-teams .vs{color:var(--ink-soft);font-family:"Manrope";font-size:0.78rem;font-weight:700;}
-  .fixture-score{font-family:"IBM Plex Mono";font-weight:700;color:var(--red-700);font-size:1.1rem;}
-  .venue-pill{font-family:"Manrope";font-size:0.68rem;font-weight:800;padding:2px 8px;border-radius:999px;background:var(--surface-2);color:var(--ink-soft);}
-  .predict-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-  .predict-row input{width:52px;padding:7px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface-2);color:var(--ink);font-family:"IBM Plex Mono";font-size:0.95rem;text-align:center;}
+  .fixture-date{font-family:"IBM Plex Mono";font-size:0.72rem;color:var(--ink-soft);}
+  .fixture-teams{font-family:"Anton";font-size:1.1rem;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .fixture-teams .vs{color:var(--ink-soft);font-family:"Manrope";font-size:0.76rem;font-weight:700;}
+  .fixture-score{font-family:"IBM Plex Mono";font-weight:700;color:var(--red);font-size:1.05rem;}
+  .venue-pill{font-family:"Manrope";font-size:0.66rem;font-weight:800;padding:2px 8px;border-radius:999px;background:var(--surface-2);color:var(--ink-soft);}
+  .predict-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:0.85rem;}
+  .predict-row input{width:50px;padding:7px;border-radius:8px;border:1.5px solid var(--border-strong);background:var(--surface-2);color:var(--ink);font-family:"IBM Plex Mono";font-size:0.92rem;text-align:center;}
   .predict-row span.dash{color:var(--ink-soft);font-weight:700;}
-  .predict-row .btn{padding:7px 14px;font-size:0.78rem;}
+  .predict-row .btn{padding:7px 14px;font-size:0.76rem;}
   .picks-list{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
-  .pick-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono";font-size:0.6rem;font-weight:700;position:relative;flex-direction:column;line-height:1;}
-  .pick-avatar b{font-family:"Anton";font-size:0.62rem;}
-  .pick-avatar.exact::after{content:"★";position:absolute;bottom:-5px;right:-5px;background:var(--gold-500);color:#2A1B10;border-radius:50%;width:13px;height:13px;font-size:8px;display:flex;align-items:center;justify-content:center;}
-  .pick-avatar.hit::after{content:"✓";position:absolute;bottom:-5px;right:-5px;background:#2E8B4E;color:#fff;border-radius:50%;width:13px;height:13px;font-size:8px;display:flex;align-items:center;justify-content:center;}
-  .pick-avatar.miss::after{content:"✕";position:absolute;bottom:-5px;right:-5px;background:var(--red-700);color:#fff;border-radius:50%;width:13px;height:13px;font-size:8px;display:flex;align-items:center;justify-content:center;}
-  .fixture-note{font-size:0.75rem;color:var(--ink-soft);font-style:italic;}
+  .pick-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono";font-size:0.58rem;font-weight:700;position:relative;flex-direction:column;line-height:1;}
+  .pick-avatar b{font-family:"Anton";font-size:0.6rem;}
+  .pick-avatar.exact::after{content:"★";position:absolute;bottom:-5px;right:-5px;background:var(--gold);color:#221507;border-radius:50%;width:13px;height:13px;font-size:8px;display:flex;align-items:center;justify-content:center;}
+  .pick-avatar.hit::after{content:"✓";position:absolute;bottom:-5px;right:-5px;background:var(--good);color:#fff;border-radius:50%;width:13px;height:13px;font-size:8px;display:flex;align-items:center;justify-content:center;}
+  .pick-avatar.miss::after{content:"✕";position:absolute;bottom:-5px;right:-5px;background:var(--red);color:#fff;border-radius:50%;width:13px;height:13px;font-size:8px;display:flex;align-items:center;justify-content:center;}
+  .fixture-note{font-size:0.74rem;color:var(--ink-soft);font-style:italic;}
   .fixture-card.editing .card-actions{display:flex;}
 
   /* ---------- live tracker ---------- */
   .live-list{display:flex;flex-direction:column;gap:10px;}
   .live-row{display:flex;align-items:center;gap:14px;padding:12px 16px;border:1px solid var(--border);border-radius:12px;background:var(--surface);box-shadow:var(--shadow);flex-wrap:wrap;position:relative;}
   .live-row.editing .card-actions{display:flex;}
+  .live-row.is-gs{border-color:var(--gold);box-shadow:0 0 0 1px var(--gold-soft), var(--shadow);}
   .live-status{font-family:"Manrope";font-size:0.68rem;font-weight:800;padding:4px 10px;border-radius:999px;display:flex;align-items:center;gap:5px;white-space:nowrap;}
   .live-status.ns{background:var(--surface-2);color:var(--ink-soft);}
-  .live-status.live{background:rgba(166,25,46,0.14);color:var(--red-700);}
-  .live-status.live .dot{width:7px;height:7px;border-radius:50%;background:var(--red-700);animation:pulseDot 1.2s infinite;}
-  .live-status.ft{background:rgba(46,139,78,0.14);color:#2E8B4E;}
+  .live-status.live{background:var(--red-soft);color:var(--red);}
+  .live-status.live .dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:pulseDot 1.2s infinite;}
+  .live-status.ft{background:rgba(49,199,119,0.14);color:var(--good);}
   @keyframes pulseDot{0%,100%{opacity:1;}50%{opacity:0.25;}}
   .live-teams{flex:1;min-width:180px;font-weight:800;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
-  .live-score{font-family:"IBM Plex Mono";font-weight:700;color:var(--red-700);}
+  .live-score{font-family:"IBM Plex Mono";font-weight:700;color:var(--red);}
 
   /* ---------- standings ---------- */
   .table-scroll{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);}
   .standings-table{width:100%;border-collapse:collapse;background:var(--surface);min-width:480px;}
-  .standings-table th{text-align:left;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);padding:10px 12px;border-bottom:1px solid var(--border);white-space:nowrap;}
+  .standings-table th{text-align:left;font-size:0.68rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);padding:10px 12px;border-bottom:1px solid var(--border);white-space:nowrap;}
   .standings-table td{padding:9px 12px;border-bottom:1px solid var(--border);font-size:0.86rem;font-variant-numeric:tabular-nums;}
   .standings-table tr:last-child td{border-bottom:none;}
-  .standings-table tr.gs-row td{background:rgba(166,25,46,0.08);font-weight:800;}
+  .standings-table tr.gs-row td{background:var(--gold-soft);font-weight:800;}
   .pts-bar-wrap{display:flex;align-items:center;gap:8px;}
   .pts-bar-track{flex:1;height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden;max-width:140px;}
-  .pts-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg, var(--gold-600), var(--gold-500));}
-  .rank-num{font-family:"IBM Plex Mono";color:var(--ink-soft);}
-
-  /* ---------- standings ---------- */
-  .table-scroll{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);}
-  .standings-table{width:100%;border-collapse:collapse;background:var(--surface);min-width:480px;}
-  .standings-table th{text-align:left;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);padding:10px 12px;border-bottom:1px solid var(--border);white-space:nowrap;}
-  .standings-table td{padding:9px 12px;border-bottom:1px solid var(--border);font-size:0.86rem;font-variant-numeric:tabular-nums;}
-  .standings-table tr:last-child td{border-bottom:none;}
-  .standings-table tr.gs-row td{background:rgba(166,25,46,0.08);font-weight:800;}
-  .pts-bar-wrap{display:flex;align-items:center;gap:8px;}
-  .pts-bar-track{flex:1;height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden;max-width:140px;}
-  .pts-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg, var(--gold-600), var(--gold-500));}
+  .pts-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--gold-dim),var(--gold));}
   .rank-num{font-family:"IBM Plex Mono";color:var(--ink-soft);}
 
   /* ---------- pitch (top-down editable lineup) ---------- */
   .pitch-stage{padding:6px 0 20px;}
-  .pitch{position:relative;width:100%;max-width:520px;margin:0 auto;aspect-ratio:68/100;
-    background:repeating-linear-gradient(180deg, #2b9c53 0 40px, #279148 40px 80px);
-    border-radius:14px;box-shadow:0 20px 40px -20px rgba(10,30,15,0.5), inset 0 0 0 3px rgba(255,255,255,0.35);}
-  .pitch-mark{position:absolute;border:2px solid rgba(255,255,255,0.55);pointer-events:none;}
+  .pitch{position:relative;width:100%;max-width:480px;margin:0 auto;aspect-ratio:68/100;
+    background:repeating-linear-gradient(180deg,#1a5c34 0 40px,#164e2c 40px 80px);
+    border-radius:14px;box-shadow:0 20px 40px -20px rgba(0,0,0,0.6), inset 0 0 0 3px rgba(255,255,255,0.22);}
+  .pitch-mark{position:absolute;border:2px solid rgba(255,255,255,0.4);pointer-events:none;}
   .pitch-mark.outline{inset:4%;border-radius:6px;}
-  .pitch-mark.halfway{left:4%;right:4%;top:50%;height:0;border:none;border-top:2px solid rgba(255,255,255,0.55);}
+  .pitch-mark.halfway{left:4%;right:4%;top:50%;height:0;border:none;border-top:2px solid rgba(255,255,255,0.4);}
   .pitch-mark.circle{left:50%;top:50%;width:26%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);}
   .pitch-mark.box-top{left:28%;right:28%;top:4%;height:15%;border-top:none;}
   .pitch-mark.box-bottom{left:28%;right:28%;bottom:4%;height:15%;border-bottom:none;}
   .player-token{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;background:none;border:none;padding:0;}
-  .player-token .badge{position:relative;overflow:hidden;width:46px;height:46px;border-radius:50%;background:var(--red-700);color:#fff;font-family:"Anton";display:flex;align-items:center;justify-content:center;font-size:1.15rem;box-shadow:0 6px 14px -4px rgba(0,0,0,0.55), inset 0 0 0 2px var(--gold-500);transition:transform .15s ease;}
+  .player-token .badge{position:relative;overflow:hidden;width:44px;height:44px;border-radius:50%;background:var(--red);color:#fff;font-family:"Anton";display:flex;align-items:center;justify-content:center;font-size:1.1rem;box-shadow:0 6px 14px -4px rgba(0,0,0,0.6), inset 0 0 0 2px var(--gold);transition:transform .15s ease;}
   .player-token .badge img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:50%;}
-  .player-token:hover .badge, .player-token:focus-visible .badge{transform:scale(1.1);box-shadow:0 8px 16px -4px rgba(0,0,0,0.6), inset 0 0 0 2px var(--gold-300);}
-  .player-token.empty .badge{background:var(--surface-2);color:var(--ink-soft);border:2px dashed rgba(255,255,255,0.5);}
-  .player-token .pname{font-size:0.72rem;font-weight:800;background:rgba(14,10,6,0.82);color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap;max-width:110px;overflow:hidden;text-overflow:ellipsis;}
+  .player-token:hover .badge, .player-token:focus-visible .badge{transform:scale(1.1);}
+  .player-token.empty .badge{background:var(--surface-2);color:var(--ink-soft);border:2px dashed rgba(255,255,255,0.4);}
+  .player-token .pname{font-size:0.7rem;font-weight:800;background:rgba(5,5,6,0.85);color:#fff;padding:3px 9px;border-radius:999px;white-space:nowrap;max-width:104px;overflow:hidden;text-overflow:ellipsis;}
   .pitch-caption{text-align:center;color:var(--ink-soft);font-size:0.82rem;margin-top:10px;font-style:italic;}
-  .slot-picker{position:fixed;z-index:120;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:0 20px 40px -16px rgba(0,0,0,0.5);padding:8px;max-height:260px;overflow-y:auto;min-width:200px;}
+  .slot-picker{position:fixed;z-index:220;background:var(--surface-2);border:1px solid var(--border-strong);border-radius:12px;box-shadow:0 20px 40px -16px rgba(0,0,0,0.7);padding:8px;max-height:260px;overflow-y:auto;min-width:200px;}
   .slot-picker button{display:block;width:100%;text-align:left;background:none;border:none;padding:8px 10px;border-radius:8px;font-size:0.85rem;font-weight:700;color:var(--ink);cursor:pointer;}
-  .slot-picker button:hover{background:var(--surface-2);}
+  .slot-picker button:hover{background:var(--surface-3);}
   .slot-picker .empty-opt{color:var(--ink-soft);font-style:italic;}
   .bench{margin-top:22px;}
   .bench h3{font-size:0.85rem;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;}
   .bench-row{display:flex;gap:8px;flex-wrap:wrap;}
   .bench-chip{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:5px 12px 5px 6px;font-size:0.8rem;font-weight:700;}
-  .bench-chip .no{font-family:"IBM Plex Mono";color:var(--red-700);}
+  .bench-chip .no{font-family:"IBM Plex Mono";color:var(--red);}
 
-  /* ---------- mascot ---------- */
-  .mascot-lion{position:absolute;right:18px;bottom:-6px;width:120px;height:120px;opacity:0.92;filter:drop-shadow(0 12px 18px rgba(0,0,0,0.35));}
-  .hero .wrap{position:relative;}
+  /* ---------- modals ---------- */
+  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(2px);display:flex;align-items:center;justify-content:center;z-index:300;padding:20px;}
+  .modal-overlay[hidden]{display:none;}
+  .modal-card{background:var(--surface-2);border-radius:18px;padding:26px;max-width:420px;width:100%;box-shadow:0 30px 70px -20px rgba(0,0,0,0.8);border:1px solid var(--border-strong);}
+  .modal-card h3{font-family:"Anton";font-size:1.25rem;margin-bottom:14px;color:var(--red);}
+  .modal-card p.msg{color:var(--ink-soft);font-size:0.92rem;}
+  .field{margin-bottom:12px;display:flex;flex-direction:column;gap:5px;}
+  .field label{font-size:0.78rem;font-weight:700;color:var(--ink-soft);}
+  .field input,.field select{padding:9px 11px;border-radius:9px;border:1.5px solid var(--border-strong);background:var(--surface-3);color:var(--ink);font-size:0.92rem;font-family:inherit;}
+  .field input:focus,.field select:focus{outline:2px solid var(--red);outline-offset:1px;}
+  .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:16px;}
+  .btn{border:none;border-radius:999px;padding:10px 18px;font-weight:800;font-size:0.86rem;cursor:pointer;}
+  .btn-primary{background:var(--red);color:#fff;}
+  .btn-primary:hover{background:#ff3b53;}
+  .btn-ghost{background:transparent;color:var(--ink-soft);}
+  .btn-ghost:hover{color:var(--ink);}
+  .btn-danger{background:var(--ink);color:var(--bg);}
+  .acct-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:6px;}
+  .acct-option{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;border-radius:14px;border:1.5px solid var(--border-strong);background:var(--surface-3);cursor:pointer;font-weight:800;color:var(--ink);}
+  .acct-option:hover{border-color:var(--red);}
+  .acct-option .avatar{width:44px;height:44px;font-size:1.05rem;}
 
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
-    .reveal{opacity:1;transform:none;transition:none;}
+    .panel.active{animation:none;}
     .live-status.live .dot{animation:none;}
+    .matchday-banner.show{animation:none;}
   }
-  @media (max-width:760px){ .mascot-lion{display:none;} }
 </style>
 </head>
 <body>
 
-<header class="topbar">
-  <div class="topbar-inner">
-    <div class="brand">
+<div class="matchday-banner" id="matchdayBanner"></div>
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
       <svg class="crest" viewBox="0 0 60 66" aria-hidden="true">
-        <path d="M30 2 L56 12 V34 C56 50 44 60 30 64 C16 60 4 50 4 34 V12 Z" fill="#A6192E" stroke="#F0A80B" stroke-width="2.5"/>
-        <path d="M30 2 L56 12 V34 C56 50 44 60 30 64 Z" fill="#F0A80B" opacity="0.18"/>
-        <text x="30" y="40" text-anchor="middle" font-family="Anton" font-size="22" fill="#FBF5E9">GS</text>
+        <path d="M30 2 L56 12 V34 C56 50 44 60 30 64 C16 60 4 50 4 34 V12 Z" fill="#e8253e" stroke="#ffc53d" stroke-width="2.5"/>
+        <path d="M30 2 L56 12 V34 C56 50 44 60 30 64 Z" fill="#ffc53d" opacity="0.16"/>
+        <text x="30" y="40" text-anchor="middle" font-family="Anton" font-size="22" fill="#f4f3f1">GS</text>
       </svg>
       <div class="brand-text">
         <b>Cimbom Kadro Merkezi</b>
         <span>Taraftar projesi · 1905</span>
       </div>
     </div>
-    <nav class="pillnav">
-      <a href="#canli">Canlı Skor</a>
-      <a href="#fikstur">Fikstür</a>
-      <a href="#ilk11">İlk 11</a>
-      <a href="#puan">Puan Durumu</a>
-      <a href="#kadro">Kadro</a>
-      <a href="#kiralik">Kiralıklar</a>
-      <a href="#giden">Giden Oyuncular</a>
-      <a href="#yonetim">Yönetim</a>
-      <a href="#haberler">Haberler</a>
+    <nav class="sidebar-nav" id="sidebarNav">
+      <button class="nav-btn active" data-tab="overview" type="button"><span class="nav-ico">🏠</span>Genel Bakış</button>
+      <button class="nav-btn" data-tab="squad" type="button"><span class="nav-ico">👥</span>Kadro &amp; İlk 11</button>
+      <button class="nav-btn" data-tab="fixtures" type="button"><span class="nav-ico">📅</span>Fikstür &amp; Tahmin</button>
+      <button class="nav-btn" data-tab="live" type="button"><span class="nav-ico">🔴</span>Canlı Skor</button>
+      <button class="nav-btn" data-tab="table" type="button"><span class="nav-ico">📊</span>Puan Durumu</button>
+      <button class="nav-btn" data-tab="transfers" type="button"><span class="nav-ico">🔁</span>Transferler</button>
+      <button class="nav-btn" data-tab="club" type="button"><span class="nav-ico">🏛️</span>Kulüp</button>
     </nav>
-    <button class="edit-toggle" id="editToggle" type="button">✏️ <span>Düzenle</span></button>
-    <button class="acct-chip" id="acctChip" type="button">
-      <span class="avatar" id="acctAvatar">?</span>
-      <span id="acctLabel">Hesap seç</span>
-    </button>
-  </div>
-</header>
-
-<section class="hero">
-  <div class="wrap">
-    <h1>Sarı-Kırmızı <em>Kadro Merkezi</em></h1>
-    <p class="lede">Galatasaray'ın güncel kadrosu, kiralık oyuncuları ve ayrılıkları tek sayfada. Transfermarkt tadında ama bizim elimizden çıkma — dilediğin gibi düzenle.</p>
-    <div class="hero-stats">
-      <div><b>1905</b><span>Kuruluş</span></div>
-      <div><b>Okan Buruk</b><span>Teknik Direktör</span></div>
-      <div><b>Dursun Özbek</b><span>Başkan</span></div>
-      <div><b>Türkiye'nin en çok şampiyonluğu olan kulübü</b><span>Süper Lig</span></div>
-      <div><b>Lider · 4 Puan</b><span>2. Hafta itibarıyla</span></div>
+    <div class="sidebar-foot">
+      <button class="edit-toggle" id="editToggle" type="button">✏️ <span>Düzenle</span></button>
+      <button class="acct-chip" id="acctChip" type="button">
+        <span class="avatar" id="acctAvatar">?</span>
+        <span id="acctLabel">Hesap seç</span>
+      </button>
     </div>
-    <svg class="mascot-lion" viewBox="0 0 120 120" aria-hidden="true">
-      <circle cx="96" cy="60" r="15" fill="#A6192E"/>
-      <circle cx="89" cy="81" r="15" fill="#F0A80B"/>
-      <circle cx="71" cy="94" r="15" fill="#A6192E"/>
-      <circle cx="49" cy="94" r="15" fill="#F0A80B"/>
-      <circle cx="31" cy="81" r="15" fill="#A6192E"/>
-      <circle cx="24" cy="60" r="15" fill="#F0A80B"/>
-      <circle cx="31" cy="39" r="15" fill="#A6192E"/>
-      <circle cx="49" cy="26" r="15" fill="#F0A80B"/>
-      <circle cx="71" cy="26" r="15" fill="#A6192E"/>
-      <circle cx="89" cy="39" r="15" fill="#F0A80B"/>
-      <circle cx="40" cy="34" r="9" fill="#E3B478"/>
-      <circle cx="80" cy="34" r="9" fill="#E3B478"/>
-      <circle cx="40" cy="35" r="4.5" fill="#7a4a24"/>
-      <circle cx="80" cy="35" r="4.5" fill="#7a4a24"/>
-      <circle cx="60" cy="62" r="30" fill="#E3B478"/>
-      <ellipse cx="48" cy="58" rx="4" ry="5" fill="#221507"/>
-      <ellipse cx="72" cy="58" rx="4" ry="5" fill="#221507"/>
-      <path d="M54,68 L66,68 L60,76 Z" fill="#221507"/>
-      <path d="M60,76 Q60,82 50,80" stroke="#221507" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <path d="M60,76 Q60,82 70,80" stroke="#221507" stroke-width="2" fill="none" stroke-linecap="round"/>
-      <line x1="52" y1="70" x2="26" y2="66" stroke="#221507" stroke-width="1.5" stroke-linecap="round"/>
-      <line x1="52" y1="74" x2="26" y2="76" stroke="#221507" stroke-width="1.5" stroke-linecap="round"/>
-      <line x1="68" y1="70" x2="94" y2="66" stroke="#221507" stroke-width="1.5" stroke-linecap="round"/>
-      <line x1="68" y1="74" x2="94" y2="76" stroke="#221507" stroke-width="1.5" stroke-linecap="round"/>
-    </svg>
-  </div>
-</section>
+  </aside>
 
-<div class="countdown-strip">
-  <div class="wrap">
-    <h2>⏳ Sıradaki Maça Kalan Süre</h2>
-    <span class="opp" id="countdownOpp"></span>
-    <div class="countdown-clock" id="countdownClock"></div>
-  </div>
+  <main class="main">
+    <div class="main-inner">
+
+      <!-- OVERVIEW -->
+      <section class="panel active" data-tab="overview">
+        <div class="hero-card">
+          <div class="kicker">Sıradaki Maça Kalan Süre</div>
+          <h1 id="countdownOpp">—</h1>
+          <div class="countdown-clock" id="countdownClock"></div>
+          <svg class="mascot-lion" viewBox="0 0 120 120" aria-hidden="true">
+            <circle cx="96" cy="60" r="15" fill="#e8253e"/><circle cx="89" cy="81" r="15" fill="#ffc53d"/>
+            <circle cx="71" cy="94" r="15" fill="#e8253e"/><circle cx="49" cy="94" r="15" fill="#ffc53d"/>
+            <circle cx="31" cy="81" r="15" fill="#e8253e"/><circle cx="24" cy="60" r="15" fill="#ffc53d"/>
+            <circle cx="31" cy="39" r="15" fill="#e8253e"/><circle cx="49" cy="26" r="15" fill="#ffc53d"/>
+            <circle cx="71" cy="26" r="15" fill="#e8253e"/><circle cx="89" cy="39" r="15" fill="#ffc53d"/>
+            <circle cx="40" cy="34" r="9" fill="#E3B478"/><circle cx="80" cy="34" r="9" fill="#E3B478"/>
+            <circle cx="40" cy="35" r="4.5" fill="#7a4a24"/><circle cx="80" cy="35" r="4.5" fill="#7a4a24"/>
+            <circle cx="60" cy="62" r="30" fill="#E3B478"/>
+            <ellipse cx="48" cy="58" rx="4" ry="5" fill="#0c0a08"/><ellipse cx="72" cy="58" rx="4" ry="5" fill="#0c0a08"/>
+            <path d="M54,68 L66,68 L60,76 Z" fill="#0c0a08"/>
+            <path d="M60,76 Q60,82 50,80" stroke="#0c0a08" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <path d="M60,76 Q60,82 70,80" stroke="#0c0a08" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <line x1="52" y1="70" x2="26" y2="66" stroke="#0c0a08" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="52" y1="74" x2="26" y2="76" stroke="#0c0a08" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="68" y1="70" x2="94" y2="66" stroke="#0c0a08" stroke-width="1.5" stroke-linecap="round"/>
+            <line x1="68" y1="74" x2="94" y2="76" stroke="#0c0a08" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <div class="stat-grid">
+          <div class="stat-tile"><div class="label">Lig Sırası</div><div class="value accent" id="statRank">—</div></div>
+          <div class="stat-tile"><div class="label">Puan</div><div class="value" id="statPoints">—</div></div>
+          <div class="stat-tile" title="Puana göre hesaplanmıştır"><div class="label">Form (puana göre)</div><div class="form-pills" id="statForm"></div></div>
+          <div class="stat-tile"><div class="label">Sezon İlerlemesi</div><div class="value small" id="statWeeks">—</div></div>
+          <div class="stat-tile"><div class="label">Tahmin Lideri</div><div class="value small" id="statLeader">—</div></div>
+        </div>
+
+        <div class="overview-grid">
+          <div class="panel-card">
+            <h3>🏆 Tahmin Ligi <button class="more" type="button" data-goto="fixtures">tümü →</button></h3>
+            <div id="tahminBoard"></div>
+          </div>
+          <div class="panel-card">
+            <h3>📊 Puan Durumu <button class="more" type="button" data-goto="table">tümü →</button></h3>
+            <div id="standingsMini"></div>
+          </div>
+        </div>
+
+        <div class="panel-card" style="margin-top:18px;">
+          <h3>📰 Son Haberler <button class="more" type="button" data-goto="club">tümü →</button></h3>
+          <div id="newsPreview"></div>
+        </div>
+      </section>
+
+      <!-- SQUAD -->
+      <section class="panel" data-tab="squad">
+        <div class="panel-head">
+          <h2>Kadro &amp; <span class="accent">İlk 11</span></h2>
+          <p class="panel-sub">2026-27 sezonu A takım kadrosu. Bir oyuncunun fotoğrafı yoksa forma numarası görünür — <code>images/players/</code> klasörüne adıyla bir fotoğraf eklersen otomatik görünür.</p>
+        </div>
+
+        <div class="quickstats" id="quickStats"></div>
+
+        <div class="toolbar">
+          <div class="search-input-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input id="searchInput" type="text" placeholder="Oyuncu ara…" autocomplete="off">
+          </div>
+          <div class="chip-row" id="posChips">
+            <button class="chip active" data-pos="all">Tümü</button>
+            <button class="chip" data-pos="gk">Kaleci</button>
+            <button class="chip" data-pos="def">Defans</button>
+            <button class="chip" data-pos="mid">Orta Saha</button>
+            <button class="chip" data-pos="fwd">Forvet</button>
+          </div>
+        </div>
+
+        <div id="squadContainer"></div>
+
+        <div class="panel-head" style="margin-top:36px;">
+          <h2>İlk 11'ini <span class="accent">Sen Kur</span></h2>
+          <p class="panel-sub">4-2-3-1 sahada bir oyuncuya tıkla, yerine başka bir kadro oyuncusunu koy — kendi ilk onbirini ve değişikliklerini oluştur.</p>
+        </div>
+        <div class="pitch-stage" id="pitchStage">
+          <div class="pitch" id="pitch">
+            <div class="pitch-mark outline"></div>
+            <div class="pitch-mark box-top"></div>
+            <div class="pitch-mark box-bottom"></div>
+            <div class="pitch-mark halfway"></div>
+            <div class="pitch-mark circle"></div>
+            <div id="pitchTokens"></div>
+          </div>
+        </div>
+        <p class="pitch-caption">Bir oyuncuya tıklayarak o pozisyona başka bir kadro oyuncusu ata.</p>
+        <div class="bench">
+          <h3>Kadroda, sahada değil</h3>
+          <div class="bench-row" id="benchRow"></div>
+        </div>
+      </section>
+
+      <!-- FIXTURES -->
+      <section class="panel" data-tab="fixtures">
+        <div class="panel-head">
+          <h2>Fikstür &amp; <span class="accent">Tahminler</span></h2>
+          <p class="panel-sub">Gelecek maçlar için skor tahmini gir: doğru skor 3 puan, sadece doğru sonuç 1 puan kazandırır.</p>
+        </div>
+        <div class="panel-card" style="margin-bottom:22px;">
+          <h3>🏆 Tahmin Ligi — Tam Tablo</h3>
+          <table class="tahmin-table" id="tahminTable"></table>
+        </div>
+        <div class="grid fixtures-grid" id="fixturesContainer"></div>
+      </section>
+
+      <!-- LIVE -->
+      <section class="panel" data-tab="live">
+        <div class="panel-head">
+          <h2>Canlı <span class="accent">Skor Merkezi</span></h2>
+          <p class="panel-sub">Bu haftanın Süper Lig maçları. Skorları ve durumu ✏️ Düzenle modundan güncelleyip birbirinize canlı bilgi verin.</p>
+        </div>
+        <div class="live-list" id="liveContainer"></div>
+      </section>
+
+      <!-- TABLE -->
+      <section class="panel" data-tab="table">
+        <div class="panel-head">
+          <h2>Süper Lig <span class="accent">Puan Durumu</span></h2>
+          <p class="panel-sub">2026-27 sezonu, 2. hafta itibarıyla güncel tablo.</p>
+        </div>
+        <div class="table-scroll"><table class="standings-table" id="standingsTable"></table></div>
+      </section>
+
+      <!-- TRANSFERS -->
+      <section class="panel" data-tab="transfers">
+        <div class="panel-head">
+          <h2>Kiralıklar &amp; <span class="accent">Ayrılıklar</span></h2>
+          <p class="panel-sub">Galatasaray'a ait olup başka kulüplerde forma giyen ve kalıcı olarak ayrılan oyuncular.</p>
+        </div>
+        <div class="transfers-grid">
+          <div>
+            <h3>Bizden Kiralık Giden</h3>
+            <div id="loanContainer"></div>
+          </div>
+          <div>
+            <h3>Kalıcı Giden Oyuncular</h3>
+            <div id="departedContainer"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CLUB -->
+      <section class="panel" data-tab="club">
+        <div class="panel-head">
+          <h2>Teknik Direktör &amp; <span class="accent">Yönetim</span></h2>
+        </div>
+        <div class="mgmt-grid" id="mgmtContainer"></div>
+        <div class="panel-head">
+          <h2>Transfer <span class="accent">Haberleri</span></h2>
+        </div>
+        <div class="news-list" id="newsContainer"></div>
+      </section>
+
+    </div>
+  </main>
 </div>
-
-<div class="tahmin-strip">
-  <div class="wrap">
-    <h2>🏆 Tahmin Ligi</h2>
-    <div class="tahmin-board" id="tahminBoard"></div>
-    <span class="hint">Fikstürden tahmin yap, doğru bilen zirvede.</span>
-  </div>
-</div>
-
-<div class="searchbar">
-  <div class="searchbar-inner">
-    <div class="search-input-wrap">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-      <input id="searchInput" type="text" placeholder="Oyuncu ara (kadro, kiralık, giden)…" autocomplete="off">
-    </div>
-    <div class="chip-row" id="posChips">
-      <button class="chip active" data-pos="all">Tümü</button>
-      <button class="chip" data-pos="gk">Kaleci</button>
-      <button class="chip" data-pos="def">Defans</button>
-      <button class="chip" data-pos="mid">Orta Saha</button>
-      <button class="chip" data-pos="fwd">Forvet</button>
-    </div>
-  </div>
-</div>
-
-<main class="wrap">
-
-  <section class="section" id="canli">
-    <div class="section-head reveal">
-      <h2>Canlı <span class="accent">Skor Merkezi</span></h2>
-      <p class="section-sub">Bu haftanın Süper Lig maçları. Skorları ve durumu ✏️ Düzenle modundan güncelleyip birbirinize canlı bilgi verin.</p>
-    </div>
-    <div class="live-list" id="liveContainer"></div>
-  </section>
-
-  <section class="section" id="fikstur">
-    <div class="section-head reveal">
-      <h2>Fikstür &amp; <span class="accent">Tahminler</span></h2>
-      <p class="section-sub">Gelecek maçlar için tahminini gir, maç sonuçlandığında Tahmin Ligi'nde puanını gör.</p>
-    </div>
-    <div class="grid fixtures-grid" id="fixturesContainer"></div>
-  </section>
-
-  <section class="section pitch-section" id="ilk11">
-    <div class="section-head reveal">
-      <h2>İlk 11'ini <span class="accent">Sen Kur</span></h2>
-      <p class="section-sub">4-2-3-1 sahada bir oyuncuya tıkla, yerine başka bir kadro oyuncusunu koy — kendi ilk onbirini ve değişikliklerini oluştur.</p>
-    </div>
-    <div class="pitch-stage" id="pitchStage">
-      <div class="pitch" id="pitch">
-        <div class="pitch-mark outline"></div>
-        <div class="pitch-mark box-top"></div>
-        <div class="pitch-mark box-bottom"></div>
-        <div class="pitch-mark halfway"></div>
-        <div class="pitch-mark circle"></div>
-        <div id="pitchTokens"></div>
-      </div>
-    </div>
-    <p class="pitch-caption">Bir oyuncuya tıklayarak o pozisyona başka bir kadro oyuncusu ata.</p>
-    <div class="bench">
-      <h3>Kadroda, sahada değil</h3>
-      <div class="bench-row" id="benchRow"></div>
-    </div>
-  </section>
-
-  <section class="section" id="puan">
-    <div class="section-head reveal">
-      <h2>Süper Lig <span class="accent">Puan Durumu</span></h2>
-      <p class="section-sub">2026-27 sezonu, 2. hafta itibarıyla güncel tablo.</p>
-    </div>
-    <div class="table-scroll">
-      <table class="standings-table" id="standingsTable"></table>
-    </div>
-  </section>
-
-  <section class="section" id="kadro">
-    <div class="section-head reveal">
-      <h2>Güncel <span class="accent">Kadro</span></h2>
-      <p class="section-sub">2026-27 sezonu A takım kadrosu. Etiketli oyuncular kiralık, sakat veya yeni transfer statüsünde. Bir oyuncunun fotoğrafı yoksa forma numarası görünür — repo'daki <code>images/players/</code> klasörüne oyuncunun adıyla (örn. <code>victor-osimhen.jpg</code>) bir fotoğraf eklersen otomatik görünür.</p>
-    </div>
-    <div id="squadContainer"></div>
-  </section>
-
-  <section class="section" id="kiralik">
-    <div class="section-head">
-      <h2>Bizden Kiralık <span class="accent">Giden</span></h2>
-      <p class="section-sub">Galatasaray'a ait olup şu an başka kulüplerde forma giyen oyuncular.</p>
-    </div>
-    <div id="loanContainer"></div>
-  </section>
-
-  <section class="section" id="giden">
-    <div class="section-head">
-      <h2>Kalıcı Olarak <span class="accent">Giden Oyuncular</span></h2>
-      <p class="section-sub">2026 yaz döneminde kadrodan ayrılan veya ayrılık kararı alınan isimler.</p>
-    </div>
-    <div id="departedContainer"></div>
-  </section>
-
-  <section class="section" id="yonetim">
-    <div class="section-head">
-      <h2>Teknik Direktör &amp; <span class="accent">Yönetim</span></h2>
-      <p class="section-sub">Kulübün teknik ve idari kadrosundan öne çıkan isimler.</p>
-    </div>
-    <div class="mgmt-grid" id="mgmtContainer"></div>
-  </section>
-
-  <section class="section" id="haberler">
-    <div class="section-head">
-      <h2>Transfer <span class="accent">Haberleri</span></h2>
-      <p class="section-sub">Ağustos 2026 transfer döneminden öne çıkan gelişmeler.</p>
-    </div>
-    <div class="news-list" id="newsContainer"></div>
-  </section>
-
-</main>
-
-<footer>
-  <div class="wrap">
-    <span>Bu sayfa bağımsız bir taraftar projesidir, Galatasaray SK ile resmi bağlantısı yoktur.</span>
-    <span>Kadro verileri düzenlenebilir — hatalı bir bilgi görürsen ✏️ Düzenle ile düzelt.</span>
-  </div>
-</footer>
 
 <div class="modal-overlay" id="acctOverlay" hidden>
   <div class="modal-card">
@@ -656,10 +588,10 @@
   var ACCT_KEY = "gs-fan-hub-account-v1";
 
   var ACCOUNTS = [
-    {id:"osman", name:"Osman Gencer", initials:"OG", bg:"var(--red-700)", fg:"#fff"},
-    {id:"yusuf", name:"Yusuf", initials:"Y", bg:"var(--gold-500)", fg:"#2A1B10"},
-    {id:"suleyman", name:"Süleyman", initials:"S", bg:"var(--red-900)", fg:"#fff"},
-    {id:"ahmet", name:"Ahmet", initials:"A", bg:"#2A1B10", fg:"#F0A80B"}
+    {id:"osman", name:"Osman Gencer", initials:"OG", bg:"var(--red)", fg:"#fff"},
+    {id:"yusuf", name:"Yusuf", initials:"Y", bg:"var(--gold)", fg:"#221507"},
+    {id:"suleyman", name:"Süleyman", initials:"S", bg:"#7a1220", fg:"#fff"},
+    {id:"ahmet", name:"Ahmet", initials:"A", bg:"#2a2b31", fg:"#ffc53d"}
   ];
 
   var POS_LABEL = {gk:"Kaleciler", def:"Defans", mid:"Orta Saha", fwd:"Forvet"};
@@ -819,13 +751,8 @@
   var SECTION_TITLES = {squad:"Oyuncu", loanOut:"Kiralık Kaydı", departed:"Ayrılık Kaydı", fixtures:"Maç", liveMatches:"Canlı Maç"};
 
   function clone(o){ return JSON.parse(JSON.stringify(o)); }
-
-  function safeGet(key){
-    try{ return localStorage.getItem(key); }catch(e){ return null; }
-  }
-  function safeSet(key, val){
-    try{ localStorage.setItem(key, val); }catch(e){}
-  }
+  function safeGet(key){ try{ return localStorage.getItem(key); }catch(e){ return null; } }
+  function safeSet(key, val){ try{ localStorage.setItem(key, val); }catch(e){} }
 
   var state = (function(){
     var base = clone(DEFAULT_DATA);
@@ -836,10 +763,7 @@
     SLOTS.forEach(function(s){ base.lineup[s.id] = s.def; });
     var raw = safeGet(STORAGE_KEY);
     if(raw){
-      try{
-        var saved = JSON.parse(raw);
-        return Object.assign(base, saved);
-      }catch(e){}
+      try{ var saved = JSON.parse(raw); return Object.assign(base, saved); }catch(e){}
     }
     return base;
   })();
@@ -850,25 +774,10 @@
   var posFilter = "all";
 
   function persist(){ safeSet(STORAGE_KEY, JSON.stringify(state)); }
-
-  function accountById(id){
-    for(var i=0;i<ACCOUNTS.length;i++){ if(ACCOUNTS[i].id===id) return ACCOUNTS[i]; }
-    return null;
-  }
-  function currentAccountName(){
-    var a = accountById(currentAccountId);
-    return a ? a.name : "Misafir";
-  }
-
-  function matchesSearch(name){
-    if(!searchText) return true;
-    return name.toLocaleLowerCase("tr").indexOf(searchText) !== -1;
-  }
-
-  function ageFrom(born){
-    if(!born) return null;
-    return new Date().getFullYear() - born;
-  }
+  function accountById(id){ for(var i=0;i<ACCOUNTS.length;i++){ if(ACCOUNTS[i].id===id) return ACCOUNTS[i]; } return null; }
+  function currentAccountName(){ var a = accountById(currentAccountId); return a ? a.name : "Misafir"; }
+  function matchesSearch(name){ if(!searchText) return true; return name.toLocaleLowerCase("tr").indexOf(searchText) !== -1; }
+  function ageFrom(born){ if(!born) return null; return new Date().getFullYear() - born; }
 
   function el(tag, cls, html){
     var n = document.createElement(tag);
@@ -903,10 +812,27 @@
     img.loading = "lazy";
     img.onerror = function(){ wrap.classList.add("noimg"); img.remove(); };
     wrap.appendChild(img);
-    if(opts.chip != null){
-      wrap.appendChild(el("div","no-chip", opts.chip));
-    }
+    if(opts.chip != null){ wrap.appendChild(el("div","no-chip", opts.chip)); }
     return wrap;
+  }
+
+  /* ---------------- tabs ---------------- */
+  function switchTab(tab){
+    document.querySelectorAll(".nav-btn").forEach(function(b){ b.classList.toggle("active", b.getAttribute("data-tab")===tab); });
+    document.querySelectorAll(".panel").forEach(function(p){ p.classList.toggle("active", p.getAttribute("data-tab")===tab); });
+    window.scrollTo(0, 0);
+    try{ history.replaceState(null, "", "#"+tab); }catch(e){}
+  }
+  document.getElementById("sidebarNav").addEventListener("click", function(e){
+    var btn = e.target.closest(".nav-btn");
+    if(btn) switchTab(btn.getAttribute("data-tab"));
+  });
+  document.querySelectorAll("[data-goto]").forEach(function(b){
+    b.addEventListener("click", function(){ switchTab(b.getAttribute("data-goto")); });
+  });
+  var initialTab = (location.hash || "").replace("#","");
+  if(["overview","squad","fixtures","live","table","transfers","club"].indexOf(initialTab) !== -1){
+    switchTab(initialTab);
   }
 
   /* ---------------- render: squad ---------------- */
@@ -926,9 +852,7 @@
       groupEl.appendChild(el("h3", null, POS_LABEL[groupKey]));
       var grid = el("div","grid");
 
-      visible.forEach(function(p){
-        grid.appendChild(playerCard(p));
-      });
+      visible.forEach(function(p){ grid.appendChild(playerCard(p)); });
 
       if(editMode && !searchText){
         var addCard = el("button","add-card","+ Oyuncu Ekle");
@@ -944,6 +868,7 @@
     if(!anyVisible){
       container.appendChild(el("p","empty-note","Aramanla eşleşen bir oyuncu bulunamadı."));
     }
+    renderQuickStats();
   }
 
   function playerCard(p){
@@ -965,29 +890,65 @@
       tagRow.appendChild(el("span","pill "+(p.tag.toLowerCase().indexOf("sakat")!==-1?"warn":"tag"), p.tag));
       card.appendChild(tagRow);
     }
-    if(p.editedBy){
-      card.appendChild(el("div","edited-by","Son düzenleyen: "+p.editedBy));
-    }
+    if(p.editedBy){ card.appendChild(el("div","edited-by","Son düzenleyen: "+p.editedBy)); }
 
     var actions = el("div","card-actions");
     var editBtn = el("button","icon-btn","✎");
-    editBtn.type="button";
-    editBtn.title="Düzenle";
+    editBtn.type="button"; editBtn.title="Düzenle";
     editBtn.addEventListener("click", function(){ openForm("squad", p, p.group); });
     var delBtn = el("button","icon-btn","✕");
-    delBtn.type="button";
-    delBtn.title="Sil";
+    delBtn.type="button"; delBtn.title="Sil";
     delBtn.addEventListener("click", function(){
       openConfirm(p.name + " kadrodan silinsin mi?", function(){
         state.squad = state.squad.filter(function(x){ return x.id !== p.id; });
-        persist(); renderSquad();
+        persist(); renderSquad(); renderPitch();
       });
     });
     actions.appendChild(editBtn);
     actions.appendChild(delBtn);
     card.appendChild(actions);
-
     return card;
+  }
+
+  function renderQuickStats(){
+    var container = document.getElementById("quickStats");
+    container.innerHTML = "";
+    var squad = state.squad;
+    var ages = squad.map(function(p){ return ageFrom(p.born); }).filter(Boolean);
+    var avgAge = ages.length ? (ages.reduce(function(a,b){return a+b;},0) / ages.length).toFixed(1) : "—";
+    var foreign = squad.filter(function(p){ return p.nation && p.nation.toUpperCase() !== "TUR"; }).length;
+
+    var tiles = [
+      {label:"Kadro Mevcudu", value: squad.length},
+      {label:"Ortalama Yaş", value: avgAge},
+      {label:"Yabancı Oyuncu", value: foreign + " / " + squad.length}
+    ];
+    tiles.forEach(function(t){
+      var tile = el("div","stat-tile");
+      tile.appendChild(el("div","label", t.label));
+      tile.appendChild(el("div","value", t.value));
+      container.appendChild(tile);
+    });
+
+    var posBlockTile = el("div","stat-tile");
+    posBlockTile.style.gridColumn = "span 2";
+    posBlockTile.appendChild(el("div","label","Mevki Dağılımı"));
+    var block = el("div","posbar-block");
+    var max = Math.max.apply(null, POS_ORDER.map(function(g){ return squad.filter(function(p){return p.group===g;}).length; })) || 1;
+    POS_ORDER.forEach(function(g){
+      var count = squad.filter(function(p){ return p.group === g; }).length;
+      var row = el("div","posbar-row");
+      row.appendChild(el("span","posbar-label", POS_LABEL[g]));
+      var track = el("span","posbar-track");
+      var fill = el("span","posbar-fill");
+      fill.style.width = Math.round((count/max)*100) + "%";
+      track.appendChild(fill);
+      row.appendChild(track);
+      row.appendChild(el("span","posbar-count", count));
+      block.appendChild(row);
+    });
+    posBlockTile.appendChild(block);
+    container.appendChild(posBlockTile);
   }
 
   /* ---------------- render: loan / departed lists ---------------- */
@@ -1031,7 +992,6 @@
       actions.appendChild(editBtn);
       actions.appendChild(delBtn);
       row.appendChild(actions);
-
       container.appendChild(row);
     });
 
@@ -1075,6 +1035,17 @@
       container.appendChild(item);
     });
   }
+  function renderNewsPreview(){
+    var container = document.getElementById("newsPreview");
+    container.innerHTML = "";
+    NEWS.slice(0,3).forEach(function(n){
+      var item = el("div","news-preview-item");
+      item.appendChild(el("div","date", n.date));
+      item.appendChild(el("h4", null, n.title));
+      item.appendChild(el("p", null, n.body));
+      container.appendChild(item);
+    });
+  }
 
   /* ---------------- render: fixtures & predictions ---------------- */
   function fixtureOutcome(fx){
@@ -1096,34 +1067,50 @@
     return 0;
   }
 
-  function renderTahminBoard(){
-    var board = document.getElementById("tahminBoard");
-    board.innerHTML = "";
+  function tahminRows(){
     var rows = ACCOUNTS.map(function(a){
       var points = 0, exact = 0, played = 0;
       state.fixtures.forEach(function(fx){
         var pred = state.predictions[fx.id] && state.predictions[fx.id][a.id];
         var pts = pred ? predictionPoints(pred, fx) : null;
-        if(pts != null){
-          played++;
-          points += pts;
-          if(pts === 3) exact++;
-        }
+        if(pts != null){ played++; points += pts; if(pts === 3) exact++; }
       });
       return {a:a, points:points, exact:exact, played:played};
     });
     rows.sort(function(x,y){ return y.points - x.points || y.exact - x.exact; });
+    return rows;
+  }
+
+  function renderTahminBoard(){
+    var board = document.getElementById("tahminBoard");
+    board.innerHTML = "";
+    var rows = tahminRows();
     var topScore = rows.length ? rows[0].points : 0;
-    rows.forEach(function(r){
-      var chip = el("div","tahmin-chip"+(r.points>0 && r.points===topScore ? " leader":""));
+    rows.forEach(function(r, i){
+      var row = el("div","lb-row");
+      row.appendChild(el("div","lb-rank", (r.points>0 && r.points===topScore) ? "👑" : (i+1)));
       var av = el("span","avatar", r.a.initials);
       av.style.background = r.a.bg; av.style.color = r.a.fg;
-      chip.appendChild(av);
-      chip.appendChild(document.createTextNode(r.a.name+" "));
-      var score = el("span","score", (r.points>0 && r.points===topScore ? "👑 ":"") + r.points + " puan · " + r.exact + " tam isabet");
-      chip.appendChild(score);
-      board.appendChild(chip);
+      var nameWrap = el("div","lb-name");
+      nameWrap.appendChild(av);
+      nameWrap.appendChild(document.createTextNode(" " + r.a.name));
+      row.appendChild(nameWrap);
+      row.appendChild(el("div","lb-pts", r.points + " puan"));
+      board.appendChild(row);
     });
+    renderOverviewStats();
+  }
+
+  function renderTahminTable(){
+    var table = document.getElementById("tahminTable");
+    var rows = tahminRows();
+    var topScore = rows.length ? rows[0].points : 0;
+    var thead = "<thead><tr><th>#</th><th>Hesap</th><th>Puan</th><th>Tam İsabet</th><th>Tahmin</th></tr></thead>";
+    var body = rows.map(function(r,i){
+      return "<tr class=\""+(r.points>0 && r.points===topScore ? "lead-row":"")+"\">"
+        + "<td>"+(i+1)+"</td><td>"+r.a.name+"</td><td>"+r.points+"</td><td>"+r.exact+"</td><td>"+r.played+"</td></tr>";
+    }).join("");
+    table.innerHTML = thead + "<tbody>" + body + "</tbody>";
   }
 
   function renderFixtures(){
@@ -1142,9 +1129,7 @@
       teams.appendChild(document.createTextNode("Galatasaray"));
       teams.appendChild(el("span","vs","vs"));
       teams.appendChild(document.createTextNode(fx.opponent));
-      if(played){
-        teams.appendChild(el("span","fixture-score", fx.gsScore + " – " + fx.oppScore));
-      }
+      if(played){ teams.appendChild(el("span","fixture-score", fx.gsScore + " – " + fx.oppScore)); }
       card.appendChild(teams);
 
       var myPred = state.predictions[fx.id] && state.predictions[fx.id][currentAccountId];
@@ -1201,13 +1186,12 @@
         openConfirm(fx.opponent + " maçı silinsin mi?", function(){
           state.fixtures = state.fixtures.filter(function(x){ return x.id !== fx.id; });
           delete state.predictions[fx.id];
-          persist(); renderFixtures(); renderTahminBoard();
+          persist(); renderFixtures(); renderTahminBoard(); renderTahminTable();
         });
       });
       actions.appendChild(editBtn);
       actions.appendChild(delBtn);
       card.appendChild(actions);
-
       container.appendChild(card);
     });
 
@@ -1229,8 +1213,7 @@
     if(!state.predictions[fixtureId]) state.predictions[fixtureId] = {};
     state.predictions[fixtureId][currentAccountId] = {gs:Number(gsVal), opp:Number(oppVal)};
     persist();
-    renderFixtures();
-    renderTahminBoard();
+    renderFixtures(); renderTahminBoard(); renderTahminTable();
   }
 
   /* ---------------- render: live tracker ---------------- */
@@ -1240,7 +1223,8 @@
     var container = document.getElementById("liveContainer");
     container.innerHTML = "";
     state.liveMatches.forEach(function(m){
-      var row = el("div","live-row"+(editMode?" editing":""));
+      var isGS = m.home === "Galatasaray" || m.away === "Galatasaray";
+      var row = el("div","live-row"+(editMode?" editing":"")+(isGS?" is-gs":""));
 
       var statusCls = m.status === "LIVE" ? "live" : (m.status === "FT" ? "ft" : "ns");
       var statusEl = el("span","live-status "+statusCls);
@@ -1271,7 +1255,6 @@
       actions.appendChild(editBtn);
       actions.appendChild(delBtn);
       row.appendChild(actions);
-
       container.appendChild(row);
     });
 
@@ -1280,6 +1263,21 @@
       addBtn.type = "button";
       addBtn.addEventListener("click", function(){ openForm("liveMatches", null, null); });
       container.appendChild(addBtn);
+    }
+    renderMatchdayBanner();
+  }
+
+  function renderMatchdayBanner(){
+    var banner = document.getElementById("matchdayBanner");
+    var gsLive = state.liveMatches.find(function(m){
+      return (m.home === "Galatasaray" || m.away === "Galatasaray") && m.status === "LIVE";
+    });
+    if(gsLive){
+      var score = (gsLive.homeScore != null && gsLive.awayScore != null) ? (" · " + gsLive.homeScore + "-" + gsLive.awayScore) : "";
+      banner.textContent = "🔴 CANLI: " + gsLive.home + " – " + gsLive.away + score;
+      banner.classList.add("show");
+    } else {
+      banner.classList.remove("show");
     }
   }
 
@@ -1298,11 +1296,20 @@
         + "</tr>";
     }).join("");
     table.innerHTML = thead + "<tbody>" + rows + "</tbody>";
+
+    var mini = document.getElementById("standingsMini");
+    mini.innerHTML = "";
+    STANDINGS.slice(0,6).forEach(function(t,i){
+      var row = el("div","mini-row"+(t.gs?" gs":""));
+      row.appendChild(el("span","mini-rank", i+1));
+      row.appendChild(el("span","mini-team", t.team));
+      row.appendChild(el("span","mini-pts", t.points));
+      mini.appendChild(row);
+    });
   }
 
   /* ---------------- render: editable lineup ---------------- */
   var openPicker = null;
-
   function closeSlotPicker(){
     if(openPicker){ openPicker.remove(); openPicker = null; }
     document.removeEventListener("click", onDocClickClosePicker, true);
@@ -1310,7 +1317,6 @@
   function onDocClickClosePicker(e){
     if(openPicker && !openPicker.contains(e.target)) closeSlotPicker();
   }
-
   function openSlotPicker(slot, anchorEl){
     closeSlotPicker();
     var panel = el("div","slot-picker");
@@ -1356,17 +1362,13 @@
       if(player){
         var pimg = document.createElement("img");
         pimg.src = "images/players/" + slugify(player.name) + ".jpg";
-        pimg.alt = "";
-        pimg.loading = "lazy";
+        pimg.alt = ""; pimg.loading = "lazy";
         pimg.onerror = function(){ pimg.remove(); };
         badge.appendChild(pimg);
       }
       t.appendChild(badge);
       t.appendChild(el("div","pname", player ? player.name : slot.label));
-      t.addEventListener("click", function(e){
-        e.stopPropagation();
-        openSlotPicker(slot, t);
-      });
+      t.addEventListener("click", function(e){ e.stopPropagation(); openSlotPicker(slot, t); });
       tokens.appendChild(t);
     });
     renderBench();
@@ -1430,20 +1432,35 @@
       "<div class=\"cell\"><b>"+pad(s)+"</b><span>Saniye</span></div>";
   }
 
-  function setupReveal(){
-    if(!("IntersectionObserver" in window)){
-      document.querySelectorAll(".reveal").forEach(function(n){ n.classList.add("in-view"); });
-      return;
+  /* ---------------- overview stats ---------------- */
+  function renderOverviewStats(){
+    var gs = STANDINGS.find(function(t){ return t.gs; });
+    var rank = STANDINGS.indexOf(gs) + 1;
+    document.getElementById("statRank").textContent = "#" + rank;
+    document.getElementById("statPoints").textContent = gs.points + " / " + (gs.played*3) ;
+
+    var totalWeeks = (STANDINGS.length - 1) * 2;
+    document.getElementById("statWeeks").textContent = gs.played + " / " + totalWeeks + " hafta";
+
+    var formEl = document.getElementById("statForm");
+    formEl.innerHTML = "";
+    var wins = Math.floor(gs.points / 3);
+    var rem = gs.points % 3;
+    var results = [];
+    for(var i=0;i<wins;i++) results.push("w");
+    if(rem === 1) results.push("d");
+    while(results.length < gs.played) results.push("d");
+    results.slice(0, gs.played).forEach(function(r){
+      formEl.appendChild(el("span","form-pill "+r, r==="w"?"G":(r==="d"?"B":"M")));
+    });
+
+    var rows = tahminRows();
+    var leaderEl = document.getElementById("statLeader");
+    if(rows.length && rows[0].points > 0){
+      leaderEl.textContent = rows[0].a.name + " (" + rows[0].points + "p)";
+    } else {
+      leaderEl.textContent = "Henüz yok";
     }
-    var obs = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){
-          entry.target.classList.add("in-view");
-          obs.unobserve(entry.target);
-        }
-      });
-    }, {threshold:0.2});
-    document.querySelectorAll(".reveal").forEach(function(n){ obs.observe(n); });
   }
 
   function renderAll(){
@@ -1452,6 +1469,7 @@
     renderDeparted();
     renderFixtures();
     renderTahminBoard();
+    renderTahminTable();
     renderLiveMatches();
   }
 
@@ -1462,12 +1480,13 @@
     editMode = !editMode;
     editToggle.classList.toggle("active", editMode);
     renderAll();
+    renderPitch();
   });
 
   /* ---------------- search + filter ---------------- */
   document.getElementById("searchInput").addEventListener("input", function(e){
     searchText = e.target.value.trim().toLocaleLowerCase("tr");
-    renderAll();
+    renderSquad(); renderLoan(); renderDeparted();
   });
   document.getElementById("posChips").addEventListener("click", function(e){
     var btn = e.target.closest(".chip");
@@ -1580,7 +1599,7 @@
       data[f.key] = v === "" ? undefined : v;
     });
     if(missingRequired){
-      formTitle.style.color = "var(--red-700)";
+      formTitle.style.color = "var(--red)";
       return;
     }
     data.editedBy = currentAccountName();
@@ -1595,10 +1614,10 @@
     }
     persist();
     closeForm();
-    if(kind==="squad") renderSquad();
+    if(kind==="squad"){ renderSquad(); renderPitch(); }
     else if(kind==="loanOut") renderLoan();
     else if(kind==="departed") renderDeparted();
-    else if(kind==="fixtures"){ renderFixtures(); renderTahminBoard(); tickCountdown(); }
+    else if(kind==="fixtures"){ renderFixtures(); renderTahminBoard(); renderTahminTable(); tickCountdown(); }
     else if(kind==="liveMatches") renderLiveMatches();
   });
 
@@ -1625,10 +1644,10 @@
   /* ---------------- init ---------------- */
   renderMgmt();
   renderNews();
+  renderNewsPreview();
   renderStandings();
   renderPitch();
   renderAll();
-  setupReveal();
   tickCountdown();
   setInterval(tickCountdown, 1000);
 })();
