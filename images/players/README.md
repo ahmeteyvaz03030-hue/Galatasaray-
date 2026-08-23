@@ -1,49 +1,55 @@
 # Oyuncu Fotoğrafları
 
-Bu klasöre bir oyuncunun/yöneticinin adına göre isimlendirilmiş bir `.jpg` dosyası koyarsan,
-sayfa (kadro kartları, ilk 11 sahası, yönetim kartları) o fotoğrafı otomatik olarak
-kullanır. Fotoğraf yoksa forma numarası / baş harfler gösterilmeye devam eder — hiçbir şey
-bozulmaz.
+Sayfa artık iki kaynaktan fotoğraf gösteriyor, sırayla dener:
+
+1. **Wikimedia Commons** — bazı tanınmış isimler için otomatik, ücretsiz lisanslı bir
+   fotoğraf zaten bağlı (aşağıda "✅ Otomatik" ile işaretli).
+2. **Bu klasör** — buraya oyuncunun adına göre isimlendirilmiş bir `.jpg` dosyası koyarsan,
+   Commons'ta fotoğrafı olmayan biri için o kullanılır.
+3. Hiçbiri yoksa forma numarası / baş harfler gösterilmeye devam eder — hiçbir şey bozulmaz.
 
 **Dosya adı kuralı:** isim küçük harfe çevrilir, Türkçe karakterler sadeleştirilir
 (ş→s, ğ→g, ü→u, ö→o, ç→c, ı→i) ve boşluklar tire (`-`) ile değiştirilir.
 
-Örnek: **Victor Osimhen** → `victor-osimhen.jpg`
+Örnek: **Victor Osimhen** → `victor-osimhen.jpg` (bu isimde zaten ✅ otomatik fotoğraf var,
+ama dosya eklersen onu geçersiz kılmaz — otomatik olan öncelikli kalır).
 
 ## Güncel kadro dosya adları
 
-| Oyuncu | Dosya adı |
-|---|---|
-| Uğurcan Çakır | `ugurcan-cakir.jpg` |
-| Günay Güvenç | `gunay-guvenc.jpg` |
-| Davinson Sánchez | `davinson-sanchez.jpg` |
-| Eren Elmalı | `eren-elmali.jpg` |
-| Kaan Ayhan | `kaan-ayhan.jpg` |
-| Wilfried Singo | `wilfried-singo.jpg` |
-| Abdülkerim Bardakcı | `abdulkerim-bardakci.jpg` |
-| Berkan Kutlu | `berkan-kutlu.jpg` |
-| İsmail Yüksek | `ismail-yuksek.jpg` |
-| İlkay Gündoğan | `ilkay-gundogan.jpg` |
-| Gabriel Sara | `gabriel-sara.jpg` |
-| Kazımcan Karataş | `kazimcan-karatas.jpg` |
-| Lesley Ugochukwu | `lesley-ugochukwu.jpg` |
-| Aleksey Batrakov | `aleksey-batrakov.jpg` |
-| Barış Alper Yılmaz | `baris-alper-yilmaz.jpg` |
-| Victor Osimhen | `victor-osimhen.jpg` |
-| Yunus Akgün | `yunus-akgun.jpg` |
-| Roland Sallai | `roland-sallai.jpg` |
-| Mauro Icardi | `mauro-icardi.jpg` |
-| Yaser Asprilla | `yaser-asprilla.jpg` |
+| Oyuncu | Dosya adı | Commons fotoğrafı |
+|---|---|---|
+| Uğurcan Çakır | `ugurcan-cakir.jpg` | ✅ Otomatik |
+| Günay Güvenç | `gunay-guvenc.jpg` | — |
+| Davinson Sánchez | `davinson-sanchez.jpg` | ✅ Otomatik |
+| Eren Elmalı | `eren-elmali.jpg` | ✅ Otomatik |
+| Kaan Ayhan | `kaan-ayhan.jpg` | ✅ Otomatik |
+| Wilfried Singo | `wilfried-singo.jpg` | — |
+| Abdülkerim Bardakcı | `abdulkerim-bardakci.jpg` | — |
+| Berkan Kutlu | `berkan-kutlu.jpg` | ✅ Otomatik |
+| İsmail Yüksek | `ismail-yuksek.jpg` | — |
+| İlkay Gündoğan | `ilkay-gundogan.jpg` | ✅ Otomatik (eski, milli takım fotoğrafı) |
+| Gabriel Sara | `gabriel-sara.jpg` | ✅ Otomatik |
+| Kazımcan Karataş | `kazimcan-karatas.jpg` | — |
+| Lesley Ugochukwu | `lesley-ugochukwu.jpg` | — |
+| Aleksey Batrakov | `aleksey-batrakov.jpg` | — |
+| Barış Alper Yılmaz | `baris-alper-yilmaz.jpg` | ✅ Otomatik |
+| Victor Osimhen | `victor-osimhen.jpg` | ✅ Otomatik |
+| Yunus Akgün | `yunus-akgun.jpg` | ✅ Otomatik |
+| Roland Sallai | `roland-sallai.jpg` | — |
+| Mauro Icardi | `mauro-icardi.jpg` | ✅ Otomatik |
+| Yaser Asprilla | `yaser-asprilla.jpg` | — |
+
+"—" olan satırlar için hâlâ buraya kendi fotoğrafını ekleyebilirsin.
 
 ## Yönetim / Teknik Direktör
 
-| İsim | Dosya adı |
-|---|---|
-| Dursun Özbek | `dursun-ozbek.jpg` |
-| Abdullah Kavukcu | `abdullah-kavukcu.jpg` |
-| Uğur Yıldız | `ugur-yildiz.jpg` |
-| Mete Türkoğlu | `mete-turkoglu.jpg` |
-| Okan Buruk | `okan-buruk.jpg` |
+| İsim | Dosya adı | Commons fotoğrafı |
+|---|---|---|
+| Dursun Özbek | `dursun-ozbek.jpg` | ✅ Otomatik |
+| Abdullah Kavukcu | `abdullah-kavukcu.jpg` | — |
+| Uğur Yıldız | `ugur-yildiz.jpg` | — |
+| Mete Türkoğlu | `mete-turkoglu.jpg` | — |
+| Okan Buruk | `okan-buruk.jpg` | ✅ Otomatik |
 
 ## Nasıl eklerim?
 
