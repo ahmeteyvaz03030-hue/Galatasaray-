@@ -828,44 +828,8 @@
     return (first+last).toUpperCase();
   }
 
-  /* Free-licensed (Wikimedia Commons) photos for well-known figures.
-     Anyone not listed here just uses a locally uploaded photo, if any. */
-  var COMMONS_PHOTOS = {
-    "Uğurcan Çakır": "Uğurcan_Çakır_at_Antalyaspor_vs_Trabzonspor_20211211_(2)_(cropped).jpg",
-    "Davinson Sánchez": "Davinson_Sanchez_header_(45272402092)_(cropped).jpg",
-    "Eren Elmalı": "Eren_Elmalı_20251019.jpg",
-    "Kaan Ayhan": "Kaan-Ayhan-08-2019.jpg",
-    "Berkan Kutlu": "Berkan_Kutlu_2021.jpg",
-    "İlkay Gündoğan": "FIFA_WC-qualification_2014_-_Austria_vs._Germany_2012-09-11_-_İlkay_Gündoğan_02.JPG",
-    "Gabriel Sara": "Gabriel_Sara_with_a_fan.jpg",
-    "Barış Alper Yılmaz": "Barış_Alper_Yılmaz.jpg",
-    "Victor Osimhen": "Victor_Osimhen_(LOSC)_(cropped).jpg",
-    "Yunus Akgün": "Yunus_Akgün_20220225_7_(cropped).jpg",
-    "Mauro Icardi": "Mauro_Icardi_en_2025.jpg",
-    "Dursun Özbek": "Dursun_Özbek_20250511.jpg",
-    "Okan Buruk": "Okan_Buruk.jpg"
-  };
-
-  function commonsUrl(filename){
-    return "https://commons.wikimedia.org/wiki/Special:FilePath/" + encodeURIComponent(filename) + "?width=400";
-  }
-
   function photoCandidates(name){
-    var list = [];
-    if(COMMONS_PHOTOS[name]) list.push(commonsUrl(COMMONS_PHOTOS[name]));
-    list.push("images/players/" + slugify(name) + ".jpg");
-    return list;
-  }
-
-  function loadPhotoChain(imgEl, candidates, onAllFailed){
-    var idx = 0;
-    imgEl.onerror = function(){
-      idx++;
-      if(idx >= candidates.length){ if(onAllFailed) onAllFailed(); return; }
-      imgEl.src = candidates[idx];
-    };
-    if(candidates.length){ imgEl.src = candidates[0]; }
-    else if(onAllFailed){ onAllFailed(); }
+    return ["images/players/" + slugify(name) + ".jpg"];
   }
 
   function playerAvatar(name, opts){
@@ -873,10 +837,11 @@
     var wrap = el("div","avatar-frame"+(opts.cls ? (" "+opts.cls) : ""));
     wrap.setAttribute("data-no", opts.fallback != null ? opts.fallback : "");
     var img = document.createElement("img");
+    img.src = photoCandidates(name)[0];
     img.alt = "";
     img.loading = "lazy";
+    img.onerror = function(){ wrap.classList.add("noimg"); img.remove(); };
     wrap.appendChild(img);
-    loadPhotoChain(img, photoCandidates(name), function(){ wrap.classList.add("noimg"); img.remove(); });
     if(opts.chip != null){ wrap.appendChild(el("div","no-chip", opts.chip)); }
     return wrap;
   }
@@ -1439,9 +1404,10 @@
       var badge = el("div","badge", player ? player.no : "+");
       if(player){
         var pimg = document.createElement("img");
+        pimg.src = photoCandidates(player.name)[0];
         pimg.alt = ""; pimg.loading = "lazy";
+        pimg.onerror = function(){ pimg.remove(); };
         badge.appendChild(pimg);
-        loadPhotoChain(pimg, photoCandidates(player.name), function(){ pimg.remove(); });
       }
       t.appendChild(badge);
       t.appendChild(el("div","pname", player ? player.name : slot.label));
