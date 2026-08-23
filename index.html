@@ -298,6 +298,16 @@
   .tahmin-chip .score{font-family:"IBM Plex Mono";}
   .tahmin-chip.leader{background:#2A1B10;color:var(--gold-300);}
 
+  /* ---------- countdown ---------- */
+  .countdown-strip{background:linear-gradient(120deg, var(--ink) 0%, var(--red-900) 100%);color:#FBF5E9;padding:16px 0;}
+  .countdown-strip .wrap{display:flex;align-items:center;gap:18px;flex-wrap:wrap;}
+  .countdown-strip h2{font-size:1.05rem;white-space:nowrap;}
+  .countdown-strip .opp{font-weight:700;opacity:0.85;font-size:0.88rem;}
+  .countdown-clock{display:flex;gap:8px;font-family:"IBM Plex Mono";}
+  .countdown-clock .cell{background:rgba(255,255,255,0.12);border-radius:8px;padding:6px 10px;text-align:center;min-width:52px;}
+  .countdown-clock .cell b{display:block;font-size:1.25rem;color:var(--gold-300);}
+  .countdown-clock .cell span{font-size:0.6rem;text-transform:uppercase;letter-spacing:0.06em;opacity:0.8;}
+
   /* ---------- fixtures & predictions ---------- */
   .fixture-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px;position:relative;}
   .fixture-top{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;}
@@ -306,16 +316,31 @@
   .fixture-teams .vs{color:var(--ink-soft);font-family:"Manrope";font-size:0.78rem;font-weight:700;}
   .fixture-score{font-family:"IBM Plex Mono";font-weight:700;color:var(--red-700);font-size:1.1rem;}
   .venue-pill{font-family:"Manrope";font-size:0.68rem;font-weight:800;padding:2px 8px;border-radius:999px;background:var(--surface-2);color:var(--ink-soft);}
-  .pick-row{display:flex;gap:8px;flex-wrap:wrap;}
-  .pick-btn{flex:1;min-width:110px;border:1.5px solid var(--border);background:var(--surface-2);border-radius:10px;padding:8px 10px;font-weight:700;font-size:0.82rem;cursor:pointer;color:var(--ink);}
-  .pick-btn.picked{border-color:var(--red-700);background:var(--red-700);color:#fff;}
-  .pick-btn:disabled{opacity:0.55;cursor:default;}
+  .predict-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .predict-row input{width:52px;padding:7px;border-radius:8px;border:1.5px solid var(--border);background:var(--surface-2);color:var(--ink);font-family:"IBM Plex Mono";font-size:0.95rem;text-align:center;}
+  .predict-row span.dash{color:var(--ink-soft);font-weight:700;}
+  .predict-row .btn{padding:7px 14px;font-size:0.78rem;}
   .picks-list{display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
-  .pick-avatar{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"Anton";font-size:0.66rem;position:relative;}
-  .pick-avatar.correct::after{content:"✓";position:absolute;bottom:-4px;right:-4px;background:#2E8B4E;color:#fff;border-radius:50%;width:12px;height:12px;font-size:8px;display:flex;align-items:center;justify-content:center;}
-  .pick-avatar.wrong::after{content:"✕";position:absolute;bottom:-4px;right:-4px;background:var(--red-700);color:#fff;border-radius:50%;width:12px;height:12px;font-size:8px;display:flex;align-items:center;justify-content:center;}
+  .pick-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:"IBM Plex Mono";font-size:0.6rem;font-weight:700;position:relative;flex-direction:column;line-height:1;}
+  .pick-avatar b{font-family:"Anton";font-size:0.62rem;}
+  .pick-avatar.exact::after{content:"★";position:absolute;bottom:-5px;right:-5px;background:var(--gold-500);color:#2A1B10;border-radius:50%;width:13px;height:13px;font-size:8px;display:flex;align-items:center;justify-content:center;}
+  .pick-avatar.hit::after{content:"✓";position:absolute;bottom:-5px;right:-5px;background:#2E8B4E;color:#fff;border-radius:50%;width:13px;height:13px;font-size:8px;display:flex;align-items:center;justify-content:center;}
+  .pick-avatar.miss::after{content:"✕";position:absolute;bottom:-5px;right:-5px;background:var(--red-700);color:#fff;border-radius:50%;width:13px;height:13px;font-size:8px;display:flex;align-items:center;justify-content:center;}
   .fixture-note{font-size:0.75rem;color:var(--ink-soft);font-style:italic;}
   .fixture-card.editing .card-actions{display:flex;}
+
+  /* ---------- live tracker ---------- */
+  .live-list{display:flex;flex-direction:column;gap:10px;}
+  .live-row{display:flex;align-items:center;gap:14px;padding:12px 16px;border:1px solid var(--border);border-radius:12px;background:var(--surface);box-shadow:var(--shadow);flex-wrap:wrap;position:relative;}
+  .live-row.editing .card-actions{display:flex;}
+  .live-status{font-family:"Manrope";font-size:0.68rem;font-weight:800;padding:4px 10px;border-radius:999px;display:flex;align-items:center;gap:5px;white-space:nowrap;}
+  .live-status.ns{background:var(--surface-2);color:var(--ink-soft);}
+  .live-status.live{background:rgba(166,25,46,0.14);color:var(--red-700);}
+  .live-status.live .dot{width:7px;height:7px;border-radius:50%;background:var(--red-700);animation:pulseDot 1.2s infinite;}
+  .live-status.ft{background:rgba(46,139,78,0.14);color:#2E8B4E;}
+  @keyframes pulseDot{0%,100%{opacity:1;}50%{opacity:0.25;}}
+  .live-teams{flex:1;min-width:180px;font-weight:800;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .live-score{font-family:"IBM Plex Mono";font-weight:700;color:var(--red-700);}
 
   /* ---------- standings ---------- */
   .table-scroll{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);}
@@ -329,35 +354,56 @@
   .pts-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg, var(--gold-600), var(--gold-500));}
   .rank-num{font-family:"IBM Plex Mono";color:var(--ink-soft);}
 
-  /* ---------- 3D pitch ---------- */
-  .pitch-stage{perspective:1500px;padding:6px 0 34px;}
+  /* ---------- standings ---------- */
+  .table-scroll{overflow-x:auto;border-radius:var(--radius);border:1px solid var(--border);box-shadow:var(--shadow);}
+  .standings-table{width:100%;border-collapse:collapse;background:var(--surface);min-width:480px;}
+  .standings-table th{text-align:left;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink-soft);padding:10px 12px;border-bottom:1px solid var(--border);white-space:nowrap;}
+  .standings-table td{padding:9px 12px;border-bottom:1px solid var(--border);font-size:0.86rem;font-variant-numeric:tabular-nums;}
+  .standings-table tr:last-child td{border-bottom:none;}
+  .standings-table tr.gs-row td{background:rgba(166,25,46,0.08);font-weight:800;}
+  .pts-bar-wrap{display:flex;align-items:center;gap:8px;}
+  .pts-bar-track{flex:1;height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden;max-width:140px;}
+  .pts-bar-fill{height:100%;border-radius:4px;background:linear-gradient(90deg, var(--gold-600), var(--gold-500));}
+  .rank-num{font-family:"IBM Plex Mono";color:var(--ink-soft);}
+
+  /* ---------- 3D pitch (editable lineup) ---------- */
+  .pitch-stage{perspective:1500px;padding:6px 0 20px;}
   .pitch{position:relative;width:100%;max-width:820px;margin:0 auto;aspect-ratio:74/100;transform-style:preserve-3d;
-    transform:rotateX(calc(50deg + var(--tiltY, 0deg))) rotateZ(var(--tiltX, 0deg));
+    transform:rotateX(42deg);
     background:repeating-linear-gradient(180deg, #2b9c53 0 40px, #279148 40px 80px);
-    border-radius:14px;box-shadow:0 70px 90px -40px rgba(10,30,15,0.55), inset 0 0 0 3px rgba(255,255,255,0.35);
-    transition:transform .25s ease-out;}
+    border-radius:14px;box-shadow:0 50px 70px -36px rgba(10,30,15,0.5), inset 0 0 0 3px rgba(255,255,255,0.35);}
   .pitch-mark{position:absolute;border:2px solid rgba(255,255,255,0.55);pointer-events:none;}
   .pitch-mark.outline{inset:4%;border-radius:6px;}
   .pitch-mark.halfway{left:4%;right:4%;top:50%;height:0;border:none;border-top:2px solid rgba(255,255,255,0.55);}
   .pitch-mark.circle{left:50%;top:50%;width:26%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%);}
   .pitch-mark.box-top{left:28%;right:28%;top:4%;height:15%;border-top:none;}
   .pitch-mark.box-bottom{left:28%;right:28%;bottom:4%;height:15%;border-bottom:none;}
-  .player-token{position:absolute;transform:translate(-50%,-50%) rotateX(-50deg);display:flex;flex-direction:column;align-items:center;gap:4px;opacity:0;animation:tokenIn .6s cubic-bezier(.2,.8,.2,1) both;animation-play-state:paused;}
-  .pitch-section.in-view .player-token{animation-play-state:running;}
-  .player-token .badge{width:40px;height:40px;border-radius:50%;background:var(--red-700);color:#fff;font-family:"Anton";display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 8px 16px -6px rgba(0,0,0,0.5), inset 0 0 0 2px var(--gold-500);}
-  .player-token .pname{font-size:0.66rem;font-weight:800;background:rgba(20,13,8,0.75);color:#fff;padding:2px 8px;border-radius:999px;white-space:nowrap;}
-  @keyframes tokenIn{
-    from{opacity:0;transform:translate(-50%,-50%) rotateX(-50deg) translateZ(-160px) scale(.6);}
-    to{opacity:1;transform:translate(-50%,-50%) rotateX(-50deg) translateZ(0) scale(1);}
-  }
+  .player-token{position:absolute;transform:translate(-50%,-50%) rotateX(-42deg);display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;background:none;border:none;padding:0;}
+  .player-token .badge{width:42px;height:42px;border-radius:50%;background:var(--red-700);color:#fff;font-family:"Anton";display:flex;align-items:center;justify-content:center;font-size:1rem;box-shadow:0 8px 16px -6px rgba(0,0,0,0.5), inset 0 0 0 2px var(--gold-500);transition:transform .15s ease;}
+  .player-token:hover .badge, .player-token:focus-visible .badge{transform:scale(1.1);box-shadow:0 10px 18px -6px rgba(0,0,0,0.6), inset 0 0 0 2px var(--gold-300);}
+  .player-token.empty .badge{background:var(--surface-2);color:var(--ink-soft);border:2px dashed rgba(255,255,255,0.5);}
+  .player-token .pname{font-size:0.64rem;font-weight:800;background:rgba(20,13,8,0.75);color:#fff;padding:2px 8px;border-radius:999px;white-space:nowrap;max-width:90px;overflow:hidden;text-overflow:ellipsis;}
   .pitch-caption{text-align:center;color:var(--ink-soft);font-size:0.82rem;margin-top:10px;font-style:italic;}
+  .slot-picker{position:fixed;z-index:120;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:0 20px 40px -16px rgba(0,0,0,0.5);padding:8px;max-height:260px;overflow-y:auto;min-width:200px;}
+  .slot-picker button{display:block;width:100%;text-align:left;background:none;border:none;padding:8px 10px;border-radius:8px;font-size:0.85rem;font-weight:700;color:var(--ink);cursor:pointer;}
+  .slot-picker button:hover{background:var(--surface-2);}
+  .slot-picker .empty-opt{color:var(--ink-soft);font-style:italic;}
+  .bench{margin-top:22px;}
+  .bench h3{font-size:0.85rem;font-weight:800;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:10px;}
+  .bench-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .bench-chip{display:flex;align-items:center;gap:6px;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:5px 12px 5px 6px;font-size:0.8rem;font-weight:700;}
+  .bench-chip .no{font-family:"IBM Plex Mono";color:var(--red-700);}
+
+  /* ---------- mascot ---------- */
+  .mascot-lion{position:absolute;right:18px;bottom:-6px;width:120px;height:120px;opacity:0.92;filter:drop-shadow(0 12px 18px rgba(0,0,0,0.35));}
+  .hero .wrap{position:relative;}
 
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
     .reveal{opacity:1;transform:none;transition:none;}
-    .player-token{opacity:1;animation:none !important;}
-    .pitch{transition:none;}
+    .live-status.live .dot{animation:none;}
   }
+  @media (max-width:760px){ .mascot-lion{display:none;} }
 </style>
 </head>
 <body>
@@ -376,6 +422,7 @@
       </div>
     </div>
     <nav class="pillnav">
+      <a href="#canli">Canlı Skor</a>
       <a href="#fikstur">Fikstür</a>
       <a href="#ilk11">İlk 11</a>
       <a href="#puan">Puan Durumu</a>
@@ -404,8 +451,42 @@
       <div><b>Türkiye'nin en çok şampiyonluğu olan kulübü</b><span>Süper Lig</span></div>
       <div><b>Lider · 4 Puan</b><span>2. Hafta itibarıyla</span></div>
     </div>
+    <svg class="mascot-lion" viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="96" cy="60" r="15" fill="#A6192E"/>
+      <circle cx="89" cy="81" r="15" fill="#F0A80B"/>
+      <circle cx="71" cy="94" r="15" fill="#A6192E"/>
+      <circle cx="49" cy="94" r="15" fill="#F0A80B"/>
+      <circle cx="31" cy="81" r="15" fill="#A6192E"/>
+      <circle cx="24" cy="60" r="15" fill="#F0A80B"/>
+      <circle cx="31" cy="39" r="15" fill="#A6192E"/>
+      <circle cx="49" cy="26" r="15" fill="#F0A80B"/>
+      <circle cx="71" cy="26" r="15" fill="#A6192E"/>
+      <circle cx="89" cy="39" r="15" fill="#F0A80B"/>
+      <circle cx="40" cy="34" r="9" fill="#E3B478"/>
+      <circle cx="80" cy="34" r="9" fill="#E3B478"/>
+      <circle cx="40" cy="35" r="4.5" fill="#7a4a24"/>
+      <circle cx="80" cy="35" r="4.5" fill="#7a4a24"/>
+      <circle cx="60" cy="62" r="30" fill="#E3B478"/>
+      <ellipse cx="48" cy="58" rx="4" ry="5" fill="#221507"/>
+      <ellipse cx="72" cy="58" rx="4" ry="5" fill="#221507"/>
+      <path d="M54,68 L66,68 L60,76 Z" fill="#221507"/>
+      <path d="M60,76 Q60,82 50,80" stroke="#221507" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M60,76 Q60,82 70,80" stroke="#221507" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <line x1="52" y1="70" x2="26" y2="66" stroke="#221507" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="52" y1="74" x2="26" y2="76" stroke="#221507" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="68" y1="70" x2="94" y2="66" stroke="#221507" stroke-width="1.5" stroke-linecap="round"/>
+      <line x1="68" y1="74" x2="94" y2="76" stroke="#221507" stroke-width="1.5" stroke-linecap="round"/>
+    </svg>
   </div>
 </section>
+
+<div class="countdown-strip">
+  <div class="wrap">
+    <h2>⏳ Sıradaki Maça Kalan Süre</h2>
+    <span class="opp" id="countdownOpp"></span>
+    <div class="countdown-clock" id="countdownClock"></div>
+  </div>
+</div>
 
 <div class="tahmin-strip">
   <div class="wrap">
@@ -433,6 +514,14 @@
 
 <main class="wrap">
 
+  <section class="section" id="canli">
+    <div class="section-head reveal">
+      <h2>Canlı <span class="accent">Skor Merkezi</span></h2>
+      <p class="section-sub">Bu haftanın Süper Lig maçları. Skorları ve durumu ✏️ Düzenle modundan güncelleyip birbirinize canlı bilgi verin.</p>
+    </div>
+    <div class="live-list" id="liveContainer"></div>
+  </section>
+
   <section class="section" id="fikstur">
     <div class="section-head reveal">
       <h2>Fikstür &amp; <span class="accent">Tahminler</span></h2>
@@ -443,8 +532,8 @@
 
   <section class="section pitch-section" id="ilk11">
     <div class="section-head reveal">
-      <h2>Tahmini <span class="accent">İlk 11</span></h2>
-      <p class="section-sub">Güncel kadroya göre 3D sahada olası dizilişimiz (4-2-3-1). Fareni sahanın üzerinde gezdir.</p>
+      <h2>İlk 11'ini <span class="accent">Sen Kur</span></h2>
+      <p class="section-sub">4-2-3-1 sahada bir oyuncuya tıkla, yerine başka bir kadro oyuncusunu koy — kendi ilk onbirini ve değişikliklerini oluştur.</p>
     </div>
     <div class="pitch-stage" id="pitchStage">
       <div class="pitch" id="pitch">
@@ -456,7 +545,11 @@
         <div id="pitchTokens"></div>
       </div>
     </div>
-    <p class="pitch-caption">Resmi kadro açıklanmadıysa bu diziliş taraftar tahminidir.</p>
+    <p class="pitch-caption">Bir oyuncuya tıklayarak o pozisyona başka bir kadro oyuncusu ata.</p>
+    <div class="bench">
+      <h3>Kadroda, sahada değil</h3>
+      <div class="bench-row" id="benchRow"></div>
+    </div>
   </section>
 
   <section class="section" id="puan">
@@ -604,12 +697,24 @@
   };
 
   var FIXTURES_DEFAULT = [
-    {id:"f1", date:"29 Ağustos 2026", opponent:"Göztepe", venue:"H", gsScore:null, oppScore:null},
-    {id:"f2", date:"6 Eylül 2026", opponent:"Gaziantep FK", venue:"A", gsScore:null, oppScore:null},
-    {id:"f3", date:"13 Eylül 2026", opponent:"Alanyaspor", venue:"H", gsScore:null, oppScore:null},
-    {id:"f4", date:"20 Eylül 2026", opponent:"Çaykur Rizespor", venue:"A", gsScore:null, oppScore:null},
-    {id:"f5", date:"6. Hafta · Ekim 2026 (tarih netleşmedi)", opponent:"Trabzonspor", venue:"TBD", gsScore:null, oppScore:null},
-    {id:"f6", date:"9. Hafta · Ekim 2026 (tarih netleşmedi)", opponent:"Fenerbahçe", venue:"TBD", gsScore:null, oppScore:null}
+    {id:"f1", date:"29 Ağustos 2026 · 21:30", opponent:"Göztepe", venue:"H", when:"2026-08-29T21:30:00+03:00", gsScore:null, oppScore:null},
+    {id:"f2", date:"6 Eylül 2026 · 20:00 (tahmini saat)", opponent:"Gaziantep FK", venue:"A", when:"2026-09-06T20:00:00+03:00", gsScore:null, oppScore:null},
+    {id:"f3", date:"13 Eylül 2026 · 20:00 (tahmini saat)", opponent:"Alanyaspor", venue:"H", when:"2026-09-13T20:00:00+03:00", gsScore:null, oppScore:null},
+    {id:"f4", date:"20 Eylül 2026 · 20:00 (tahmini saat)", opponent:"Çaykur Rizespor", venue:"A", when:"2026-09-20T20:00:00+03:00", gsScore:null, oppScore:null},
+    {id:"f5", date:"6. Hafta · Ekim 2026 (tarih netleşmedi)", opponent:"Trabzonspor", venue:"TBD", when:null, gsScore:null, oppScore:null},
+    {id:"f6", date:"9. Hafta · Ekim 2026 (tarih netleşmedi)", opponent:"Fenerbahçe", venue:"TBD", when:null, gsScore:null, oppScore:null}
+  ];
+
+  var LIVE_MATCHES_DEFAULT = [
+    {id:"lm1", home:"Gençlerbirliği", away:"Erzurumspor FK", time:"28 Ağu 19:00", status:"NS", homeScore:null, awayScore:null},
+    {id:"lm2", home:"Tümosan Konyaspor", away:"Kocaelispor", time:"29 Ağu 19:00", status:"NS", homeScore:null, awayScore:null},
+    {id:"lm3", home:"Gaziantep FK", away:"Çaykur Rizespor", time:"29 Ağu 21:30", status:"NS", homeScore:null, awayScore:null},
+    {id:"lm4", home:"Galatasaray", away:"Göztepe", time:"29 Ağu 21:30", status:"NS", homeScore:null, awayScore:null},
+    {id:"lm5", home:"Trabzonspor", away:"Amedspor", time:"30 Ağu (saat TBD)", status:"NS", homeScore:null, awayScore:null},
+    {id:"lm6", home:"Beşiktaş", away:"Çorum FK", time:"30 Ağu (saat TBD)", status:"NS", homeScore:null, awayScore:null},
+    {id:"lm7", home:"Eyüpspor", away:"Corendon Alanyaspor", time:"30 Ağu (saat TBD)", status:"NS", homeScore:null, awayScore:null},
+    {id:"lm8", home:"İstanbul Başakşehir", away:"Kasımpaşa", time:"30 Ağu (saat TBD)", status:"NS", homeScore:null, awayScore:null},
+    {id:"lm9", home:"Samsunspor", away:"Fenerbahçe", time:"30 Ağu (saat TBD)", status:"NS", homeScore:null, awayScore:null}
   ];
 
   var STANDINGS = [
@@ -633,18 +738,18 @@
     {team:"Fenerbahçe", played:2, points:0}
   ];
 
-  var LINEUP = [
-    {no:1, name:"Uğurcan Çakır", left:50, top:90},
-    {no:4, name:"Eren Elmalı", left:14, top:72},
-    {no:3, name:"Sánchez", left:38, top:76},
-    {no:55, name:"Bardakcı", left:62, top:76},
-    {no:5, name:"Kaan Ayhan", left:86, top:72},
-    {no:6, name:"Berkan Kutlu", left:36, top:54},
-    {no:21, name:"Kazımcan", left:64, top:54},
-    {no:14, name:"Sallai", left:14, top:30},
-    {no:10, name:"Gündoğan", left:50, top:36},
-    {no:7, name:"Barış Alper", left:86, top:30},
-    {no:9, name:"Osimhen", left:50, top:12}
+  var SLOTS = [
+    {id:"GK", label:"Kaleci", left:50, top:90, def:"p1"},
+    {id:"LB", label:"Sol Bek", left:14, top:72, def:"p5"},
+    {id:"CB1", label:"Stoper", left:38, top:76, def:"p4"},
+    {id:"CB2", label:"Stoper", left:62, top:76, def:"p8"},
+    {id:"RB", label:"Sağ Bek", left:86, top:72, def:"p6"},
+    {id:"DM1", label:"Ön Libero", left:36, top:54, def:"p9"},
+    {id:"DM2", label:"Ön Libero", left:64, top:54, def:"p13"},
+    {id:"LW", label:"Sol Kanat", left:14, top:30, def:"p19"},
+    {id:"CAM", label:"On Numara", left:50, top:36, def:"p11"},
+    {id:"RW", label:"Sağ Kanat", left:86, top:30, def:"p16"},
+    {id:"ST", label:"Forvet", left:50, top:12, def:"p17"}
   ];
 
   var MGMT = [
@@ -693,10 +798,18 @@
       {key:"venue", label:"Saha", type:"select", options:[["H","İç Saha"],["A","Deplasman"],["TBD","Belirsiz"]], required:true},
       {key:"gsScore", label:"GS Skoru (oynanmadıysa boş bırak)", type:"number"},
       {key:"oppScore", label:"Rakip Skoru (oynanmadıysa boş bırak)", type:"number"}
+    ],
+    liveMatches: [
+      {key:"home", label:"Ev Sahibi", type:"text", required:true},
+      {key:"away", label:"Deplasman", type:"text", required:true},
+      {key:"time", label:"Tarih / Saat", type:"text", required:true},
+      {key:"status", label:"Durum", type:"select", options:[["NS","Başlamadı"],["LIVE","Canlı"],["FT","Bitti"]], required:true},
+      {key:"homeScore", label:"Ev Sahibi Skoru", type:"number"},
+      {key:"awayScore", label:"Deplasman Skoru", type:"number"}
     ]
   };
 
-  var SECTION_TITLES = {squad:"Oyuncu", loanOut:"Kiralık Kaydı", departed:"Ayrılık Kaydı", fixtures:"Maç"};
+  var SECTION_TITLES = {squad:"Oyuncu", loanOut:"Kiralık Kaydı", departed:"Ayrılık Kaydı", fixtures:"Maç", liveMatches:"Canlı Maç"};
 
   function clone(o){ return JSON.parse(JSON.stringify(o)); }
 
@@ -711,6 +824,9 @@
     var base = clone(DEFAULT_DATA);
     base.fixtures = clone(FIXTURES_DEFAULT);
     base.predictions = {};
+    base.liveMatches = clone(LIVE_MATCHES_DEFAULT);
+    base.lineup = {};
+    SLOTS.forEach(function(s){ base.lineup[s.id] = s.def; });
     var raw = safeGet(STORAGE_KEY);
     if(raw){
       try{
@@ -921,39 +1037,50 @@
   }
 
   /* ---------------- render: fixtures & predictions ---------------- */
-  var PICK_LABEL = {GS:"GS Kazanır", D:"Berabere", OPP:"GS Kaybeder"};
-
   function fixtureOutcome(fx){
     if(fx.gsScore == null || fx.oppScore == null) return null;
     if(fx.gsScore > fx.oppScore) return "GS";
     if(fx.gsScore < fx.oppScore) return "OPP";
     return "D";
   }
+  function predOutcome(pred){
+    if(pred.gs > pred.opp) return "GS";
+    if(pred.gs < pred.opp) return "OPP";
+    return "D";
+  }
+  function predictionPoints(pred, fx){
+    var outcome = fixtureOutcome(fx);
+    if(!outcome || !pred || pred.gs == null || pred.opp == null) return null;
+    if(pred.gs === fx.gsScore && pred.opp === fx.oppScore) return 3;
+    if(predOutcome(pred) === outcome) return 1;
+    return 0;
+  }
 
   function renderTahminBoard(){
     var board = document.getElementById("tahminBoard");
     board.innerHTML = "";
     var rows = ACCOUNTS.map(function(a){
-      var correct = 0, total = 0;
+      var points = 0, exact = 0, played = 0;
       state.fixtures.forEach(function(fx){
-        var outcome = fixtureOutcome(fx);
-        var pick = state.predictions[fx.id] && state.predictions[fx.id][a.id];
-        if(outcome && pick){
-          total++;
-          if(pick === outcome) correct++;
+        var pred = state.predictions[fx.id] && state.predictions[fx.id][a.id];
+        var pts = pred ? predictionPoints(pred, fx) : null;
+        if(pts != null){
+          played++;
+          points += pts;
+          if(pts === 3) exact++;
         }
       });
-      return {a:a, correct:correct, total:total};
+      return {a:a, points:points, exact:exact, played:played};
     });
-    rows.sort(function(x,y){ return y.correct - x.correct; });
-    var topScore = rows.length ? rows[0].correct : 0;
+    rows.sort(function(x,y){ return y.points - x.points || y.exact - x.exact; });
+    var topScore = rows.length ? rows[0].points : 0;
     rows.forEach(function(r){
-      var chip = el("div","tahmin-chip"+(r.correct>0 && r.correct===topScore ? " leader":""));
+      var chip = el("div","tahmin-chip"+(r.points>0 && r.points===topScore ? " leader":""));
       var av = el("span","avatar", r.a.initials);
       av.style.background = r.a.bg; av.style.color = r.a.fg;
       chip.appendChild(av);
       chip.appendChild(document.createTextNode(r.a.name+" "));
-      var score = el("span","score", (r.correct>0 && r.correct===topScore ? "👑 ":"") + r.correct + "/" + r.total);
+      var score = el("span","score", (r.points>0 && r.points===topScore ? "👑 ":"") + r.points + " puan · " + r.exact + " tam isabet");
       chip.appendChild(score);
       board.appendChild(chip);
     });
@@ -964,7 +1091,6 @@
     container.innerHTML = "";
     state.fixtures.forEach(function(fx){
       var played = fx.gsScore != null && fx.oppScore != null;
-      var outcome = fixtureOutcome(fx);
       var card = el("div","fixture-card"+(editMode?" editing":""));
 
       var top = el("div","fixture-top");
@@ -981,28 +1107,42 @@
       }
       card.appendChild(teams);
 
-      var pickRow = el("div","pick-row");
-      ["GS","D","OPP"].forEach(function(choice){
-        var btn = el("button","pick-btn", PICK_LABEL[choice]);
-        btn.type = "button";
-        var myPick = state.predictions[fx.id] && state.predictions[fx.id][currentAccountId];
-        if(myPick === choice) btn.classList.add("picked");
-        if(played) btn.disabled = true;
-        btn.addEventListener("click", function(){ pickFixture(fx.id, choice); });
-        pickRow.appendChild(btn);
-      });
-      card.appendChild(pickRow);
+      var myPred = state.predictions[fx.id] && state.predictions[fx.id][currentAccountId];
+      var predictRow = el("div","predict-row");
+      var gsInput = document.createElement("input");
+      gsInput.type = "number"; gsInput.min = "0"; gsInput.id = "pred_gs_"+fx.id;
+      if(myPred) gsInput.value = myPred.gs;
+      var oppInput = document.createElement("input");
+      oppInput.type = "number"; oppInput.min = "0"; oppInput.id = "pred_opp_"+fx.id;
+      if(myPred) oppInput.value = myPred.opp;
+      if(played){ gsInput.disabled = true; oppInput.disabled = true; }
+      predictRow.appendChild(document.createTextNode("Tahminin: "));
+      predictRow.appendChild(gsInput);
+      predictRow.appendChild(el("span","dash","–"));
+      predictRow.appendChild(oppInput);
+      if(!played){
+        var saveBtn = el("button","btn btn-primary","Kaydet");
+        saveBtn.type = "button";
+        saveBtn.addEventListener("click", function(){ savePrediction(fx.id); });
+        predictRow.appendChild(saveBtn);
+      }
+      card.appendChild(predictRow);
 
       var picksList = el("div","picks-list");
       var anyPicks = false;
       ACCOUNTS.forEach(function(a){
-        var pick = state.predictions[fx.id] && state.predictions[fx.id][a.id];
-        if(!pick) return;
+        var pred = state.predictions[fx.id] && state.predictions[fx.id][a.id];
+        if(!pred) return;
         anyPicks = true;
-        var av = el("span","pick-avatar", a.initials);
-        av.title = a.name + ": " + PICK_LABEL[pick];
+        var av = el("span","pick-avatar");
         av.style.background = a.bg; av.style.color = a.fg;
-        if(played) av.classList.add(pick === outcome ? "correct" : "wrong");
+        av.title = a.name + ": " + pred.gs + "-" + pred.opp;
+        av.appendChild(el("b", null, a.initials));
+        av.appendChild(document.createTextNode(pred.gs+"-"+pred.opp));
+        if(played){
+          var pts = predictionPoints(pred, fx);
+          av.classList.add(pts === 3 ? "exact" : (pts === 1 ? "hit" : "miss"));
+        }
         picksList.appendChild(av);
       });
       if(anyPicks) card.appendChild(picksList);
@@ -1039,15 +1179,68 @@
     }
   }
 
-  function pickFixture(fixtureId, choice){
+  function savePrediction(fixtureId){
     if(!currentAccountId){ openAcctModal(); return; }
     var fx = state.fixtures.find(function(x){ return x.id === fixtureId; });
     if(fx && fx.gsScore != null && fx.oppScore != null) return;
+    var gsVal = document.getElementById("pred_gs_"+fixtureId).value;
+    var oppVal = document.getElementById("pred_opp_"+fixtureId).value;
+    if(gsVal === "" || oppVal === "") return;
     if(!state.predictions[fixtureId]) state.predictions[fixtureId] = {};
-    state.predictions[fixtureId][currentAccountId] = choice;
+    state.predictions[fixtureId][currentAccountId] = {gs:Number(gsVal), opp:Number(oppVal)};
     persist();
     renderFixtures();
     renderTahminBoard();
+  }
+
+  /* ---------------- render: live tracker ---------------- */
+  var STATUS_LABEL = {NS:"Başlamadı", LIVE:"Canlı", FT:"Maç Sonu"};
+
+  function renderLiveMatches(){
+    var container = document.getElementById("liveContainer");
+    container.innerHTML = "";
+    state.liveMatches.forEach(function(m){
+      var row = el("div","live-row"+(editMode?" editing":""));
+
+      var statusCls = m.status === "LIVE" ? "live" : (m.status === "FT" ? "ft" : "ns");
+      var statusEl = el("span","live-status "+statusCls);
+      if(m.status === "LIVE") statusEl.appendChild(el("span","dot"));
+      statusEl.appendChild(document.createTextNode(m.status === "NS" ? m.time : STATUS_LABEL[m.status]));
+      row.appendChild(statusEl);
+
+      var teams = el("div","live-teams");
+      teams.appendChild(document.createTextNode(m.home + " – " + m.away));
+      row.appendChild(teams);
+
+      if(m.homeScore != null && m.awayScore != null){
+        row.appendChild(el("span","live-score", m.homeScore + " - " + m.awayScore));
+      }
+
+      var actions = el("div","card-actions");
+      var editBtn = el("button","icon-btn","✎");
+      editBtn.type="button";
+      editBtn.addEventListener("click", function(){ openForm("liveMatches", m, null); });
+      var delBtn = el("button","icon-btn","✕");
+      delBtn.type="button";
+      delBtn.addEventListener("click", function(){
+        openConfirm(m.home + " - " + m.away + " maçı silinsin mi?", function(){
+          state.liveMatches = state.liveMatches.filter(function(x){ return x.id !== m.id; });
+          persist(); renderLiveMatches();
+        });
+      });
+      actions.appendChild(editBtn);
+      actions.appendChild(delBtn);
+      row.appendChild(actions);
+
+      container.appendChild(row);
+    });
+
+    if(editMode){
+      var addBtn = el("button","add-card","+ Maç Ekle");
+      addBtn.type = "button";
+      addBtn.addEventListener("click", function(){ openForm("liveMatches", null, null); });
+      container.appendChild(addBtn);
+    }
   }
 
   /* ---------------- render: standings ---------------- */
@@ -1067,40 +1260,130 @@
     table.innerHTML = thead + "<tbody>" + rows + "</tbody>";
   }
 
-  /* ---------------- render: 3D lineup ---------------- */
+  /* ---------------- render: editable lineup ---------------- */
+  var openPicker = null;
+
+  function closeSlotPicker(){
+    if(openPicker){ openPicker.remove(); openPicker = null; }
+    document.removeEventListener("click", onDocClickClosePicker, true);
+  }
+  function onDocClickClosePicker(e){
+    if(openPicker && !openPicker.contains(e.target)) closeSlotPicker();
+  }
+
+  function openSlotPicker(slot, anchorEl){
+    closeSlotPicker();
+    var panel = el("div","slot-picker");
+    var emptyBtn = el("button","empty-opt","— Boş bırak —");
+    emptyBtn.type = "button";
+    emptyBtn.addEventListener("click", function(){
+      state.lineup[slot.id] = null;
+      persist(); renderPitch(); closeSlotPicker();
+    });
+    panel.appendChild(emptyBtn);
+    state.squad.forEach(function(p){
+      var btn = el("button", null, "#"+p.no+" "+p.name);
+      btn.type = "button";
+      btn.addEventListener("click", function(){
+        state.lineup[slot.id] = p.id;
+        persist(); renderPitch(); closeSlotPicker();
+      });
+      panel.appendChild(btn);
+    });
+    document.body.appendChild(panel);
+    var r = anchorEl.getBoundingClientRect();
+    var top = r.bottom + 6;
+    var left = Math.min(r.left, window.innerWidth - 220);
+    if(top + 260 > window.innerHeight) top = Math.max(8, r.top - 266);
+    panel.style.top = top + "px";
+    panel.style.left = Math.max(8,left) + "px";
+    openPicker = panel;
+    setTimeout(function(){ document.addEventListener("click", onDocClickClosePicker, true); }, 0);
+  }
+
   function renderPitch(){
     var tokens = document.getElementById("pitchTokens");
     tokens.innerHTML = "";
-    LINEUP.forEach(function(p, i){
-      var t = el("div","player-token");
-      t.style.left = p.left + "%";
-      t.style.top = p.top + "%";
-      t.style.animationDelay = (i * 0.06) + "s";
-      t.appendChild(el("div","badge", p.no));
-      t.appendChild(el("div","pname", p.name));
+    SLOTS.forEach(function(slot){
+      var playerId = state.lineup[slot.id];
+      var player = playerId ? state.squad.find(function(p){ return p.id === playerId; }) : null;
+      var t = el("button","player-token"+(player?"":" empty"));
+      t.type = "button";
+      t.style.left = slot.left + "%";
+      t.style.top = slot.top + "%";
+      t.title = slot.label + " — değiştirmek için tıkla";
+      t.appendChild(el("div","badge", player ? player.no : "+"));
+      t.appendChild(el("div","pname", player ? player.name : slot.label));
+      t.addEventListener("click", function(e){
+        e.stopPropagation();
+        openSlotPicker(slot, t);
+      });
       tokens.appendChild(t);
     });
+    renderBench();
+  }
 
-    var stage = document.getElementById("pitchStage");
-    var pitch = document.getElementById("pitch");
-    stage.addEventListener("mousemove", function(e){
-      var r = stage.getBoundingClientRect();
-      var x = (e.clientX - r.left) / r.width - 0.5;
-      var y = (e.clientY - r.top) / r.height - 0.5;
-      pitch.style.setProperty("--tiltX", (x * 14) + "deg");
-      pitch.style.setProperty("--tiltY", (y * -10) + "deg");
+  function renderBench(){
+    var bench = document.getElementById("benchRow");
+    bench.innerHTML = "";
+    var assigned = {};
+    SLOTS.forEach(function(s){ if(state.lineup[s.id]) assigned[state.lineup[s.id]] = true; });
+    var benchPlayers = state.squad.filter(function(p){ return !assigned[p.id]; });
+    if(benchPlayers.length === 0){
+      bench.appendChild(el("p","empty-note","Kadrodaki herkes sahada."));
+      return;
+    }
+    benchPlayers.forEach(function(p){
+      var chip = el("span","bench-chip");
+      chip.appendChild(el("span","no","#"+p.no));
+      chip.appendChild(document.createTextNode(p.name));
+      bench.appendChild(chip);
     });
-    stage.addEventListener("mouseleave", function(){
-      pitch.style.setProperty("--tiltX", "0deg");
-      pitch.style.setProperty("--tiltY", "0deg");
-    });
+  }
+
+  /* ---------------- countdown to next match ---------------- */
+  function getNextFixture(){
+    var now = new Date();
+    var upcoming = state.fixtures
+      .filter(function(fx){ return fx.when && fx.gsScore == null; })
+      .map(function(fx){ return {fx:fx, t:new Date(fx.when)}; })
+      .filter(function(x){ return !isNaN(x.t.getTime()); })
+      .sort(function(a,b){ return a.t - b.t; });
+    var future = upcoming.filter(function(x){ return x.t > now; });
+    return future.length ? future[0] : (upcoming.length ? upcoming[0] : null);
+  }
+
+  function tickCountdown(){
+    var oppEl = document.getElementById("countdownOpp");
+    var clockEl = document.getElementById("countdownClock");
+    var next = getNextFixture();
+    if(!next){
+      oppEl.textContent = "Tarihi netleşmiş bir sonraki maç yok";
+      clockEl.innerHTML = "";
+      return;
+    }
+    var fx = next.fx;
+    oppEl.textContent = "Galatasaray – " + fx.opponent + (fx.venue === "H" ? " (İç Saha)" : fx.venue === "A" ? " (Deplasman)" : "");
+    var diff = next.t.getTime() - Date.now();
+    if(diff <= 0){
+      clockEl.innerHTML = "<div class=\"cell\"><b>🔴</b><span>Maç Zamanı</span></div>";
+      return;
+    }
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    var pad = function(n){ return String(n).padStart(2,"0"); };
+    clockEl.innerHTML =
+      "<div class=\"cell\"><b>"+d+"</b><span>Gün</span></div>" +
+      "<div class=\"cell\"><b>"+pad(h)+"</b><span>Saat</span></div>" +
+      "<div class=\"cell\"><b>"+pad(m)+"</b><span>Dakika</span></div>" +
+      "<div class=\"cell\"><b>"+pad(s)+"</b><span>Saniye</span></div>";
   }
 
   function setupReveal(){
     if(!("IntersectionObserver" in window)){
       document.querySelectorAll(".reveal").forEach(function(n){ n.classList.add("in-view"); });
-      var ps = document.querySelector(".pitch-section");
-      if(ps) ps.classList.add("in-view");
       return;
     }
     var obs = new IntersectionObserver(function(entries){
@@ -1112,8 +1395,6 @@
       });
     }, {threshold:0.2});
     document.querySelectorAll(".reveal").forEach(function(n){ obs.observe(n); });
-    var pitchSection = document.querySelector(".pitch-section");
-    if(pitchSection) obs.observe(pitchSection);
   }
 
   function renderAll(){
@@ -1122,6 +1403,7 @@
     renderDeparted();
     renderFixtures();
     renderTahminBoard();
+    renderLiveMatches();
   }
 
   /* ---------------- edit mode toggle ---------------- */
@@ -1267,7 +1549,8 @@
     if(kind==="squad") renderSquad();
     else if(kind==="loanOut") renderLoan();
     else if(kind==="departed") renderDeparted();
-    else if(kind==="fixtures"){ renderFixtures(); renderTahminBoard(); }
+    else if(kind==="fixtures"){ renderFixtures(); renderTahminBoard(); tickCountdown(); }
+    else if(kind==="liveMatches") renderLiveMatches();
   });
 
   /* ---------------- confirm modal ---------------- */
@@ -1297,6 +1580,8 @@
   renderPitch();
   renderAll();
   setupReveal();
+  tickCountdown();
+  setInterval(tickCountdown, 1000);
 })();
 </script>
 
