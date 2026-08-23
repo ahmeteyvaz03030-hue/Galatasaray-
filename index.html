@@ -1,0 +1,919 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cimbom Kadro Merkezi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --red-900:#6E0B1F;
+    --red-700:#A6192E;
+    --red-600:#C41C36;
+    --gold-600:#B9820E;
+    --gold-500:#F0A80B;
+    --gold-300:#FFD873;
+    --bg:#FBF5E9;
+    --surface:#FFFFFF;
+    --surface-2:#F3E7CE;
+    --ink:#221507;
+    --ink-soft:#5B4A38;
+    --border:rgba(34,21,7,0.14);
+    --shadow:0 12px 30px -14px rgba(34,21,7,0.35);
+    --radius:16px;
+    --maxw:1180px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#140D08;
+      --surface:#1E140D;
+      --surface-2:#2A1B10;
+      --ink:#F6ECDA;
+      --ink-soft:#CBB79A;
+      --border:rgba(246,236,218,0.14);
+      --shadow:0 16px 34px -14px rgba(0,0,0,0.6);
+      --red-700:#D23A4E;
+      --red-600:#E9495D;
+      --gold-500:#FFC93C;
+      --gold-600:#FFD873;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#140D08;
+    --surface:#1E140D;
+    --surface-2:#2A1B10;
+    --ink:#F6ECDA;
+    --ink-soft:#CBB79A;
+    --border:rgba(246,236,218,0.14);
+    --shadow:0 16px 34px -14px rgba(0,0,0,0.6);
+    --red-700:#D23A4E;
+    --red-600:#E9495D;
+    --gold-500:#FFC93C;
+    --gold-600:#FFD873;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+    line-height:1.5;
+  }
+  h1,h2,h3{
+    font-family:"Anton",Impact,"Arial Narrow Bold",sans-serif;
+    font-weight:400;
+    letter-spacing:0.01em;
+    text-wrap:balance;
+    margin:0;
+  }
+  .mono{font-family:"IBM Plex Mono","SFMono-Regular",monospace;}
+  a{color:inherit;}
+  button{font-family:inherit;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+  section{scroll-margin-top:84px;}
+
+  /* ---------- header ---------- */
+  header.topbar{
+    position:sticky;top:0;z-index:30;
+    background:linear-gradient(180deg, var(--red-700), var(--red-900));
+    color:#FBF5E9;
+    border-bottom:3px solid var(--gold-500);
+  }
+  .topbar-inner{
+    display:flex;align-items:center;gap:18px;
+    padding:12px 24px;max-width:var(--maxw);margin:0 auto;flex-wrap:wrap;
+  }
+  .crest{
+    width:44px;height:48px;flex:none;display:block;
+  }
+  .brand{display:flex;align-items:center;gap:12px;margin-right:auto;}
+  .brand-text{display:flex;flex-direction:column;line-height:1.05;}
+  .brand-text b{font-family:"Anton";font-size:1.15rem;letter-spacing:0.02em;}
+  .brand-text span{font-size:0.68rem;opacity:0.8;letter-spacing:0.08em;text-transform:uppercase;}
+  nav.pillnav{display:flex;gap:4px;flex-wrap:wrap;}
+  nav.pillnav a{
+    font-size:0.85rem;font-weight:700;padding:8px 12px;border-radius:999px;
+    text-decoration:none;color:#FBF5E9;opacity:0.85;transition:background .15s,opacity .15s;
+  }
+  nav.pillnav a:hover{background:rgba(255,255,255,0.14);opacity:1;}
+  .acct-chip{
+    display:flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);
+    border:1px solid rgba(255,255,255,0.25);border-radius:999px;padding:5px 12px 5px 5px;
+    cursor:pointer;color:#FBF5E9;font-size:0.85rem;font-weight:700;
+  }
+  .acct-chip:hover{background:rgba(255,255,255,0.2);}
+  .avatar{
+    width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-family:"Anton";font-size:0.8rem;color:#2A1B10;flex:none;
+  }
+  .edit-toggle{
+    display:flex;align-items:center;gap:6px;border:1px solid rgba(255,255,255,0.35);
+    background:rgba(255,255,255,0.08);color:#FBF5E9;border-radius:999px;padding:8px 14px;
+    font-size:0.85rem;font-weight:700;cursor:pointer;transition:background .15s;
+  }
+  .edit-toggle:hover{background:rgba(255,255,255,0.2);}
+  .edit-toggle.active{background:var(--gold-500);color:#2A1B10;border-color:var(--gold-500);}
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;overflow:hidden;
+    background:
+      repeating-linear-gradient(115deg, rgba(255,255,255,0.05) 0 26px, transparent 26px 64px),
+      linear-gradient(120deg, var(--red-900) 0%, var(--red-700) 55%, var(--gold-500) 165%);
+    color:#FBF5E9;padding:56px 0 40px;
+  }
+  .hero h1{font-size:clamp(2.4rem,6vw,4.2rem);color:#FBF5E9;}
+  .hero h1 em{font-style:normal;color:var(--gold-300);}
+  .hero p.lede{max-width:56ch;font-size:1.05rem;opacity:0.92;margin-top:14px;}
+  .hero-stats{display:flex;gap:28px;flex-wrap:wrap;margin-top:28px;}
+  .hero-stats div{min-width:140px;}
+  .hero-stats b{display:block;font-family:"Anton";font-size:1.3rem;color:var(--gold-300);}
+  .hero-stats span{font-size:0.78rem;opacity:0.82;text-transform:uppercase;letter-spacing:0.06em;}
+
+  /* ---------- search bar ---------- */
+  .searchbar{
+    position:sticky;top:73px;z-index:20;background:var(--surface);
+    border-bottom:1px solid var(--border);box-shadow:var(--shadow);
+  }
+  .searchbar-inner{display:flex;gap:12px;align-items:center;padding:12px 24px;max-width:var(--maxw);margin:0 auto;flex-wrap:wrap;}
+  .search-input-wrap{position:relative;flex:1;min-width:220px;}
+  .search-input-wrap svg{position:absolute;left:12px;top:50%;transform:translateY(-50%);opacity:0.5;}
+  #searchInput{
+    width:100%;padding:10px 14px 10px 36px;border-radius:999px;border:1.5px solid var(--border);
+    background:var(--surface-2);color:var(--ink);font-size:0.95rem;
+  }
+  #searchInput:focus{outline:2px solid var(--red-600);outline-offset:1px;}
+  .chip-row{display:flex;gap:6px;flex-wrap:wrap;}
+  .chip{
+    border:1.5px solid var(--border);background:transparent;color:var(--ink-soft);
+    padding:7px 13px;border-radius:999px;font-size:0.82rem;font-weight:700;cursor:pointer;
+  }
+  .chip.active{background:var(--red-700);border-color:var(--red-700);color:#fff;}
+
+  /* ---------- generic section ---------- */
+  .section{padding:44px 0;}
+  .section-head{display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap;}
+  .section-head h2{font-size:clamp(1.6rem,3.4vw,2.2rem);}
+  .section-head .accent{color:var(--red-700);}
+  .section-sub{color:var(--ink-soft);font-size:0.92rem;max-width:60ch;}
+  .empty-note{color:var(--ink-soft);font-size:0.9rem;font-style:italic;padding:18px 0;}
+
+  .pos-group{margin-bottom:28px;}
+  .pos-group h3{font-size:1.05rem;font-family:"Manrope";font-weight:800;text-transform:uppercase;letter-spacing:0.06em;color:var(--red-700);margin-bottom:12px;display:flex;align-items:center;gap:10px;}
+  .pos-group h3::after{content:"";flex:1;height:1px;background:var(--border);}
+
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:14px;}
+
+  .card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:16px;position:relative;box-shadow:var(--shadow);display:flex;flex-direction:column;gap:8px;
+  }
+  .card .top-row{display:flex;align-items:flex-start;gap:12px;}
+  .shirt-no{
+    font-family:"Anton";font-size:1.6rem;color:var(--red-700);background:var(--surface-2);
+    border-radius:10px;min-width:44px;height:44px;display:flex;align-items:center;justify-content:center;flex:none;
+  }
+  .card .name{font-weight:800;font-size:1.02rem;line-height:1.2;}
+  .meta-row{display:flex;gap:6px;flex-wrap:wrap;align-items:center;font-size:0.76rem;}
+  .pill{
+    padding:2px 9px;border-radius:999px;background:var(--surface-2);color:var(--ink-soft);
+    font-family:"IBM Plex Mono";font-size:0.72rem;letter-spacing:0.03em;
+  }
+  .pill.tag{background:var(--gold-500);color:#2A1B10;font-family:"Manrope";font-weight:700;letter-spacing:0;}
+  .pill.warn{background:var(--red-700);color:#fff;font-family:"Manrope";font-weight:700;}
+  .edited-by{font-size:0.7rem;color:var(--ink-soft);opacity:0.75;font-style:italic;}
+  .card-actions{position:absolute;top:10px;right:10px;display:none;gap:6px;}
+  .card.editing .card-actions{display:flex;}
+  .icon-btn{
+    width:26px;height:26px;border-radius:8px;border:1px solid var(--border);background:var(--surface-2);
+    color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:0.8rem;
+  }
+  .icon-btn:hover{background:var(--red-700);color:#fff;border-color:var(--red-700);}
+
+  .add-card{
+    border:2px dashed var(--border);border-radius:var(--radius);display:flex;align-items:center;justify-content:center;
+    color:var(--ink-soft);font-weight:800;cursor:pointer;min-height:96px;background:transparent;
+  }
+  .add-card:hover{border-color:var(--red-700);color:var(--red-700);}
+
+  /* loan/departed list style */
+  .list-row{
+    display:flex;align-items:center;gap:14px;padding:12px 16px;border:1px solid var(--border);
+    border-radius:12px;background:var(--surface);margin-bottom:10px;box-shadow:var(--shadow);position:relative;
+  }
+  .list-row .badge{
+    width:8px;align-self:stretch;border-radius:4px;background:var(--gold-500);flex:none;
+  }
+  .list-row.out .badge{background:var(--red-700);}
+  .list-row .rowmain{flex:1;min-width:0;}
+  .list-row .rowmain .name{font-weight:800;}
+  .list-row .rowmain .sub{color:var(--ink-soft);font-size:0.85rem;}
+  .list-row .arrow{color:var(--ink-soft);font-size:0.85rem;}
+  .list-row .club{font-weight:700;color:var(--red-700);}
+  .list-row .row-actions{display:none;gap:6px;}
+  .list-row.editing .row-actions{display:flex;}
+
+  /* management */
+  .mgmt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;}
+  .mgmt-card{
+    background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+    padding:20px;text-align:left;box-shadow:var(--shadow);
+  }
+  .mgmt-card .role{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;color:var(--gold-600);font-weight:800;}
+  .mgmt-card .who{font-family:"Anton";font-size:1.3rem;margin:6px 0 4px;}
+  .mgmt-card .note{font-size:0.84rem;color:var(--ink-soft);}
+
+  /* news */
+  .news-list{display:flex;flex-direction:column;gap:14px;}
+  .news-item{
+    display:grid;grid-template-columns:96px 1fr;gap:16px;background:var(--surface);
+    border:1px solid var(--border);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow);
+  }
+  .news-item .date{font-family:"IBM Plex Mono";font-size:0.76rem;color:var(--red-700);font-weight:600;}
+  .news-item h4{font-family:"Manrope";font-weight:800;font-size:1rem;margin:0 0 6px;}
+  .news-item p{margin:0;color:var(--ink-soft);font-size:0.9rem;}
+
+  footer{border-top:1px solid var(--border);padding:28px 0 40px;color:var(--ink-soft);font-size:0.82rem;}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+
+  /* ---------- modals ---------- */
+  .modal-overlay{
+    position:fixed;inset:0;background:rgba(20,13,8,0.55);backdrop-filter:blur(2px);
+    display:flex;align-items:center;justify-content:center;z-index:100;padding:20px;
+  }
+  .modal-overlay[hidden]{display:none;}
+  .modal-card{
+    background:var(--surface);border-radius:18px;padding:26px;max-width:420px;width:100%;
+    box-shadow:0 24px 60px -20px rgba(0,0,0,0.5);border:1px solid var(--border);
+  }
+  .modal-card h3{font-family:"Anton";font-size:1.3rem;margin-bottom:14px;color:var(--red-700);}
+  .modal-card p.msg{color:var(--ink-soft);font-size:0.92rem;}
+  .field{margin-bottom:12px;display:flex;flex-direction:column;gap:5px;}
+  .field label{font-size:0.78rem;font-weight:700;color:var(--ink-soft);}
+  .field input,.field select{
+    padding:9px 11px;border-radius:9px;border:1.5px solid var(--border);background:var(--surface-2);
+    color:var(--ink);font-size:0.92rem;font-family:inherit;
+  }
+  .field input:focus,.field select:focus{outline:2px solid var(--red-600);outline-offset:1px;}
+  .modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:16px;}
+  .btn{border:none;border-radius:999px;padding:10px 18px;font-weight:800;font-size:0.88rem;cursor:pointer;}
+  .btn-primary{background:var(--red-700);color:#fff;}
+  .btn-primary:hover{background:var(--red-600);}
+  .btn-ghost{background:transparent;color:var(--ink-soft);}
+  .btn-ghost:hover{color:var(--ink);}
+  .btn-danger{background:var(--ink);color:var(--bg);}
+
+  /* account picker */
+  .acct-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:6px;}
+  .acct-option{
+    display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 8px;border-radius:14px;
+    border:1.5px solid var(--border);background:var(--surface-2);cursor:pointer;font-weight:800;color:var(--ink);
+  }
+  .acct-option:hover{border-color:var(--red-700);}
+  .acct-option .avatar{width:46px;height:46px;font-size:1.1rem;}
+
+  @media (max-width:640px){
+    .searchbar{top:126px;}
+    .news-item{grid-template-columns:1fr;}
+  }
+  :focus-visible{outline:2px solid var(--red-600);outline-offset:2px;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <svg class="crest" viewBox="0 0 60 66" aria-hidden="true">
+        <path d="M30 2 L56 12 V34 C56 50 44 60 30 64 C16 60 4 50 4 34 V12 Z" fill="#A6192E" stroke="#F0A80B" stroke-width="2.5"/>
+        <path d="M30 2 L56 12 V34 C56 50 44 60 30 64 Z" fill="#F0A80B" opacity="0.18"/>
+        <text x="30" y="40" text-anchor="middle" font-family="Anton" font-size="22" fill="#FBF5E9">GS</text>
+      </svg>
+      <div class="brand-text">
+        <b>Cimbom Kadro Merkezi</b>
+        <span>Taraftar projesi · 1905</span>
+      </div>
+    </div>
+    <nav class="pillnav">
+      <a href="#kadro">Kadro</a>
+      <a href="#kiralik">Kiralıklar</a>
+      <a href="#giden">Giden Oyuncular</a>
+      <a href="#yonetim">Yönetim</a>
+      <a href="#haberler">Haberler</a>
+    </nav>
+    <button class="edit-toggle" id="editToggle" type="button">✏️ <span>Düzenle</span></button>
+    <button class="acct-chip" id="acctChip" type="button">
+      <span class="avatar" id="acctAvatar">?</span>
+      <span id="acctLabel">Hesap seç</span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="wrap">
+    <h1>Sarı-Kırmızı <em>Kadro Merkezi</em></h1>
+    <p class="lede">Galatasaray'ın güncel kadrosu, kiralık oyuncuları ve ayrılıkları tek sayfada. Transfermarkt tadında ama bizim elimizden çıkma — dilediğin gibi düzenle.</p>
+    <div class="hero-stats">
+      <div><b>1905</b><span>Kuruluş</span></div>
+      <div><b>Okan Buruk</b><span>Teknik Direktör</span></div>
+      <div><b>Dursun Özbek</b><span>Başkan</span></div>
+      <div><b>Türkiye'nin en çok şampiyonluğu olan kulübü</b><span>Süper Lig</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="searchbar">
+  <div class="searchbar-inner">
+    <div class="search-input-wrap">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input id="searchInput" type="text" placeholder="Oyuncu ara (kadro, kiralık, giden)…" autocomplete="off">
+    </div>
+    <div class="chip-row" id="posChips">
+      <button class="chip active" data-pos="all">Tümü</button>
+      <button class="chip" data-pos="gk">Kaleci</button>
+      <button class="chip" data-pos="def">Defans</button>
+      <button class="chip" data-pos="mid">Orta Saha</button>
+      <button class="chip" data-pos="fwd">Forvet</button>
+    </div>
+  </div>
+</div>
+
+<main class="wrap">
+
+  <section class="section" id="kadro">
+    <div class="section-head">
+      <h2>Güncel <span class="accent">Kadro</span></h2>
+      <p class="section-sub">2026-27 sezonu A takım kadrosu. Etiketli oyuncular kiralık, sakat veya yeni transfer statüsünde.</p>
+    </div>
+    <div id="squadContainer"></div>
+  </section>
+
+  <section class="section" id="kiralik">
+    <div class="section-head">
+      <h2>Bizden Kiralık <span class="accent">Giden</span></h2>
+      <p class="section-sub">Galatasaray'a ait olup şu an başka kulüplerde forma giyen oyuncular.</p>
+    </div>
+    <div id="loanContainer"></div>
+  </section>
+
+  <section class="section" id="giden">
+    <div class="section-head">
+      <h2>Kalıcı Olarak <span class="accent">Giden Oyuncular</span></h2>
+      <p class="section-sub">2026 yaz döneminde kadrodan ayrılan veya ayrılık kararı alınan isimler.</p>
+    </div>
+    <div id="departedContainer"></div>
+  </section>
+
+  <section class="section" id="yonetim">
+    <div class="section-head">
+      <h2>Teknik Direktör &amp; <span class="accent">Yönetim</span></h2>
+      <p class="section-sub">Kulübün teknik ve idari kadrosundan öne çıkan isimler.</p>
+    </div>
+    <div class="mgmt-grid" id="mgmtContainer"></div>
+  </section>
+
+  <section class="section" id="haberler">
+    <div class="section-head">
+      <h2>Transfer <span class="accent">Haberleri</span></h2>
+      <p class="section-sub">Ağustos 2026 transfer döneminden öne çıkan gelişmeler.</p>
+    </div>
+    <div class="news-list" id="newsContainer"></div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Bu sayfa bağımsız bir taraftar projesidir, Galatasaray SK ile resmi bağlantısı yoktur.</span>
+    <span>Kadro verileri düzenlenebilir — hatalı bir bilgi görürsen ✏️ Düzenle ile düzelt.</span>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="acctOverlay" hidden>
+  <div class="modal-card">
+    <h3>Hesabını seç</h3>
+    <p class="msg">Kadroyu düzenlerken kim olduğunu bilelim.</p>
+    <div class="acct-grid" id="acctGrid"></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="formOverlay" hidden>
+  <div class="modal-card">
+    <h3 id="formTitle">Oyuncu Ekle</h3>
+    <div id="formFields"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="formCancel" type="button">Vazgeç</button>
+      <button class="btn btn-primary" id="formSave" type="button">Kaydet</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="confirmOverlay" hidden>
+  <div class="modal-card">
+    <h3>Emin misin?</h3>
+    <p class="msg" id="confirmMsg"></p>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="confirmCancel" type="button">Vazgeç</button>
+      <button class="btn btn-danger" id="confirmOk" type="button">Sil</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var STORAGE_KEY = "gs-fan-hub-data-v1";
+  var ACCT_KEY = "gs-fan-hub-account-v1";
+
+  var ACCOUNTS = [
+    {id:"osman", name:"Osman Gencer", initials:"OG", bg:"var(--red-700)", fg:"#fff"},
+    {id:"yusuf", name:"Yusuf", initials:"Y", bg:"var(--gold-500)", fg:"#2A1B10"},
+    {id:"suleyman", name:"Süleyman", initials:"S", bg:"var(--red-900)", fg:"#fff"},
+    {id:"ahmet", name:"Ahmet", initials:"A", bg:"#2A1B10", fg:"#F0A80B"}
+  ];
+
+  var POS_LABEL = {gk:"Kaleciler", def:"Defans", mid:"Orta Saha", fwd:"Forvet"};
+  var POS_ORDER = ["gk","def","mid","fwd"];
+
+  var DEFAULT_DATA = {
+    squad: [
+      {id:"p1", no:1, name:"Uğurcan Çakır", nation:"TUR", born:1996, group:"gk"},
+      {id:"p2", no:90, name:"Günay Güvenç", nation:"TUR", born:1997, group:"gk"},
+
+      {id:"p3", no:2, name:"Sacha Boey", nation:"FRA", born:2000, group:"def", tag:"Kiralık · Bayern München"},
+      {id:"p4", no:3, name:"Davinson Sánchez", nation:"COL", born:1996, group:"def"},
+      {id:"p5", no:4, name:"Eren Elmalı", nation:"TUR", born:2000, group:"def"},
+      {id:"p6", no:5, name:"Kaan Ayhan", nation:"TUR", born:1994, group:"def"},
+      {id:"p7", no:15, name:"Wilfried Singo", nation:"CIV", born:2000, group:"def"},
+      {id:"p8", no:55, name:"Abdülkerim Bardakcı", nation:"TUR", born:1998, group:"def"},
+
+      {id:"p9", no:6, name:"Berkan Kutlu", nation:"TUR", born:1998, group:"mid"},
+      {id:"p10", no:8, name:"İsmail Yüksek", nation:"TUR", born:1999, group:"mid"},
+      {id:"p11", no:10, name:"İlkay Gündoğan", nation:"GER", born:1990, group:"mid"},
+      {id:"p12", no:20, name:"Gabriel Sara", nation:"BRA", born:1999, group:"mid"},
+      {id:"p13", no:21, name:"Kazımcan Karataş", nation:"TUR", born:2000, group:"mid"},
+      {id:"p14", no:32, name:"Lesley Ugochukwu", nation:"FRA", born:2003, group:"mid", tag:"Kiralık (opsiyonlu) · Burnley"},
+      {id:"p15", no:77, name:"Aleksey Batrakov", nation:"RUS", born:2004, group:"mid", tag:"Yeni transfer · Lokomotiv Moskova"},
+
+      {id:"p16", no:7, name:"Barış Alper Yılmaz", nation:"TUR", born:1998, group:"fwd"},
+      {id:"p17", no:9, name:"Victor Osimhen", nation:"NGA", born:1998, group:"fwd"},
+      {id:"p18", no:11, name:"Yunus Akgün", nation:"TUR", born:1998, group:"fwd"},
+      {id:"p19", no:14, name:"Roland Sallai", nation:"HUN", born:1997, group:"fwd"},
+      {id:"p20", no:17, name:"Mauro Icardi", nation:"ARG", born:1993, group:"fwd", tag:"Sakat"},
+      {id:"p21", no:19, name:"Noa Lang", nation:"NED", born:1999, group:"fwd", tag:"Kiralık · Napoli"},
+      {id:"p22", no:29, name:"Yaser Asprilla", nation:"COL", born:2003, group:"fwd", tag:"Kiralık · Watford"}
+    ],
+    loanOut: [
+      {id:"l1", name:"Metehan Baltacı", nation:"TUR", club:"Gençlerbirliği", period:"2026-27 sezonu"}
+    ],
+    departed: [
+      {id:"d1", name:"Elias Jelert", nation:"DEN", club:"Le Havre AC", note:"Kalıcı transfer"},
+      {id:"d2", name:"Lucas Torreira", nation:"URU", club:"Belirsiz", note:"Kulüple ayrılık kararı alındı"},
+      {id:"d3", name:"Mario Lemina", nation:"GAB", club:"Belirsiz", note:"Kulüple ayrılık kararı alındı"}
+    ]
+  };
+
+  var MGMT = [
+    {role:"Başkan", who:"Dursun Özbek", note:"23 Mayıs 2026'da 4. kez başkan seçildi."},
+    {role:"Başkan Yardımcısı", who:"Abdullah Kavukcu", note:"Transfer operasyonlarının sözcüsü."},
+    {role:"Futbol Direktörü", who:"Uğur Yıldız", note:"Sportif direktör / genel müdür."},
+    {role:"CEO", who:"Mete Türkoğlu", note:"Galatasaray Sportif A.Ş. CEO'su."},
+    {role:"Teknik Direktör", who:"Okan Buruk", note:"2022'den beri başında, 2022-23 · 2023-24 · 2024-25 şampiyonlukları."}
+  ];
+
+  var NEWS = [
+    {date:"22 Ağu 2026", title:"Sarr operasyonunda kritik gün", body:"Ismaila Sarr için Crystal Palace'a 35M€'luk resmi teklif iddiası konuşulurken, Pape Matar Sarr ve Ermedin Demirovic dosyaları da sıcaklığını koruyor."},
+    {date:"20 Ağu 2026", title:"Batrakov İstanbul'da", body:"Aleksey Batrakov, Lokomotiv Moskova'dan 30M€ karşılığında transfer edildi ve imza için İstanbul'a geldi."},
+    {date:"19 Ağu 2026", title:"Pape Matar Sarr ile prensipte anlaşma iddiası", body:"Tottenham'ın orta sahasıyla Haziran 2031'e kadar 5 yıllık sözleşmede anlaşıldığı öne sürülüyor."},
+    {date:"19 Ağu 2026", title:"Kiralıklarda karar günü", body:"Yönetim, Sacha Boey (15M€ opsiyon), Noa Lang (28M€ opsiyon kullanılmayacak) ve Yaser Asprilla (opsiyon kullanılmayacak, yeniden kiralık ihtimali) için tavrını netleştirdi."},
+    {date:"18 Ağu 2026", title:"Metehan Baltacı Gençlerbirliği'nde", body:"Genç stoper, 2026-27 sezonu için kiralık olarak Gençlerbirliği'ne gönderildi."},
+    {date:"15 Ağu 2026", title:"Kavukcu'dan transfer mesajı", body:"Başkan yardımcısı Abdullah Kavukcu, üç pozisyonda takviye hedeflediklerini ve operasyonların yaklaşık bir hafta içinde tamamlanmasını beklediklerini açıkladı."},
+    {date:"Ağu 2026 başı", title:"Elias Jelert Le Havre'da", body:"Sağ bek, Fransız ekibi Le Havre AC'ye kalıcı olarak transfer oldu."}
+  ];
+
+  var FIELD_CONFIG = {
+    squad: [
+      {key:"name", label:"Ad Soyad", type:"text", required:true},
+      {key:"no", label:"Forma Numarası", type:"number", required:true},
+      {key:"group", label:"Mevki", type:"select", options:[["gk","Kaleci"],["def","Defans"],["mid","Orta Saha"],["fwd","Forvet"]], required:true},
+      {key:"nation", label:"Uyruk (3 harf, örn. TUR)", type:"text", maxlength:3},
+      {key:"born", label:"Doğum Yılı", type:"number"},
+      {key:"tag", label:"Etiket (opsiyonel, örn. Kiralık · Kulüp)", type:"text"}
+    ],
+    loanOut: [
+      {key:"name", label:"Ad Soyad", type:"text", required:true},
+      {key:"nation", label:"Uyruk (3 harf)", type:"text", maxlength:3},
+      {key:"club", label:"Kiralık Gittiği Kulüp", type:"text", required:true},
+      {key:"period", label:"Süre / Sezon", type:"text"}
+    ],
+    departed: [
+      {key:"name", label:"Ad Soyad", type:"text", required:true},
+      {key:"nation", label:"Uyruk (3 harf)", type:"text", maxlength:3},
+      {key:"club", label:"Gittiği Kulüp / Durum", type:"text", required:true},
+      {key:"note", label:"Not", type:"text"}
+    ]
+  };
+
+  var SECTION_TITLES = {squad:"Oyuncu", loanOut:"Kiralık Kaydı", departed:"Ayrılık Kaydı"};
+
+  function clone(o){ return JSON.parse(JSON.stringify(o)); }
+
+  function safeGet(key){
+    try{ return localStorage.getItem(key); }catch(e){ return null; }
+  }
+  function safeSet(key, val){
+    try{ localStorage.setItem(key, val); }catch(e){}
+  }
+
+  var state = (function(){
+    var raw = safeGet(STORAGE_KEY);
+    if(raw){
+      try{ return JSON.parse(raw); }catch(e){}
+    }
+    return clone(DEFAULT_DATA);
+  })();
+
+  var currentAccountId = safeGet(ACCT_KEY);
+  var editMode = false;
+  var searchText = "";
+  var posFilter = "all";
+
+  function persist(){ safeSet(STORAGE_KEY, JSON.stringify(state)); }
+
+  function accountById(id){
+    for(var i=0;i<ACCOUNTS.length;i++){ if(ACCOUNTS[i].id===id) return ACCOUNTS[i]; }
+    return null;
+  }
+  function currentAccountName(){
+    var a = accountById(currentAccountId);
+    return a ? a.name : "Misafir";
+  }
+
+  function matchesSearch(name){
+    if(!searchText) return true;
+    return name.toLocaleLowerCase("tr").indexOf(searchText) !== -1;
+  }
+
+  function ageFrom(born){
+    if(!born) return null;
+    return new Date().getFullYear() - born;
+  }
+
+  function el(tag, cls, html){
+    var n = document.createElement(tag);
+    if(cls) n.className = cls;
+    if(html !== undefined) n.innerHTML = html;
+    return n;
+  }
+
+  /* ---------------- render: squad ---------------- */
+  function renderSquad(){
+    var container = document.getElementById("squadContainer");
+    container.innerHTML = "";
+    var anyVisible = false;
+
+    POS_ORDER.forEach(function(groupKey){
+      if(posFilter !== "all" && posFilter !== groupKey) return;
+      var players = state.squad.filter(function(p){ return p.group === groupKey; });
+      var visible = players.filter(function(p){ return matchesSearch(p.name); });
+      if(visible.length === 0 && searchText) return;
+
+      anyVisible = true;
+      var groupEl = el("div","pos-group");
+      groupEl.appendChild(el("h3", null, POS_LABEL[groupKey]));
+      var grid = el("div","grid");
+
+      visible.forEach(function(p){
+        grid.appendChild(playerCard(p));
+      });
+
+      if(editMode && !searchText){
+        var addCard = el("button","add-card","+ Oyuncu Ekle");
+        addCard.type = "button";
+        addCard.addEventListener("click", function(){ openForm("squad", null, groupKey); });
+        grid.appendChild(addCard);
+      }
+
+      groupEl.appendChild(grid);
+      container.appendChild(groupEl);
+    });
+
+    if(!anyVisible){
+      container.appendChild(el("p","empty-note","Aramanla eşleşen bir oyuncu bulunamadı."));
+    }
+  }
+
+  function playerCard(p){
+    var card = el("div","card"+(editMode?" editing":""));
+    var top = el("div","top-row");
+    top.appendChild(el("div","shirt-no", p.no != null ? p.no : "–"));
+    var info = el("div", null);
+    info.appendChild(el("div","name", p.name));
+    var meta = el("div","meta-row");
+    if(p.nation) meta.appendChild(el("span","pill", p.nation.toUpperCase()));
+    var age = ageFrom(p.born);
+    if(age) meta.appendChild(el("span","pill", age + " yaş"));
+    info.appendChild(meta);
+    top.appendChild(info);
+    card.appendChild(top);
+
+    if(p.tag){
+      var tagRow = el("div","meta-row");
+      tagRow.appendChild(el("span","pill "+(p.tag.toLowerCase().indexOf("sakat")!==-1?"warn":"tag"), p.tag));
+      card.appendChild(tagRow);
+    }
+    if(p.editedBy){
+      card.appendChild(el("div","edited-by","Son düzenleyen: "+p.editedBy));
+    }
+
+    var actions = el("div","card-actions");
+    var editBtn = el("button","icon-btn","✎");
+    editBtn.type="button";
+    editBtn.title="Düzenle";
+    editBtn.addEventListener("click", function(){ openForm("squad", p, p.group); });
+    var delBtn = el("button","icon-btn","✕");
+    delBtn.type="button";
+    delBtn.title="Sil";
+    delBtn.addEventListener("click", function(){
+      openConfirm(p.name + " kadrodan silinsin mi?", function(){
+        state.squad = state.squad.filter(function(x){ return x.id !== p.id; });
+        persist(); renderSquad();
+      });
+    });
+    actions.appendChild(editBtn);
+    actions.appendChild(delBtn);
+    card.appendChild(actions);
+
+    return card;
+  }
+
+  /* ---------------- render: loan / departed lists ---------------- */
+  function renderRowList(containerId, list, kind, isOut){
+    var container = document.getElementById(containerId);
+    container.innerHTML = "";
+    var visible = list.filter(function(x){ return matchesSearch(x.name); });
+
+    visible.forEach(function(item){
+      var row = el("div","list-row"+(isOut?" out":"")+(editMode?" editing":""));
+      row.appendChild(el("div","badge"));
+      var main = el("div","rowmain");
+      var nameLine = el("div","name", item.name + (item.nation ? "  " : ""));
+      if(item.nation){
+        var pill = el("span","pill", item.nation.toUpperCase());
+        pill.style.marginLeft = "6px";
+        nameLine.appendChild(pill);
+      }
+      main.appendChild(nameLine);
+      var sub = el("div","sub");
+      sub.innerHTML = (kind==="loanOut"
+        ? "Kiralık · <span class=\"club\">"+item.club+"</span>" + (item.period ? " · "+item.period : "")
+        : "<span class=\"club\">"+item.club+"</span>" + (item.note ? " · "+item.note : ""));
+      main.appendChild(sub);
+      if(item.editedBy) main.appendChild(el("div","edited-by","Son düzenleyen: "+item.editedBy));
+      row.appendChild(main);
+
+      var actions = el("div","row-actions");
+      var editBtn = el("button","icon-btn","✎");
+      editBtn.type="button";
+      editBtn.addEventListener("click", function(){ openForm(kind, item, null); });
+      var delBtn = el("button","icon-btn","✕");
+      delBtn.type="button";
+      delBtn.addEventListener("click", function(){
+        openConfirm(item.name + " listeden silinsin mi?", function(){
+          state[kind] = state[kind].filter(function(x){ return x.id !== item.id; });
+          persist();
+          if(kind==="loanOut") renderLoan(); else renderDeparted();
+        });
+      });
+      actions.appendChild(editBtn);
+      actions.appendChild(delBtn);
+      row.appendChild(actions);
+
+      container.appendChild(row);
+    });
+
+    if(visible.length === 0){
+      container.appendChild(el("p","empty-note", searchText ? "Aramanla eşleşen bir kayıt yok." : "Henüz kayıt eklenmedi."));
+    }
+    if(editMode && !searchText){
+      var addBtn = el("button","add-card","+ "+(kind==="loanOut"?"Kiralık":"Ayrılık")+" Kaydı Ekle");
+      addBtn.type="button";
+      addBtn.style.marginTop="4px";
+      addBtn.addEventListener("click", function(){ openForm(kind, null, null); });
+      container.appendChild(addBtn);
+    }
+  }
+  function renderLoan(){ renderRowList("loanContainer", state.loanOut, "loanOut", false); }
+  function renderDeparted(){ renderRowList("departedContainer", state.departed, "departed", true); }
+
+  /* ---------------- render: static mgmt & news ---------------- */
+  function renderMgmt(){
+    var container = document.getElementById("mgmtContainer");
+    container.innerHTML = "";
+    MGMT.forEach(function(m){
+      var card = el("div","mgmt-card");
+      card.appendChild(el("div","role", m.role));
+      card.appendChild(el("div","who", m.who));
+      card.appendChild(el("div","note", m.note));
+      container.appendChild(card);
+    });
+  }
+  function renderNews(){
+    var container = document.getElementById("newsContainer");
+    container.innerHTML = "";
+    NEWS.forEach(function(n){
+      var item = el("div","news-item");
+      item.appendChild(el("div","date", n.date));
+      var body = el("div", null);
+      body.appendChild(el("h4", null, n.title));
+      body.appendChild(el("p", null, n.body));
+      item.appendChild(body);
+      container.appendChild(item);
+    });
+  }
+
+  function renderAll(){
+    renderSquad();
+    renderLoan();
+    renderDeparted();
+  }
+
+  /* ---------------- edit mode toggle ---------------- */
+  var editToggle = document.getElementById("editToggle");
+  editToggle.addEventListener("click", function(){
+    if(!currentAccountId){ openAcctModal(); return; }
+    editMode = !editMode;
+    editToggle.classList.toggle("active", editMode);
+    renderAll();
+  });
+
+  /* ---------------- search + filter ---------------- */
+  document.getElementById("searchInput").addEventListener("input", function(e){
+    searchText = e.target.value.trim().toLocaleLowerCase("tr");
+    renderAll();
+  });
+  document.getElementById("posChips").addEventListener("click", function(e){
+    var btn = e.target.closest(".chip");
+    if(!btn) return;
+    posFilter = btn.getAttribute("data-pos");
+    Array.prototype.forEach.call(document.querySelectorAll("#posChips .chip"), function(c){
+      c.classList.toggle("active", c===btn);
+    });
+    renderSquad();
+  });
+
+  /* ---------------- account modal ---------------- */
+  var acctOverlay = document.getElementById("acctOverlay");
+  var acctGrid = document.getElementById("acctGrid");
+  ACCOUNTS.forEach(function(a){
+    var opt = el("button","acct-option");
+    opt.type = "button";
+    var av = el("span","avatar", a.initials);
+    av.style.background = a.bg; av.style.color = a.fg;
+    opt.appendChild(av);
+    opt.appendChild(document.createTextNode(a.name));
+    opt.addEventListener("click", function(){
+      currentAccountId = a.id;
+      safeSet(ACCT_KEY, a.id);
+      updateAcctChip();
+      closeModal(acctOverlay);
+    });
+    acctGrid.appendChild(opt);
+  });
+  function openAcctModal(){ acctOverlay.hidden = false; }
+  function closeModal(overlay){ overlay.hidden = true; }
+  document.getElementById("acctChip").addEventListener("click", openAcctModal);
+  acctOverlay.addEventListener("click", function(e){ if(e.target===acctOverlay) closeModal(acctOverlay); });
+
+  function updateAcctChip(){
+    var a = accountById(currentAccountId);
+    var avatar = document.getElementById("acctAvatar");
+    var label = document.getElementById("acctLabel");
+    if(a){
+      avatar.textContent = a.initials;
+      avatar.style.background = a.bg; avatar.style.color = a.fg;
+      label.textContent = a.name;
+    }else{
+      avatar.textContent = "?";
+      avatar.style.background = "rgba(255,255,255,0.2)"; avatar.style.color = "#fff";
+      label.textContent = "Hesap seç";
+    }
+  }
+  updateAcctChip();
+  if(!currentAccountId){ openAcctModal(); }
+
+  /* ---------------- add/edit form modal ---------------- */
+  var formOverlay = document.getElementById("formOverlay");
+  var formTitle = document.getElementById("formTitle");
+  var formFields = document.getElementById("formFields");
+  var formCancel = document.getElementById("formCancel");
+  var formSave = document.getElementById("formSave");
+  var activeForm = null;
+
+  function openForm(kind, existing, groupHint){
+    activeForm = {kind:kind, id: existing ? existing.id : null};
+    formTitle.textContent = (existing ? "Düzenle: " : "Yeni ") + SECTION_TITLES[kind];
+    formFields.innerHTML = "";
+    var cfg = FIELD_CONFIG[kind];
+    cfg.forEach(function(f){
+      var wrap = el("div","field");
+      var label = el("label", null, f.label + (f.required ? " *" : ""));
+      label.setAttribute("for","f_"+f.key);
+      wrap.appendChild(label);
+      var input;
+      if(f.type === "select"){
+        input = document.createElement("select");
+        f.options.forEach(function(o){
+          var opt = document.createElement("option");
+          opt.value = o[0]; opt.textContent = o[1];
+          input.appendChild(opt);
+        });
+      }else{
+        input = document.createElement("input");
+        input.type = f.type;
+        if(f.maxlength) input.maxLength = f.maxlength;
+      }
+      input.id = "f_"+f.key;
+      input.name = f.key;
+      var val = existing ? existing[f.key] : (f.key==="group" ? groupHint : "");
+      if(val !== undefined && val !== null) input.value = val;
+      wrap.appendChild(input);
+      formFields.appendChild(wrap);
+    });
+    formOverlay.hidden = false;
+    var firstInput = formFields.querySelector("input,select");
+    if(firstInput) firstInput.focus();
+  }
+
+  function closeForm(){ formOverlay.hidden = true; activeForm = null; }
+  formCancel.addEventListener("click", closeForm);
+  formOverlay.addEventListener("click", function(e){ if(e.target===formOverlay) closeForm(); });
+
+  formSave.addEventListener("click", function(){
+    if(!activeForm) return;
+    var kind = activeForm.kind;
+    var cfg = FIELD_CONFIG[kind];
+    var data = {};
+    var missingRequired = false;
+    cfg.forEach(function(f){
+      var input = document.getElementById("f_"+f.key);
+      var v = input.value;
+      if(f.required && !String(v).trim()) missingRequired = true;
+      if(f.type === "number" && v !== "") v = Number(v);
+      data[f.key] = v === "" ? undefined : v;
+    });
+    if(missingRequired){
+      formTitle.style.color = "var(--red-700)";
+      return;
+    }
+    data.editedBy = currentAccountName();
+
+    var list = state[kind];
+    if(activeForm.id){
+      var idx = list.findIndex(function(x){ return x.id === activeForm.id; });
+      if(idx !== -1) list[idx] = Object.assign({}, list[idx], data);
+    }else{
+      data.id = kind.slice(0,1) + Date.now().toString(36);
+      list.push(data);
+    }
+    persist();
+    closeForm();
+    if(kind==="squad") renderSquad();
+    else if(kind==="loanOut") renderLoan();
+    else renderDeparted();
+  });
+
+  /* ---------------- confirm modal ---------------- */
+  var confirmOverlay = document.getElementById("confirmOverlay");
+  var confirmMsg = document.getElementById("confirmMsg");
+  var confirmOk = document.getElementById("confirmOk");
+  var confirmCancel = document.getElementById("confirmCancel");
+  var pendingConfirm = null;
+
+  function openConfirm(msg, onOk){
+    confirmMsg.textContent = msg;
+    pendingConfirm = onOk;
+    confirmOverlay.hidden = false;
+  }
+  function closeConfirm(){ confirmOverlay.hidden = true; pendingConfirm = null; }
+  confirmCancel.addEventListener("click", closeConfirm);
+  confirmOverlay.addEventListener("click", function(e){ if(e.target===confirmOverlay) closeConfirm(); });
+  confirmOk.addEventListener("click", function(){
+    if(pendingConfirm) pendingConfirm();
+    closeConfirm();
+  });
+
+  /* ---------------- init ---------------- */
+  renderMgmt();
+  renderNews();
+  renderAll();
+})();
+</script>
+</body>
+</html>
