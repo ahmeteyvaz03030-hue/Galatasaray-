@@ -4,6 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cimbom Kadro Merkezi</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-32.png" type="image/png">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<meta name="theme-color" content="#09090b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Cimbom">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -377,6 +384,7 @@
       <button class="nav-btn" data-tab="club" type="button"><span class="nav-ico">🏛️</span>Kulüp</button>
     </nav>
     <div class="sidebar-foot">
+      <button class="edit-toggle" id="installBtn" type="button" hidden>📲 <span>Ana Ekrana Ekle</span></button>
       <button class="edit-toggle" id="editToggle" type="button">✏️ <span>Düzenle</span></button>
       <button class="acct-chip" id="acctChip" type="button">
         <span class="avatar" id="acctAvatar">?</span>
@@ -1640,6 +1648,29 @@
     if(pendingConfirm) pendingConfirm();
     closeConfirm();
   });
+
+  /* ---------------- PWA: install + service worker ---------------- */
+  var installBtn = document.getElementById("installBtn");
+  var deferredInstallPrompt = null;
+  window.addEventListener("beforeinstallprompt", function(e){
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    installBtn.hidden = false;
+  });
+  installBtn.addEventListener("click", function(){
+    if(!deferredInstallPrompt) return;
+    deferredInstallPrompt.prompt();
+    deferredInstallPrompt.userChoice.finally(function(){
+      deferredInstallPrompt = null;
+      installBtn.hidden = true;
+    });
+  });
+  window.addEventListener("appinstalled", function(){ installBtn.hidden = true; });
+  if("serviceWorker" in navigator){
+    window.addEventListener("load", function(){
+      navigator.serviceWorker.register("sw.js").catch(function(){});
+    });
+  }
 
   /* ---------------- init ---------------- */
   renderMgmt();
